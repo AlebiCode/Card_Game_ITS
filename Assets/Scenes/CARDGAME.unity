@@ -498,6 +498,7 @@ GameObject:
   - component: {fileID: 179272635}
   - component: {fileID: 179272634}
   - component: {fileID: 179272633}
+  - component: {fileID: 179272636}
   m_Layer: 5
   m_Name: Enemy Dice
   m_TagString: Untagged
@@ -620,6 +621,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179272631}
   m_CullTransparentMesh: 1
+--- !u!114 &179272636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179272631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24a6c103ef27204187a3ac3475d3f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &236686024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,6 +1090,7 @@ GameObject:
   - component: {fileID: 319323796}
   - component: {fileID: 319323795}
   - component: {fileID: 319323794}
+  - component: {fileID: 319323797}
   m_Layer: 5
   m_Name: Enemy Dice
   m_TagString: Untagged
@@ -1199,6 +1213,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319323792}
   m_CullTransparentMesh: 1
+--- !u!114 &319323797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319323792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24a6c103ef27204187a3ac3475d3f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &328182375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1506,6 +1532,7 @@ GameObject:
   - component: {fileID: 441402759}
   - component: {fileID: 441402758}
   - component: {fileID: 441402757}
+  - component: {fileID: 441402760}
   m_Layer: 5
   m_Name: Dice Button (2)
   m_TagString: Untagged
@@ -1583,8 +1610,8 @@ MonoBehaviour:
         m_MethodName: OnDiceClick
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 441402755}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 441402760}
+          m_ObjectArgumentAssemblyTypeName: Dice, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1628,6 +1655,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441402755}
   m_CullTransparentMesh: 1
+--- !u!114 &441402760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441402755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24a6c103ef27204187a3ac3475d3f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &483777746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1887,6 +1926,7 @@ GameObject:
   - component: {fileID: 519110188}
   - component: {fileID: 519110187}
   - component: {fileID: 519110186}
+  - component: {fileID: 519110189}
   m_Layer: 5
   m_Name: Dice Button
   m_TagString: Untagged
@@ -1964,8 +2004,8 @@ MonoBehaviour:
         m_MethodName: OnDiceClick
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 519110184}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 519110189}
+          m_ObjectArgumentAssemblyTypeName: Dice, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2009,6 +2049,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519110184}
   m_CullTransparentMesh: 1
+--- !u!114 &519110189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519110184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24a6c103ef27204187a3ac3475d3f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3436,6 +3488,7 @@ GameObject:
   - component: {fileID: 747936461}
   - component: {fileID: 747936460}
   - component: {fileID: 747936459}
+  - component: {fileID: 747936462}
   m_Layer: 5
   m_Name: Dice Button (1)
   m_TagString: Untagged
@@ -3513,8 +3566,8 @@ MonoBehaviour:
         m_MethodName: OnDiceClick
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 747936457}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 747936462}
+          m_ObjectArgumentAssemblyTypeName: Dice, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3558,6 +3611,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 747936457}
   m_CullTransparentMesh: 1
+--- !u!114 &747936462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747936457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24a6c103ef27204187a3ac3475d3f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &765185322
 GameObject:
   m_ObjectHideFlags: 0
@@ -4310,6 +4375,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a37c468ba02fa49ae4d16a09e62e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tablePanel: {fileID: 273348611}
+  combatPanel: {fileID: 45992678}
   carteNemiche:
   - {fileID: 1586457642}
   - {fileID: 1929904396}
@@ -4318,12 +4385,20 @@ MonoBehaviour:
   - {fileID: 1737170179}
   - {fileID: 1011913411}
   - {fileID: 636606739}
-  rerollButton: {fileID: 0}
-  FightButton: {fileID: 0}
-  diceButtons: []
-  tablePanel: {fileID: 273348611}
-  cartaSelAmicaIndex: 0
-  cartaSelNemicaIndex: 0
+  allyDices:
+  - {fileID: 519110189}
+  - {fileID: 747936462}
+  - {fileID: 441402760}
+  - {fileID: 1285097713}
+  - {fileID: 2091604986}
+  - {fileID: 1837609844}
+  enemyDices:
+  - {fileID: 2141716824}
+  - {fileID: 319323797}
+  - {fileID: 900316576}
+  - {fileID: 1602188206}
+  - {fileID: 179272636}
+  - {fileID: 996206596}
 --- !u!1 &877841389
 GameObject:
   m_ObjectHideFlags: 0
@@ -4361,10 +4436,10 @@ RectTransform:
   m_Father: {fileID: 1473431414}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.014404, y: -0.0019226}
-  m_SizeDelta: {x: 1919.9, y: 1080.1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &877841391
 MonoBehaviour:
@@ -4429,6 +4504,7 @@ GameObject:
   - component: {fileID: 900316575}
   - component: {fileID: 900316574}
   - component: {fileID: 900316573}
+  - component: {fileID: 900316576}
   m_Layer: 5
   m_Name: Enemy Dice
   m_TagString: Untagged
@@ -4551,6 +4627,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900316571}
   m_CullTransparentMesh: 1
+--- !u!114 &900316576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900316571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24a6c103ef27204187a3ac3475d3f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &927900139
 GameObject:
   m_ObjectHideFlags: 0
@@ -4851,6 +4939,7 @@ GameObject:
   - component: {fileID: 996206595}
   - component: {fileID: 996206594}
   - component: {fileID: 996206593}
+  - component: {fileID: 996206596}
   m_Layer: 5
   m_Name: Enemy Dice
   m_TagString: Untagged
@@ -4973,6 +5062,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996206591}
   m_CullTransparentMesh: 1
+--- !u!114 &996206596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996206591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24a6c103ef27204187a3ac3475d3f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1011913409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5688,7 +5789,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1101607723}
         m_TargetAssemblyTypeName: DeckCreator, Assembly-CSharp
-        m_MethodName: StartMatch
+        m_MethodName: LoadSelectedCards
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6963,6 +7064,7 @@ GameObject:
   - component: {fileID: 1285097712}
   - component: {fileID: 1285097711}
   - component: {fileID: 1285097710}
+  - component: {fileID: 1285097713}
   m_Layer: 5
   m_Name: Dice Button (3)
   m_TagString: Untagged
@@ -7040,8 +7142,8 @@ MonoBehaviour:
         m_MethodName: OnDiceClick
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1285097708}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 1285097713}
+          m_ObjectArgumentAssemblyTypeName: Dice, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7085,6 +7187,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285097708}
   m_CullTransparentMesh: 1
+--- !u!114 &1285097713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285097708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24a6c103ef27204187a3ac3475d3f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1298506453
 GameObject:
   m_ObjectHideFlags: 0
@@ -7720,30 +7834,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 45992674}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 273348609}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!114 &1430758158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8185,6 +8275,7 @@ GameObject:
   - component: {fileID: 1602188205}
   - component: {fileID: 1602188204}
   - component: {fileID: 1602188203}
+  - component: {fileID: 1602188206}
   m_Layer: 5
   m_Name: Enemy Dice
   m_TagString: Untagged
@@ -8307,6 +8398,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1602188201}
   m_CullTransparentMesh: 1
+--- !u!114 &1602188206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602188201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24a6c103ef27204187a3ac3475d3f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1646081046
 GameObject:
   m_ObjectHideFlags: 0
@@ -8747,13 +8850,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 866517795}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
+      - m_Target: {fileID: 866517799}
+        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+        m_MethodName: StartMatch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -9176,6 +9279,7 @@ GameObject:
   - component: {fileID: 1837609843}
   - component: {fileID: 1837609842}
   - component: {fileID: 1837609841}
+  - component: {fileID: 1837609844}
   m_Layer: 5
   m_Name: Dice Button (5)
   m_TagString: Untagged
@@ -9253,8 +9357,8 @@ MonoBehaviour:
         m_MethodName: OnDiceClick
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1837609839}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 1837609844}
+          m_ObjectArgumentAssemblyTypeName: Dice, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -9298,6 +9402,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1837609839}
   m_CullTransparentMesh: 1
+--- !u!114 &1837609844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837609839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24a6c103ef27204187a3ac3475d3f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1855598144
 GameObject:
   m_ObjectHideFlags: 0
@@ -10348,6 +10464,7 @@ GameObject:
   - component: {fileID: 2091604985}
   - component: {fileID: 2091604984}
   - component: {fileID: 2091604983}
+  - component: {fileID: 2091604986}
   m_Layer: 5
   m_Name: Dice Button (4)
   m_TagString: Untagged
@@ -10425,8 +10542,8 @@ MonoBehaviour:
         m_MethodName: OnDiceClick
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 2091604981}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 2091604986}
+          m_ObjectArgumentAssemblyTypeName: Dice, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -10470,6 +10587,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091604981}
   m_CullTransparentMesh: 1
+--- !u!114 &2091604986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091604981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24a6c103ef27204187a3ac3475d3f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2094907016
 GameObject:
   m_ObjectHideFlags: 0
@@ -10887,6 +11016,7 @@ GameObject:
   - component: {fileID: 2141716823}
   - component: {fileID: 2141716822}
   - component: {fileID: 2141716821}
+  - component: {fileID: 2141716824}
   m_Layer: 5
   m_Name: Enemy Dice
   m_TagString: Untagged
@@ -11009,3 +11139,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141716819}
   m_CullTransparentMesh: 1
+--- !u!114 &2141716824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141716819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24a6c103ef27204187a3ac3475d3f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

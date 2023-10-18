@@ -5,45 +5,39 @@ using UnityEngine.UI;
 
 public class CombatPanel : MonoBehaviour
 {
-    public List<GameObject> diceList;
+    public List<Dice> diceList = new List<Dice>();
+    private bool inputsActive = true;
 
-    public void OnDiceClick(GameObject dice)
+    public void SetInputsActive(bool value)
     {
-        // Controllare che siamo in fase di reroll, altrimenti return
+        inputsActive = value;
+    }
 
-        if (diceList.Contains(dice))
+    public void OnDiceClick(Dice dice)
+    {
+        if (!inputsActive)
+            return;
+
+        // Controllare che siamo in fase di reroll, altrimenti return
+        if (dice.IsLocked)
         {
-            DeselctDice(dice);
+            dice.LockDice(false);
             return;
         }
 
-
-        SelectDice(dice);
-
-    }
-
-    void SelectDice(GameObject dice)
-    {
-        diceList.Add(dice);
-
-        // Attiva grafica o fx di selezione
-        dice.GetComponent<Image>().color = Color.yellow;
-    }
-
-    void DeselctDice(GameObject dice)
-    {
-        diceList.Remove(dice);
-
-        // Dosattova grafica o fx di selezione
-        dice.GetComponent<Image>().color = Color.white;
+        dice.LockDice(true);
     }
 
     public void LockAndRolls()
-    { }
+    {
+        if (!inputsActive)
+            return;
+        BattleManager.instance.RerollDices_Ally();
+    }
 
     private void OnDisable()
     {
-        foreach (GameObject d in diceList)
+        foreach (Dice d in diceList)
         { 
             d.GetComponent<Image>().color = Color.white;
         }
