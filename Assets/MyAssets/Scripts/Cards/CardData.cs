@@ -17,5 +17,6 @@ public class CardData : ScriptableObject
     public Sprite Sprite => sprite;
     public string CardName => cardName;
     public string CardDescription => cardDescription;
+    public SkillData[] Skills => skills;
 
 }

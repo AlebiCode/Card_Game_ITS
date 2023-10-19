@@ -21,6 +21,8 @@ public class BattleManager : MonoBehaviour
     private Coroutine fightCoroutine;
     private Coroutine enemyDiceSelectionCoroutine;
 
+    public Dice[] EnemyDices => enemyDices;
+    public Dice[] AllyDices => allyDices;
     private Card CartaSelAmica => tablePanel.selectedCard;
     private Card CartaSelNemica => carteNemiche[cartaSelNemicaIndex];
 

@@ -28,7 +28,6 @@ public class DeckCreator : MonoBehaviour
     private void SpawnAllCards()
     {
         CardData[] cardDatas = Resources.LoadAll<CardData>(cardsResourcesPath);
-        Debug.Log(cardDatas.Length);
         int spawnedCards = 0;
 
         foreach (var data in cardDatas)
@@ -63,7 +62,7 @@ public class DeckCreator : MonoBehaviour
     {
         selectedCards.Add(card);
         card.StopAllCoroutines();
-        card.StartCoroutine(ScaleCard(card.RectTransform, card.RectTransform.sizeDelta * 1.2f));
+        card.StartCoroutine(ScaleCard(card.RectTransform, standardSmallCardSize * 1.2f));
     }
     private void DeselectCard(Card card)
     {
@@ -72,19 +71,19 @@ public class DeckCreator : MonoBehaviour
         card.StartCoroutine(ScaleCard(card.RectTransform, standardSmallCardSize));
     }
 
-    public void StartMatch()
+    public void LoadCombatCardData()
     {
         CardData[] cardData = new CardData[3];
         for (int i = 0; i < 3; i++)
             cardData[i] = selectedCards[i].CardData;
-        BattleManager.instance.StartMatch(cardData, cardData);
+        BattleManager.instance.LoadCardDatas(cardData, cardData);
     }
 
     private IEnumerator ScaleCard(RectTransform targetTransform, Vector2 targetSize)
     {
         while (targetTransform.sizeDelta.magnitude != targetSize.magnitude)
         {
-            targetTransform.sizeDelta = Vector2.Lerp(targetTransform.sizeDelta, targetSize, cardSelectAnimSpeed * Time.deltaTime);
+            targetTransform.sizeDelta = Vector2.MoveTowards(targetTransform.sizeDelta, targetSize, cardSelectAnimSpeed * Time.deltaTime);
             yield return null;
         }
     }

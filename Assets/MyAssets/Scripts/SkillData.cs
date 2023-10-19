@@ -6,6 +6,7 @@ using UnityEngine;
 public class SkillData : ScriptableObject
 {
     [SerializeField] private string skillName;
+    [SerializeField] private List<Dice.diceFace> skill_colorCost = new List<Dice.diceFace>();
     [SerializeField] private int damage;
     [SerializeField] private int atkInstances;
     [SerializeField] private int defInstances;
@@ -13,6 +14,7 @@ public class SkillData : ScriptableObject
     [SerializeField] private bool precise;  //cant be dodged
     [SerializeField] private string animation = "ANIM STUFF HERE";
 
+    public List<Dice.diceFace> Skill_colorCost => skill_colorCost;
     public string SkillName => skillName;
     public int Damage => damage;
     public int AtkInstances => atkInstances;

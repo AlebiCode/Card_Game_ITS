@@ -5789,7 +5789,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1101607723}
         m_TargetAssemblyTypeName: DeckCreator, Assembly-CSharp
-        m_MethodName: LoadSelectedCards
+        m_MethodName: LoadCombatCardData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6227,7 +6227,7 @@ MonoBehaviour:
   cardPrefab: {fileID: 3342329311094680651, guid: 5ec5b754c2c6fc04198f9b98b6b01c6a, type: 3}
   cardsParent: {fileID: 543559952}
   startMatchButton: {fileID: 1051902580}
-  cardSelectAnimSpeed: 1
+  cardSelectAnimSpeed: 1000
   selectedCards: []
 --- !u!1 &1106727917
 GameObject:
