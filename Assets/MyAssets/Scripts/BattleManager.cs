@@ -7,6 +7,8 @@ public class BattleManager : MonoBehaviour
 {
     public static BattleManager instance;
 
+    [SerializeField] private EnemyBrain EnemyAI;
+
     [SerializeField] private TablePanel tablePanel;
     [SerializeField] private CombatPanel combatPanel;
     [SerializeField]private Card[] deckCarteNemiche = new Card[3];
@@ -136,12 +138,16 @@ public class BattleManager : MonoBehaviour
     private IEnumerator EnemyDiceSelectionCoroutine()
     {
         //ENEMY AI HERE
+
+        EnemyAI.TurnLoop();
+    
         for (int i = 0; i < Random.Range(0,6); i++)
         {
             Debug.Log("Hmmmmm...");
             yield return new WaitForSeconds(1);
-            enemyDices[i].LockDice(true);
+            //enemyDices[i].LockDice(true);
         }
+        
         RerollDices_enemy();
     }
 
