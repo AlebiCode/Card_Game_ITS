@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BattleManager : MonoBehaviour
 {
+
+    private const int pointsNeededToWin = 2;
+
     public static BattleManager instance;
 
     [SerializeField] private TablePanel tablePanel;
@@ -23,12 +27,34 @@ public class BattleManager : MonoBehaviour
     private Coroutine fightCoroutine;
     private Coroutine enemyDiceSelectionCoroutine;
 
+    private int playerScore = 0;
+    private int enemyScore = 0;
+
+    public UnityEvent<int> onPlayerScoreChanged = new();
+    public UnityEvent<int> onEnemyScoreChanged = new();
+
+    public int PlayerScore {
+        get { return playerScore; } 
+        set { playerScore = value;
+            onPlayerScoreChanged.Invoke(playerScore);}
+    }
+
+    public int EnemyScore {
+        get { return enemyScore; }
+        set {
+            enemyScore = value;
+            onEnemyScoreChanged.Invoke(enemyScore);}
+    }
     public Dice[] EnemyDices => enemyDices;
     public Dice[] AllyDices => allyDices;
 
     private void Awake()
     {
         instance = this;
+    }
+
+    private void OnEnable() {
+        ResetScore();
     }
 
     public void LoadData(CardData[] carteProprie, EnemyData enemyData)
@@ -130,6 +156,7 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("Fight!!");
         yield return new WaitForSeconds(3);
+        UpdateWinnerScore(Random.Range(0,2)==0);
         tablePanel.gameObject.SetActive(true);
         combatPanel.gameObject.SetActive(false);
     }
@@ -143,6 +170,38 @@ public class BattleManager : MonoBehaviour
             enemyDices[i].LockDice(true);
         }
         RerollDices_enemy();
+    }
+
+    private void ResetScore() {
+        EnemyScore = 0;
+        PlayerScore = 0;
+    }
+
+    private void UpdateWinnerScore(bool isPlayerTheRoundWinner) {
+
+        if (isPlayerTheRoundWinner) {
+            PlayerScore++;
+            if(playerScore >= pointsNeededToWin) {
+                StartCoroutine(WinBattle());
+            }
+        } else {
+            EnemyScore++;
+            if(playerScore< pointsNeededToWin) {
+                StartCoroutine(LoseBattle());
+            }
+        }
+    }
+
+    private IEnumerator WinBattle() {
+        yield return null;
+        Debug.Log("Hai Vinto");
+        ResetScore();
+    }
+
+    private IEnumerator LoseBattle() {
+        yield return null;
+        Debug.Log("Hai perso");
+        ResetScore();
     }
 
     private IEnumerator EnterCombatAnimations()
