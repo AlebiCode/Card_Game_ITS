@@ -8,15 +8,13 @@ public class CardData : ScriptableObject
     [SerializeField] private Sprite sprite;
     [SerializeField] private string cardName = "Default Name";
     [SerializeField] private string cardDescription = "Default Description";
+    [SerializeField] private CardAudioProfile cardAudioProfile;
     [SerializeField] private SkillData[] skills = new SkillData[3];
-
-    //DA METTERE
-    //razza
-    //3 mosse
 
     public Sprite Sprite => sprite;
     public string CardName => cardName;
     public string CardDescription => cardDescription;
     public SkillData[] Skills => skills;
+    public CardAudioProfile CardAudioProfile => cardAudioProfile;
 
 }

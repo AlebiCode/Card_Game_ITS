@@ -15,4 +15,8 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 097f33864966c8546b96cdedef24ff11, type: 3}
   cardName: Ro Botor
   cardDescription: NO.
-  hp: 50
+  cardAudioProfile: {fileID: 11400000, guid: be0e31521915be349a27f743599f8bfb, type: 2}
+  skills:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
