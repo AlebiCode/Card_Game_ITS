@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Card : MonoBehaviour, IPointerClickHandler
+public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
     
     [SerializeField] private CardData cardData;
@@ -17,16 +17,13 @@ public class Card : MonoBehaviour, IPointerClickHandler
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private bool lmbIneractable;
     [SerializeField] private bool rmbInteractable;
-    [SerializeField] private UnityEvent<Card> lmbClick = new UnityEvent<Card>();
-
-    public AudioCardManager audioSelect;
-    private bool selected = false;
+    [SerializeField] private UnityEvent lmbClick = new UnityEvent();
+    [SerializeField] private UnityEvent pointerEnter = new UnityEvent();
 
 
     public Image Image => image;
     public CardData CardData => cardData;
     public RectTransform RectTransform => rectTransform;
-    public UnityEvent<Card> OnClick => lmbClick;
 
     public void LoadData(CardData cardData)
     {
@@ -47,19 +44,6 @@ public class Card : MonoBehaviour, IPointerClickHandler
         cardDescription.text = cardData.CardDescription;
     }
 
-    public void FireOnClick()
-    {
-        if (selected) {
-            audioSelect.PlayDeSelectAudio();
-            selected = false;
-        } else {
-            audioSelect.PlaySelectAudio();
-            selected = true;
-        }
-
-        lmbClick.Invoke(this);
-    }
-
     public float EnterCombatSceneAnim() //retunrs total duration of animation
     {
         float duration = 0;
@@ -73,19 +57,21 @@ public class Card : MonoBehaviour, IPointerClickHandler
         return clip.length;
     }
 
-    public void OnPointerEnter()
-    {
-    }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left && lmbIneractable)
         {
-            lmbClick.Invoke(this);
+            Debug.Log("Left click");
+            lmbClick.Invoke();
         }
         else if (eventData.button == PointerEventData.InputButton.Right && lmbIneractable)
         {
             Debug.Log("Right click");
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        pointerEnter.Invoke();
     }
 }

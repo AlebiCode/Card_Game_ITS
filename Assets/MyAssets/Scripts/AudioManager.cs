@@ -6,8 +6,10 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    [SerializeField] private AudioSource cardAudio;
-    [SerializeField] private AudioSource uiAudio;
+    [SerializeField] private List<AudioSource> cardAudio;
+    [SerializeField] private List<AudioSource> uiAudio;
+
+    [SerializeField] private AudioClip genericUiSelect;
 
     private void Awake()
     {
@@ -16,13 +18,24 @@ public class AudioManager : MonoBehaviour
 
     public static void PlayCardAudio(AudioClip audioClip)
     {
-        instance.cardAudio.clip = audioClip;
-        instance.cardAudio.Play();
+        AudioSource audioSource = instance.cardAudio[0];
+        instance.cardAudio.RemoveAt(0);
+        audioSource.clip = audioClip;
+        audioSource.Play();
+        instance.cardAudio.Add(audioSource);
     }
+
     public static void PlayUiAudio(AudioClip audioClip)
     {
-        instance.uiAudio.clip = audioClip;
-        instance.uiAudio.Play();
+        AudioSource audioSource = instance.cardAudio[0];
+        instance.uiAudio.RemoveAt(0);
+        audioSource.clip = audioClip;
+        audioSource.Play();
+        instance.uiAudio.Add(audioSource);
+    }
+    public static void PlayUiSelectAudio()
+    {
+        PlayUiAudio(instance.genericUiSelect);
     }
 
 }

@@ -36,7 +36,7 @@ public class BattleManager : MonoBehaviour
         this.enemyData = enemyData;
         LoadDeckCardDatas(carteProprie, enemyData.EnemyCardDatas);
     }
-    private void LoadDeckCardDatas(CardData[] carteProprie, CardData[] carteAvversario)
+    public void LoadDeckCardDatas(CardData[] carteProprie, CardData[] carteAvversario)
     {
         for (int i = 0; i < 3; i++)
         {
