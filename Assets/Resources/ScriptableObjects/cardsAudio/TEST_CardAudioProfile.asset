@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TEST_CardAudioProfile
   m_EditorClassIdentifier: 
   audioClips:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 5e820f716eded1c478022b348bcb4b02, type: 3}
+  - {fileID: 8300000, guid: c39cd9c35f870f6499ea136f65a06ee1, type: 3}

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0774a834e770c3c4aa5b9b2dc84e9175, type: 3}
+  m_Name: Mario
+  m_EditorClassIdentifier: 
+  enemyName: Mario
+  enemyCardDatas:
+  - {fileID: 11400000, guid: 835275b7794088348b17d0575f573a4e, type: 2}
+  - {fileID: 11400000, guid: e2667592137b5bc45a58b8223c77e9e2, type: 2}
+  - {fileID: 11400000, guid: 961e54ae642afee459963adc13af9504, type: 2}
+  enemyPlaystyle: 1

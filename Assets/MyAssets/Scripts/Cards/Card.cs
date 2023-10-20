@@ -6,25 +6,36 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Card : MonoBehaviour
+public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
+    
     [SerializeField] private CardData cardData;
 
     [SerializeField] private Image image;
     [SerializeField] private TMP_Text cardName;
     [SerializeField] private TMP_Text cardDescription;
     [SerializeField] private RectTransform rectTransform;
-    private UnityEvent<Card> onClick = new UnityEvent<Card>();
+    [SerializeField] private bool lmbIneractable;
+    [SerializeField] private bool rmbInteractable;
+    [SerializeField] private UnityEvent lmbClick = new UnityEvent();
+    [SerializeField] private UnityEvent rmbClick = new UnityEvent();
+    [SerializeField] private UnityEvent pointerEnter = new UnityEvent();
+
 
     public Image Image => image;
     public CardData CardData => cardData;
     public RectTransform RectTransform => rectTransform;
-    public UnityEvent<Card> OnClick => onClick;
 
     public void LoadData(CardData cardData)
     {
         this.cardData = cardData;
         LoadGraphics();
+    }
+    public void LoadData(CardData cardData, bool lmbIneractable, bool rmbInteractable)
+    {
+        this.lmbIneractable = lmbIneractable;
+        this.rmbInteractable = rmbInteractable;
+        LoadData(cardData);
     }
 
     public void LoadGraphics()
@@ -34,9 +45,34 @@ public class Card : MonoBehaviour
         cardDescription.text = cardData.CardDescription;
     }
 
-    public void FireOnClick()
+    public float EnterCombatSceneAnim() //retunrs total duration of animation
     {
-        onClick.Invoke(this);
+        float duration = 0;
+        duration = PlayEnteringAudio();
+        return duration;
+    }
+    private float PlayEnteringAudio()
+    {
+        AudioClip clip = cardData.CardAudioProfile.GetRandomClip();
+        AudioManager.PlayCardAudio(clip); 
+        return clip.length;
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left && lmbIneractable)
+        {
+            Debug.Log("Left click");
+            lmbClick.Invoke();
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right && lmbIneractable)
+        {
+            Debug.Log("Right click");
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        pointerEnter.Invoke();
+    }
 }

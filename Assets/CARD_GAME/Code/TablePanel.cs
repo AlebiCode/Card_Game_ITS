@@ -5,10 +5,16 @@ using UnityEngine.UI;
 
 public class TablePanel : MonoBehaviour
 {
-    public Card selectedCard;
+    public static TablePanel instance;
 
+    public AudioSource genericUiAudioSource;
+    public Card selectedCard;
     public GameObject readyButton;
 
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void OnPlayerCardClick(Card card )
     {
