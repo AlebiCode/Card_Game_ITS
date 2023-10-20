@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,8 @@ public class EnemyBrain : MonoBehaviour
         public SkillData skillData_onCard;
         public List<Dice.diceFace> skill_ManaCost_list;
 
-        public Skill(SkillData skillData) {
+        public Skill(SkillData skillData)
+        {
             skillData_onCard = skillData;
             skill_ManaCost_list = skillData.Skill_colorCost;
             total_manaCost = skill_ManaCost_list.Count;
@@ -55,13 +57,16 @@ public class EnemyBrain : MonoBehaviour
     private Skill Third_Skill;
     private Skill[] CurrentCard_Skills;
 
-    public void GetRolledDiceFaces() {
+    public void GetRolledDiceFaces()
+    {
         diceRolled = BattleManager.instance.EnemyDices;
 
-        foreach (Dice die in diceRolled) {
+        foreach (Dice die in diceRolled)
+        {
             diceRolled_faces.Append(die.Result);
 
-            switch (die.Result) {
+            switch (die.Result)
+            {
                 case Dice.diceFace.notRolled:
                     Debug.Log("face not rolled :(");
                     break;
@@ -87,7 +92,8 @@ public class EnemyBrain : MonoBehaviour
         Debug.Log(diceRoll_byManaColor);
     }
 
-    public void GetCurrentCardSkills() {
+    public void GetCurrentCardSkills()
+    {
         First_Skill = new Skill(battling_card.CardData.Skills[0]);
         Second_Skill = new Skill(battling_card.CardData.Skills[1]);
         Third_Skill = new Skill(battling_card.CardData.Skills[2]);
@@ -96,11 +102,14 @@ public class EnemyBrain : MonoBehaviour
 
     }
 
-    public void GetSingleAbilityManaCost(Skill _skill) {
+    public void GetSingleAbilityManaCost(Skill _skill)
+    {
         _skill.skill_ManaCost_byManaType = new int[3];
 
-        foreach (var face in _skill.skill_ManaCost_list) {
-            switch (face) {
+        foreach (var face in _skill.skill_ManaCost_list)
+        {
+            switch (face)
+            {
                 case Dice.diceFace.notRolled:
                     Debug.Log("face missing :(");
                     break;
@@ -123,32 +132,38 @@ public class EnemyBrain : MonoBehaviour
         _skill.skill_ManaCost_byManaType[1] = _skill.skill_YellowManaCost;
         _skill.skill_ManaCost_byManaType[2] = _skill.skill_BlueManaCost;
 
-        _skill.skill_maximum_activations = 6 / (_skill.total_manaCost);
+        _skill.skill_maximum_activations = (int) (6 / (_skill.total_manaCost));
 
         Debug.Log(_skill.skill_ManaCost_byManaType);
     }
 
-    public void CheckAbilityIterations(Skill _skill) {
-        for (int i = 0; i < 3; i++) {
-            if (_skill.skill_ManaCost_byManaType[i] != 0) {
+    public void CheckAbilityIterations(Skill _skill)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (_skill.skill_ManaCost_byManaType[i] != 0)
+            {
                 _skill.activations_onRoll_by_ManaType.Add((int)(diceRoll_byManaColor[i] / _skill.skill_ManaCost_byManaType[i]));
             }
         }
 
     }
 
-    public void CheckLesserNumberOfAbilityActivations(Skill _skill) {
+    public void CheckLesserNumberOfAbilityActivations(Skill _skill)
+    {
         _skill.NumberOfSkillActivations = _skill.activations_onRoll_by_ManaType.Min();
         skillsTotalActivations_bySkill.Add(_skill.NumberOfSkillActivations);
     }
 
 
-    public void TurnLoop() {
+    public void TurnLoop()
+    {
         GetRolledDiceFaces();
 
         GetCurrentCardSkills();
 
-        foreach (Skill skill in CurrentCard_Skills) {
+        foreach (Skill skill in CurrentCard_Skills)
+        {
             GetSingleAbilityManaCost(skill);
 
             CheckAbilityIterations(skill);
@@ -164,11 +179,16 @@ public class EnemyBrain : MonoBehaviour
         public int[] skill_activation_set;
     }
 
-    public void PreRerollDamageFormula() {
+    public void PreRerollDamageFormula()
+    {
         //skill base damage without activations from roll (damage * base_attack_instances)
         var base_damage1 = First_Skill.skillData_onCard.AtkInstances * First_Skill.skillData_onCard.Damage;
         var base_damage2 = Second_Skill.skillData_onCard.AtkInstances * Second_Skill.skillData_onCard.Damage;
         var base_damage3 = Third_Skill.skillData_onCard.AtkInstances * Third_Skill.skillData_onCard.Damage;
+
+        var base_probability1 = (Mathf.Pow((1 / 2), (First_Skill.skill_RedManaCost))) * (Mathf.Pow((1 / 3), (First_Skill.skill_YellowManaCost))) * (Mathf.Pow((1 / 6), ( First_Skill.skill_BlueManaCost)));
+        var base_probability2 = (Mathf.Pow((1 / 2), (Second_Skill.skill_RedManaCost))) * (Mathf.Pow((1 / 3), (Second_Skill.skill_YellowManaCost))) * (Mathf.Pow((1 / 6), (Second_Skill.skill_BlueManaCost)));
+        var base_probability3 = (Mathf.Pow((1 / 2), (Third_Skill.skill_RedManaCost))) * (Mathf.Pow((1 / 3), (Third_Skill.skill_YellowManaCost))) * (Mathf.Pow((1 / 6), (Third_Skill.skill_BlueManaCost)));
 
         //skill damage multiplied by number of activations from roll (damage * base_attack_instances * roll_activations)
         var damage1 = First_Skill.NumberOfSkillActivations * First_Skill.skillData_onCard.AtkInstances * First_Skill.skillData_onCard.Damage;
@@ -180,27 +200,30 @@ public class EnemyBrain : MonoBehaviour
         var target_activations2 = Second_Skill.skill_maximum_activations;
         var target_activations3 = Third_Skill.skill_maximum_activations;
 
-        //probabilità che escano dadi per ripetere la skill target_activations volte(tenendo conto del massimo di volte ripetibili)
+        //probabilità che escano dadi per ripetere la skill target_activations volte(tenendo conto del massimo di volte ripetibili) --> target_activations qua vale il massimo possibile
         var damage1_probability_maxActivations = base_damage1 * (Mathf.Pow((1 / 2), (target_activations1 * First_Skill.skill_RedManaCost))) * (Mathf.Pow((1 / 3), (target_activations1 * First_Skill.skill_YellowManaCost))) * (Mathf.Pow((1 / 6), (target_activations1 * First_Skill.skill_BlueManaCost)));
 
         //probabilità che escano dadi per ripetere la skill target_activations volte a partire dai dadi rollati la prima volta
-        var probability1_maxActivations_after_roll = (Mathf.Pow((1 / 2), (target_activations1 * First_Skill.skill_RedManaCost) - diceRoll_RedMana)) * (Mathf.Pow((1 / 3), (target_activations1 * First_Skill.skill_YellowManaCost) - diceRoll_YellowMana)) * (Mathf.Pow((1 / 6), (target_activations1 * First_Skill.skill_BlueManaCost) - diceRoll_BlueMana));
+        var probability1_maxActivations_after_roll = (Mathf.Pow((1 / 2), (target_activations1 * First_Skill.skill_RedManaCost) - diceRoll_RedMana)) * (Mathf.Pow((1 / 3), (target_activations1 * First_Skill.skill_YellowManaCost) -diceRoll_YellowMana)) * (Mathf.Pow((1 / 6), (target_activations1 * First_Skill.skill_BlueManaCost) - diceRoll_BlueMana));
 
         List<DamageByActivationSet> total_damage_by_activations = new List<DamageByActivationSet>();
-
+      
         int i = 0;
         int j = 0;
         int k = 0;
 
-        for (i = 0; i <= 6 - (j * Second_Skill.total_manaCost) - (k * Third_Skill.total_manaCost); i++) {
+        for (i=0; i <= 6 - (j * Second_Skill.total_manaCost) - (k * Third_Skill.total_manaCost) ; i++)
+        {
             var damage1_probability_maximize_after_roll = (Mathf.Pow((1 / 2), (i * First_Skill.skill_RedManaCost) - diceRoll_RedMana)) * (Mathf.Pow((1 / 3), (i * First_Skill.skill_YellowManaCost) - diceRoll_YellowMana)) * (Mathf.Pow((1 / 6), (i * First_Skill.skill_BlueManaCost) - diceRoll_BlueMana));
             var damage1_by_chance = base_damage1 * damage1_probability_maximize_after_roll;
 
-            for (j = 0; j <= 6 - (i * First_Skill.total_manaCost) - (k * Third_Skill.total_manaCost); j++) {
+            for (j=0; j <= 6 - (i * First_Skill.total_manaCost) - (k * Third_Skill.total_manaCost); j++)
+            {
                 var damage2_probability_maximize_after_roll = (Mathf.Pow((1 / 2), (j * Second_Skill.skill_RedManaCost) - diceRoll_RedMana)) * (Mathf.Pow((1 / 3), (j * Second_Skill.skill_YellowManaCost) - diceRoll_YellowMana)) * (Mathf.Pow((1 / 6), (j * Second_Skill.skill_BlueManaCost) - diceRoll_BlueMana));
                 var damage2_by_chance = base_damage2 * damage2_probability_maximize_after_roll;
 
-                for (k = 0; k <= 6 - (i * First_Skill.total_manaCost) - (j * Second_Skill.total_manaCost); k++) {
+                for (k=0; k <= 6 - (i * First_Skill.total_manaCost) - (j * Second_Skill.total_manaCost); k++)
+                {             
                     var damage3_probability_maximize_after_roll = (Mathf.Pow((1 / 2), (k * Third_Skill.skill_RedManaCost) - diceRoll_RedMana)) * (Mathf.Pow((1 / 3), (k * Third_Skill.skill_YellowManaCost) - diceRoll_YellowMana)) * (Mathf.Pow((1 / 6), (k * Third_Skill.skill_BlueManaCost) - diceRoll_BlueMana));
                     var damage3_by_chance = base_damage3 * damage3_probability_maximize_after_roll;
 
@@ -209,7 +232,7 @@ public class EnemyBrain : MonoBehaviour
                     total_damage_by_activations.Add(newset);
                     newset.total_damage = (damage1_probability_maximize_after_roll + damage2_probability_maximize_after_roll + damage3_probability_maximize_after_roll);
 
-                    int[] activationSet = new int[] { i, j, k };
+                    int[] activationSet = new int[] {i, j, k };
                     newset.skill_activation_set = activationSet;
                     Debug.Log(total_damage_by_activations);
                 }
@@ -217,18 +240,21 @@ public class EnemyBrain : MonoBehaviour
         }
     }
 
-    public void ChanceFormula() {
+    public void ChanceFormula()
+    {
 
 
     }
 
     // Start is called before the first frame update
-    void Start() {
-
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
-    void Update() {
-
+    void Update()
+    {
+        
     }
 }
