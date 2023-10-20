@@ -38,14 +38,14 @@ public class BattleManager : MonoBehaviour
     public int PlayerScore {
         get { return playerScore; } 
         set { playerScore = value;
-            onPlayerScoreChanged.Invoke(playerScore);}
+            onPlayerScoreChanged?.Invoke(playerScore);}
     }
 
     public int EnemyScore {
         get { return enemyScore; }
         set {
             enemyScore = value;
-            onEnemyScoreChanged.Invoke(enemyScore);}
+            onEnemyScoreChanged?.Invoke(enemyScore);}
     }
     public Dice[] EnemyDices => enemyDices;
     public Dice[] AllyDices => allyDices;
