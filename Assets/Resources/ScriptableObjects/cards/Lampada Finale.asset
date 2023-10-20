@@ -18,6 +18,6 @@ MonoBehaviour:
   cardDescription: Questa lampada pesa 50mb e ha oltre 600k poligoni.
   cardAudioProfile: {fileID: 11400000, guid: 28bfe71d3302d5044a59bc273c1685df, type: 2}
   skills:
-  - {fileID: 11400000, guid: c6b3be35328b78545bc939dd0a9cf1ae, type: 2}
-  - {fileID: 11400000, guid: c6b3be35328b78545bc939dd0a9cf1ae, type: 2}
-  - {fileID: 11400000, guid: c6b3be35328b78545bc939dd0a9cf1ae, type: 2}
+  - {fileID: 11400000, guid: 82c04e6358554fb4398188bc159a2f81, type: 2}
+  - {fileID: 11400000, guid: 7134eacdf6d0019488957a214b4fc6fb, type: 2}
+  - {fileID: 11400000, guid: 4a48c5526616e5c4582085b588f7f0a5, type: 2}

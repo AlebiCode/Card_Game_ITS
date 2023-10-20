@@ -13,15 +13,9 @@ MonoBehaviour:
   m_Name: BIG_BLOW
   m_EditorClassIdentifier: 
   skillName: 
-<<<<<<< Updated upstream:Assets/Resources/ScriptableObjects/skills/BIG_BLOW.asset
   skill_colorCost: 
   damage: 500
   atkInstances: 1
-=======
-  skill_colorCost: 010000000200000003000000
-  damage: 0
-  atkInstances: 0
->>>>>>> Stashed changes:Assets/Resources/ScriptableObjects/skills/Botta.asset
   defInstances: 0
   dodge: 0
   precise: 0

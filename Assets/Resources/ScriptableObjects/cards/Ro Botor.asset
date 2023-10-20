@@ -18,6 +18,6 @@ MonoBehaviour:
   cardDescription: NO.
   cardAudioProfile: {fileID: 11400000, guid: db917b8087de1b144b8a16e6427f218e, type: 2}
   skills:
-  - {fileID: 11400000, guid: f3743b324715f214db1d3dc6eb6b77d0, type: 2}
-  - {fileID: 11400000, guid: c6b3be35328b78545bc939dd0a9cf1ae, type: 2}
-  - {fileID: 11400000, guid: c6b3be35328b78545bc939dd0a9cf1ae, type: 2}
+  - {fileID: 11400000, guid: 4a48c5526616e5c4582085b588f7f0a5, type: 2}
+  - {fileID: 11400000, guid: 4a48c5526616e5c4582085b588f7f0a5, type: 2}
+  - {fileID: 11400000, guid: 88d94c70b2f79724f86cfb376559b772, type: 2}
