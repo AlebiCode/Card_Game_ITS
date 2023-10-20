@@ -16,7 +16,7 @@ MonoBehaviour:
   spriteLarge: {fileID: 0}
   cardName: card_spirito_1
   cardDescription: Default Description
-  cardAudioProfile: {fileID: 0}
+  cardAudioProfile: {fileID: 11400000, guid: ce54f1c2b40f4be4891ef944ea3d2e26, type: 2}
   skills:
   - {fileID: 11400000, guid: 1df8760d24fa40844a02410763d9ed1f, type: 2}
   - {fileID: 11400000, guid: b078c4beeb84ee240870687025090b41, type: 2}

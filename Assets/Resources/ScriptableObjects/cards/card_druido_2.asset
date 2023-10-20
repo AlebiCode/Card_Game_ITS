@@ -16,7 +16,7 @@ MonoBehaviour:
   spriteLarge: {fileID: 0}
   cardName: card_druido_2
   cardDescription: Default Description
-  cardAudioProfile: {fileID: 0}
+  cardAudioProfile: {fileID: 11400000, guid: a5c6cd66c931d2f48af9458bbeb56ff6, type: 2}
   skills:
   - {fileID: 11400000, guid: 26ee188fc35136840958c085a608a475, type: 2}
   - {fileID: 11400000, guid: 125c4880fb6a3fa4081466c437d4bbf1, type: 2}
