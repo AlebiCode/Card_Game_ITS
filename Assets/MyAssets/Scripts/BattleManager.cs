@@ -30,6 +30,7 @@ public class BattleManager : MonoBehaviour
         instance = this;
     }
 
+
     public void LoadDeckCardDatas(CardData[] carteProprie, CardData[] carteAvversario)
     {
         for (int i = 0; i < 3; i++)
