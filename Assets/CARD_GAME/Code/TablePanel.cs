@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class TablePanel : MonoBehaviour
 {
@@ -9,7 +10,12 @@ public class TablePanel : MonoBehaviour
 
     public AudioSource genericUiAudioSource;
     public Card selectedCard;
-    public GameObject readyButton;
+    [SerializeField] private GameObject readyButton;
+    [SerializeField] private GameObject pickCardText;
+    [SerializeField] private GameObject myCards;
+    [SerializeField] private GameObject emenyCards;
+    [SerializeField] private Vector2 cardsMovement;
+    [SerializeField] private float cardsMoveDuration;
 
     private void Awake()
     {
@@ -60,6 +66,13 @@ public class TablePanel : MonoBehaviour
     {
         if (selectedCard)
             DeselectCard(selectedCard);
+    }
+
+    public void TablePanelToCombatPanelAnimation()
+    {
+        myCards.transform.DOLocalMove(-cardsMovement, cardsMoveDuration);
+        emenyCards.transform.DOLocalMove(cardsMovement, cardsMoveDuration);
+        Debug.Log("Animation");
     }
 
 }
