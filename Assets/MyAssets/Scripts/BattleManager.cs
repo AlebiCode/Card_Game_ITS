@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
@@ -166,7 +167,7 @@ public class BattleManager : MonoBehaviour
     {
         //ENEMY AI HERE
 
-        EnemyAI.TurnLoop();
+       // EnemyAI.TurnLoop();
     
         for (int i = 0; i < Random.Range(0,6); i++)
         {
@@ -188,27 +189,23 @@ public class BattleManager : MonoBehaviour
         if (isPlayerTheRoundWinner) {
             PlayerScore++;
             if(playerScore >= pointsNeededToWin) {
-                StartCoroutine(WinBattle());
+                StartCoroutine(EndBattle(true));
             }
         } else {
             EnemyScore++;
-            if(playerScore< pointsNeededToWin) {
-                StartCoroutine(LoseBattle());
+            if(enemyScore>= pointsNeededToWin) {
+                StartCoroutine(EndBattle(false));
             }
         }
     }
 
-    private IEnumerator WinBattle() {
-        yield return null;
-        Debug.Log("Hai Vinto");
+    private IEnumerator EndBattle(bool hasPlayerWon) {
+        Debug.Log("Partita Conclusa");
+        yield return new WaitForSeconds(2);
         ResetScore();
+        SceneManager.LoadScene(0);
     }
 
-    private IEnumerator LoseBattle() {
-        yield return null;
-        Debug.Log("Hai perso");
-        ResetScore();
-    }
 
     private IEnumerator EnterCombatAnimations()
     {

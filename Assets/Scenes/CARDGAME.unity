@@ -3743,6 +3743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927aaecdf7cdac542a096252fba26511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownText: {fileID: 665530131}
 --- !u!114 &665530131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4692,6 +4693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927aaecdf7cdac542a096252fba26511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownText: {fileID: 854528487}
 --- !u!114 &854528487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5236,7 +5238,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deckPanel: {fileID: 1101607718}
-  pressToStartText: {fileID: 0}
 --- !u!114 &877841392
 MonoBehaviour:
   m_ObjectHideFlags: 0
