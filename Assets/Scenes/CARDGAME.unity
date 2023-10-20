@@ -6266,7 +6266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardsResourcesPath: ScriptableObjects\cards
-  enemyResourcesPath: 
+  enemyResourcesPath: ScriptableObjects\enemies
   cardsParent: {fileID: 543559952}
   startMatchButton: {fileID: 1051902580}
   cardSelectAnimSpeed: 1000

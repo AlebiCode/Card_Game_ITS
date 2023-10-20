@@ -90,7 +90,7 @@ public class DeckCreator : MonoBehaviour
 
         //commentata linea per fare dei test
         //BattleManager.instance.LoadData(cardData, GetRandomEnemy());
-        BattleManager.instance.LoadDeckCardDatas(cardData, cardData);
+        BattleManager.instance.LoadDeckCardDatas(cardData, GetRandomEnemy().EnemyCardDatas);
     }
 
     private EnemyData GetRandomEnemy() {
