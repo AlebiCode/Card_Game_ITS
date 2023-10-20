@@ -72,7 +72,12 @@ public class TablePanel : MonoBehaviour
     {
         myCards.transform.DOLocalMove(-cardsMovement, cardsMoveDuration);
         emenyCards.transform.DOLocalMove(cardsMovement, cardsMoveDuration);
-        Debug.Log("Animation");
+    }
+
+    public void CombatPanelToTablePanelAnimation()
+    {
+        myCards.transform.DOLocalMove(cardsMovement, cardsMoveDuration / 2);
+        emenyCards.transform.DOLocalMove(-cardsMovement, cardsMoveDuration / 2);
     }
 
 }
