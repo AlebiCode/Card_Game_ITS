@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TitlePanel : MonoBehaviour
+public class CardInspector : MonoBehaviour
 {
-    public GameObject deckPanel;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -15,10 +13,6 @@ public class TitlePanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (Input.anyKeyDown)
-        {
-            deckPanel.SetActive(true);
-            gameObject.SetActive(false);
-        }*/
+        
     }
 }
