@@ -27,7 +27,7 @@ public class AudioManager : MonoBehaviour
 
     public static void PlayUiAudio(AudioClip audioClip)
     {
-        AudioSource audioSource = instance.cardAudio[0];
+        AudioSource audioSource = instance.uiAudio[0];
         instance.uiAudio.RemoveAt(0);
         audioSource.clip = audioClip;
         audioSource.Play();
