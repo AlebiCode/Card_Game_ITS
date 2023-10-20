@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
+    
     [SerializeField] private CardData cardData;
 
     [SerializeField] private Image image;
@@ -15,6 +16,10 @@ public class Card : MonoBehaviour
     [SerializeField] private TMP_Text cardDescription;
     [SerializeField] private RectTransform rectTransform;
     private UnityEvent<Card> onClick = new UnityEvent<Card>();
+
+    public AudioCardManager audioSelect;
+    private bool selected = false;
+
 
     public Image Image => image;
     public CardData CardData => cardData;
@@ -36,6 +41,13 @@ public class Card : MonoBehaviour
 
     public void FireOnClick()
     {
+        if (selected) {
+            audioSelect.PlayDeSelectAudio();
+            selected = false;
+        } else {
+            audioSelect.PlaySelectAudio();
+            selected = true;
+        }
         onClick.Invoke(this);
     }
 
