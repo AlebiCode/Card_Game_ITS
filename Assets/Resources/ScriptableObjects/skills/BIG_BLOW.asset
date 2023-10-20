@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BIG_BLOW
   m_EditorClassIdentifier: 
   skillName: 
-  skill_colorCost: 
+  skill_colorCost: 010000000100000001000000
   damage: 500
   atkInstances: 1
   defInstances: 0

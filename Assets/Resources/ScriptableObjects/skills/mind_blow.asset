@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: mind_blow
   m_EditorClassIdentifier: 
   skillName: 
-  skill_colorCost: 
+  skill_colorCost: 0100000002000000
   damage: 60
   atkInstances: 3
   defInstances: 0

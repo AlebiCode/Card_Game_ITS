@@ -213,34 +213,37 @@ public class EnemyBrain : MonoBehaviour
         public int[] skill_activation_set;
     }
 
+    public float TotalDamageAfterFirstRoll;
     public void PreRerollDamageFormula()
     {
         //skill base damage without activations from roll (damage * base_attack_instances)
-        var base_damage1 = First_Skill.skillData_onCard.AtkInstances * First_Skill.skillData_onCard.Damage;
-        var base_damage2 = Second_Skill.skillData_onCard.AtkInstances * Second_Skill.skillData_onCard.Damage;
-        var base_damage3 = Third_Skill.skillData_onCard.AtkInstances * Third_Skill.skillData_onCard.Damage;
+        float base_damage1 = First_Skill.skillData_onCard.AtkInstances * First_Skill.skillData_onCard.Damage;
+        float base_damage2 = Second_Skill.skillData_onCard.AtkInstances * Second_Skill.skillData_onCard.Damage;
+        float base_damage3 = Third_Skill.skillData_onCard.AtkInstances * Third_Skill.skillData_onCard.Damage;
 
         //skill base probability
-        var base_probability1 = (Mathf.Pow((1 / 2), (First_Skill.skill_RedManaCost))) * (Mathf.Pow((1 / 3), (First_Skill.skill_YellowManaCost))) * (Mathf.Pow((1 / 6), ( First_Skill.skill_BlueManaCost)));
-        var base_probability2 = (Mathf.Pow((1 / 2), (Second_Skill.skill_RedManaCost))) * (Mathf.Pow((1 / 3), (Second_Skill.skill_YellowManaCost))) * (Mathf.Pow((1 / 6), (Second_Skill.skill_BlueManaCost)));
-        var base_probability3 = (Mathf.Pow((1 / 2), (Third_Skill.skill_RedManaCost))) * (Mathf.Pow((1 / 3), (Third_Skill.skill_YellowManaCost))) * (Mathf.Pow((1 / 6), (Third_Skill.skill_BlueManaCost)));
+        float base_probability1 = (Mathf.Pow((1 / 2), (First_Skill.skill_RedManaCost))) * (Mathf.Pow((1 / 3), (First_Skill.skill_YellowManaCost))) * (Mathf.Pow((1 / 6), ( First_Skill.skill_BlueManaCost)));
+        float base_probability2 = (Mathf.Pow((1 / 2), (Second_Skill.skill_RedManaCost))) * (Mathf.Pow((1 / 3), (Second_Skill.skill_YellowManaCost))) * (Mathf.Pow((1 / 6), (Second_Skill.skill_BlueManaCost)));
+        float base_probability3 = (Mathf.Pow((1 / 2), (Third_Skill.skill_RedManaCost))) * (Mathf.Pow((1 / 3), (Third_Skill.skill_YellowManaCost))) * (Mathf.Pow((1 / 6), (Third_Skill.skill_BlueManaCost)));
 
         //skill damage multiplied by number of activations from roll (damage * base_attack_instances * roll_activations)
-        var damage1 = First_Skill.NumberOfSkillActivations * First_Skill.skillData_onCard.AtkInstances * First_Skill.skillData_onCard.Damage;
-        var damage2 = Second_Skill.NumberOfSkillActivations * Second_Skill.skillData_onCard.AtkInstances * Second_Skill.skillData_onCard.Damage;
-        var damage3 = Third_Skill.NumberOfSkillActivations * Third_Skill.skillData_onCard.AtkInstances * Third_Skill.skillData_onCard.Damage;
-        var totalDamage = damage1 + damage2 + damage3;
+        float damage1 = First_Skill.NumberOfSkillActivations * First_Skill.skillData_onCard.AtkInstances * First_Skill.skillData_onCard.Damage;
+        float damage2 = Second_Skill.NumberOfSkillActivations * Second_Skill.skillData_onCard.AtkInstances * Second_Skill.skillData_onCard.Damage;
+        float damage3 = Third_Skill.NumberOfSkillActivations * Third_Skill.skillData_onCard.AtkInstances * Third_Skill.skillData_onCard.Damage;
+
+        //DANNO DOPO PRIMO ROLL
+        TotalDamageAfterFirstRoll = damage1 + damage2 + damage3; 
 
         //maximum activations with 6 dice
-        var max_activations1 = First_Skill.skill_maximum_activations;
-        var max_activations2 = Second_Skill.skill_maximum_activations;
-        var max_activations3 = Third_Skill.skill_maximum_activations;
+        float max_activations1 = First_Skill.skill_maximum_activations;
+        float max_activations2 = Second_Skill.skill_maximum_activations;
+        float max_activations3 = Third_Skill.skill_maximum_activations;
 
         //probabilità che escano dadi per ripetere la skill max_activations volte(tenendo conto del massimo di volte ripetibili) --> max_activations qua vale il massimo possibile
-        var probability_maxActivations = (Mathf.Pow((1 / 2), (max_activations1 * First_Skill.skill_RedManaCost))) * (Mathf.Pow((1 / 3), (max_activations1 * First_Skill.skill_YellowManaCost))) * (Mathf.Pow((1 / 6), (max_activations1 * First_Skill.skill_BlueManaCost)));
+        float probability_maxActivations = (Mathf.Pow((1 / 2), (max_activations1 * First_Skill.skill_RedManaCost))) * (Mathf.Pow((1 / 3), (max_activations1 * First_Skill.skill_YellowManaCost))) * (Mathf.Pow((1 / 6), (max_activations1 * First_Skill.skill_BlueManaCost)));
 
         //probabilità che escano dadi per ripetere la skill max_activations volte a partire dai dadi rollati la prima volta, --> max_activations qua vale il massimo possibile
-        var probability1_maxActivations_after_roll = (Mathf.Pow((1 / 2), (max_activations1 * First_Skill.skill_RedManaCost) - diceRoll_RedMana)) * (Mathf.Pow((1 / 3), (max_activations1 * First_Skill.skill_YellowManaCost) -diceRoll_YellowMana)) * (Mathf.Pow((1 / 6), (max_activations1 * First_Skill.skill_BlueManaCost) - diceRoll_BlueMana));
+        float probability1_maxActivations_after_roll = (Mathf.Pow((1 / 2), (max_activations1 * First_Skill.skill_RedManaCost) - diceRoll_RedMana)) * (Mathf.Pow((1 / 3), (max_activations1 * First_Skill.skill_YellowManaCost) -diceRoll_YellowMana)) * (Mathf.Pow((1 / 6), (max_activations1 * First_Skill.skill_BlueManaCost) - diceRoll_BlueMana));
 
         List<DamageByActivationSet> total_damage_bySetOfActivations = new List<DamageByActivationSet>();
       
@@ -248,38 +251,80 @@ public class EnemyBrain : MonoBehaviour
         int j = 0;
         int k = 0;
 
-        for (i=0; i < 6 - (j * Second_Skill.total_manaCost) - (k * Third_Skill.total_manaCost) ; i++)
+        for (i=0; i <= (6 - (j * Second_Skill.total_manaCost) - (k * Third_Skill.total_manaCost)/First_Skill.total_manaCost); i++)
         {
-            var damage1_probability_maximize_after_roll = (Mathf.Pow((1 / 2), (i * First_Skill.skill_RedManaCost) - diceRoll_RedMana)) * (Mathf.Pow((1 / 3), (i * First_Skill.skill_YellowManaCost) - diceRoll_YellowMana)) * (Mathf.Pow((1 / 6), (i * First_Skill.skill_BlueManaCost) - diceRoll_BlueMana));
-            var damage1_by_chance = base_damage1 * damage1_probability_maximize_after_roll;
+            //j = 0;
+            //k = 0;
+            float damage1_probability_maximize_after_roll = (Mathf.Pow((1 / 2), (i * First_Skill.skill_RedManaCost) - diceRoll_RedMana)) * (Mathf.Pow((1 / 3), (i * First_Skill.skill_YellowManaCost) - diceRoll_YellowMana)) * (Mathf.Pow((1 / 6), (i * First_Skill.skill_BlueManaCost) - diceRoll_BlueMana));
+            float damage1_by_chance = base_damage1 * damage1_probability_maximize_after_roll;
 
-            for (j=0; j < 6 - (i * First_Skill.total_manaCost) - (k * Third_Skill.total_manaCost); j++)
+            for (j=0; j <= (6 - (i * First_Skill.total_manaCost) - (k * Third_Skill.total_manaCost))/Second_Skill.total_manaCost; j++)
             {
-                var damage2_probability_maximize_after_roll = (Mathf.Pow((1 / 2), (j * Second_Skill.skill_RedManaCost) - diceRoll_RedMana)) * (Mathf.Pow((1 / 3), (j * Second_Skill.skill_YellowManaCost) - diceRoll_YellowMana)) * (Mathf.Pow((1 / 6), (j * Second_Skill.skill_BlueManaCost) - diceRoll_BlueMana));
-                var damage2_by_chance = base_damage2 * damage2_probability_maximize_after_roll;
+                //k = 0;
+                float damage2_probability_maximize_after_roll = (Mathf.Pow((1 / 2), (j * Second_Skill.skill_RedManaCost) - diceRoll_RedMana)) * (Mathf.Pow((1 / 3), (j * Second_Skill.skill_YellowManaCost) - diceRoll_YellowMana)) * (Mathf.Pow((1 / 6), (j * Second_Skill.skill_BlueManaCost) - diceRoll_BlueMana));
+                float damage2_by_chance = base_damage2 * damage2_probability_maximize_after_roll;
 
-                for (k=0; k < 6 - (i * First_Skill.total_manaCost) - (j * Second_Skill.total_manaCost); k++)
-                {             
-                    var damage3_probability_maximize_after_roll = (Mathf.Pow((1 / 2), (k * Third_Skill.skill_RedManaCost) - diceRoll_RedMana)) * (Mathf.Pow((1 / 3), (k * Third_Skill.skill_YellowManaCost) - diceRoll_YellowMana)) * (Mathf.Pow((1 / 6), (k * Third_Skill.skill_BlueManaCost) - diceRoll_BlueMana));
-                    var damage3_by_chance = base_damage3 * damage3_probability_maximize_after_roll;
+                for (k=0; k <= (6 - (i * First_Skill.total_manaCost) - (j * Second_Skill.total_manaCost))/Third_Skill.total_manaCost; k++)
+                {
+                    // j = 0;
+                    float damage3_probability_maximize_after_roll = (Mathf.Pow((1 / 2), (k * Third_Skill.skill_RedManaCost) - diceRoll_RedMana)) * (Mathf.Pow((1 / 3), (k * Third_Skill.skill_YellowManaCost) - diceRoll_YellowMana)) * (Mathf.Pow((1 / 6), (k * Third_Skill.skill_BlueManaCost) - diceRoll_BlueMana));
+                    float damage3_by_chance = base_damage3 * damage3_probability_maximize_after_roll;
+
 
                     DamageByActivationSet newset = new DamageByActivationSet();
 
-                    total_damage_bySetOfActivations.Add(newset);
                     newset.total_damage = (damage1_by_chance + damage2_by_chance + damage3_by_chance);
 
                     int[] activationSet = new int[] {i, j, k };
                     newset.skill_activation_set = activationSet;
-                }
-            }
-        }
 
-        Debug.Log("damage by set = " + total_damage_bySetOfActivations);
-        Debug.Log("damage with this roll = " + totalDamage);
+                    total_damage_bySetOfActivations.Add(newset);
+                }
+
+                k = 0;
+            }
+            j = 0;
+        }
+        foreach (var damageSet in total_damage_bySetOfActivations)
+        {
+            Debug.Log("damage by set = " + damageSet.total_damage.ToString() + " - " + damageSet.skill_activation_set[0].ToString()+ damageSet.skill_activation_set[1].ToString()+ damageSet.skill_activation_set[2].ToString());
+        }
+        Debug.Log("damage with this roll = " + TotalDamageAfterFirstRoll);
     }
 
-    public void ChanceFormula()
+    public List<Dice.diceFace> diceFaces_toGetWithReroll;
+    public float behaviourLimit;
+    public void CheckSkillBehaviour()
     {
+        if(TotalDamageAfterFirstRoll < behaviourLimit)
+        {
+
+        }
+
+        //check activations of first ability -> if behaviour is focused on first skill
+        if (skillsTotalActivations_bySkill[0] != 0)
+        {
+
+        }
+
+        //check activations of second ability -> if behaviour is focused on second skill
+        if (skillsTotalActivations_bySkill[1] != 0)
+        {
+
+        }
+
+        //check activations of third ability -> if behaviour is focused on third skill
+        if (skillsTotalActivations_bySkill[2] != 0)
+        {
+
+        }
+
+        //check if defence instances of chosen skill are above behaviour limit
+        {
+
+        }
+
+
 
 
     }

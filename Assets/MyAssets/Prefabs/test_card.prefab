@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d75862f77155a42865f6e4c89a2ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: 835275b7794088348b17d0575f573a4e, type: 2}
+  cardData: {fileID: 11400000, guid: a64ea911a41c2d3408a31576a49d8933, type: 2}
   image: {fileID: 3342329311232639685}
   cardName: {fileID: 3342329310717560228}
   cardDescription: {fileID: 3342329311157464796}
@@ -272,6 +272,9 @@ MonoBehaviour:
   lmbIneractable: 1
   rmbInteractable: 1
   lmbClick:
+    m_PersistentCalls:
+      m_Calls: []
+  rmbClick:
     m_PersistentCalls:
       m_Calls: []
   pointerEnter:
