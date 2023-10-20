@@ -9,13 +9,14 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private TablePanel tablePanel;
     [SerializeField] private CombatPanel combatPanel;
-    [SerializeField]private Card[] carteNemiche = new Card[3];
-    [SerializeField]private Card[] carteAmiche = new Card[3];
+    [SerializeField]private Card[] deckCarteNemiche = new Card[3];
+    [SerializeField]private Card[] deckCarteAmiche = new Card[3];
+    [SerializeField]private Card cartaSelezionataAmica;
+    [SerializeField]private Card cartaSelezionataNemica;
 
     [SerializeField] private Dice[] allyDices = new Dice[6];
     [SerializeField] private Dice[] enemyDices = new Dice[6];
 
-    private int cartaSelNemicaIndex;
     private bool allyWaitingForReroll;
     private bool enemyWaitingForReroll;
     private Coroutine fightCoroutine;
@@ -23,25 +24,24 @@ public class BattleManager : MonoBehaviour
 
     public Dice[] EnemyDices => enemyDices;
     public Dice[] AllyDices => allyDices;
-    private Card CartaSelAmica => tablePanel.selectedCard;
-    private Card CartaSelNemica => carteNemiche[cartaSelNemicaIndex];
 
     private void Awake()
     {
         instance = this;
     }
 
-    public void LoadCardDatas(CardData[] carteProprie, CardData[] carteAvversario)
+    public void LoadDeckCardDatas(CardData[] carteProprie, CardData[] carteAvversario)
     {
         for (int i = 0; i < 3; i++)
         {
-            carteAmiche[i].LoadData(carteProprie[i]);
-            carteNemiche[i].LoadData(carteAvversario[i]);
+            deckCarteAmiche[i].LoadData(carteProprie[i]);
+            deckCarteNemiche[i].LoadData(carteAvversario[i]);
         }
     }
     public void StartMatch() 
     {
         Debug.Log("Match Start!");
+        StopAllCoroutines();
 
         combatPanel.SetInputsActive(true);
         allyWaitingForReroll = enemyWaitingForReroll = false;
@@ -50,7 +50,10 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < enemyDices.Length; i++)
                 enemyDices[i].LockDice(false);
 
-        cartaSelNemicaIndex = Random.Range(0, 3);
+        cartaSelezionataNemica.LoadData(deckCarteNemiche[Random.Range(0, 3)].CardData);
+        cartaSelezionataAmica.LoadData(tablePanel.selectedCard.CardData);
+
+        StartCoroutine(EnterCombatAnimations());
 
         StartingDicesRoll(allyDices);
         StartingDicesRoll(enemyDices);
@@ -124,7 +127,6 @@ public class BattleManager : MonoBehaviour
         tablePanel.gameObject.SetActive(true);
         combatPanel.gameObject.SetActive(false);
     }
-
     private IEnumerator EnemyDiceSelectionCoroutine()
     {
         //ENEMY AI HERE
@@ -135,6 +137,13 @@ public class BattleManager : MonoBehaviour
             enemyDices[i].LockDice(true);
         }
         RerollDices_enemy();
+    }
+
+    private IEnumerator EnterCombatAnimations()
+    {
+        float duration = cartaSelezionataAmica.EnterCombatSceneAnim();
+        yield return new WaitForSeconds(duration); 
+        cartaSelezionataNemica.EnterCombatSceneAnim();
     }
 
 }

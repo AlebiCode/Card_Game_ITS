@@ -33,7 +33,7 @@ public class DeckCreator : MonoBehaviour
         foreach (var data in cardDatas)
         {
             Card card = Instantiate(cardPrefab, cardsParent.GetChild(spawnedCards++)).GetComponent<Card>();
-            card.LoadData(data);
+            card.LoadData(data, true, true);
             card.OnClick.AddListener(OnCardClick);
             card.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             standardSmallCardSize = card.RectTransform.sizeDelta;
@@ -76,7 +76,7 @@ public class DeckCreator : MonoBehaviour
         CardData[] cardData = new CardData[3];
         for (int i = 0; i < 3; i++)
             cardData[i] = selectedCards[i].CardData;
-        BattleManager.instance.LoadCardDatas(cardData, cardData);
+        BattleManager.instance.LoadDeckCardDatas(cardData, cardData);
     }
 
     private IEnumerator ScaleCard(RectTransform targetTransform, Vector2 targetSize)
