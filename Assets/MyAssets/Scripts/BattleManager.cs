@@ -31,7 +31,13 @@ public class BattleManager : MonoBehaviour
     private Coroutine enemyDiceSelectionCoroutine;
 
     private int playerScore = 0;
+    private int playerDamageTaken = 0;
+    private int playerParryIteration = 0;
+    private int playerDodgePercent = 0;
     private int enemyScore = 0;
+    private int enemyDamageTaken = 0;
+    private int enemyParryIteration = 0;
+    private int enemyDodgePercent = 0;
 
     public UnityEvent<int> onPlayerScoreChanged = new();
     public UnityEvent<int> onEnemyScoreChanged = new();
@@ -155,6 +161,116 @@ public class BattleManager : MonoBehaviour
             StopCoroutine(fightCoroutine);
         fightCoroutine = StartCoroutine(FightCoroutine());
     }
+
+    private void SkillChecker(Card card, Dice[] dices)
+    {
+        int skillIterations = 0; //Questa variabile è utile solo per la grafica
+        List<Dice.diceFace> diceResult = new List<Dice.diceFace>();
+        List<SkillData> skillToExec = new List<SkillData>();
+        bool isAlly = card == cartaSelezionataAmica ? true : false;
+
+        foreach (var dice in dices)
+        {
+            diceResult.Add(dice.Result);
+        }
+
+        foreach (var skill in card.CardData.Skills)
+        {
+            List<Dice.diceFace> personalDiceResults = new List<Dice.diceFace>(diceResult);
+            CheckRequisites(personalDiceResults, skill.Skill_colorCost, skill, skillToExec, isAlly, skillIterations);
+        }
+    }
+
+    private void CheckRequisites(List<Dice.diceFace> diceResults, List<Dice.diceFace> skillReq, SkillData skill, List<SkillData> skillToExec, bool isAlly, int skilliterations)
+    {
+        for (int i = 0; i < skillReq.Count; i++)
+        {
+            Dice.diceFace req = skillReq[i];
+            if (diceResults.Contains(req))
+            {
+                diceResults.Remove(req);
+                if (i == skillReq.Count - 1)
+                {
+                    //Siamo all'ultimo requisito, ergo la skill riesce
+                    skilliterations++;
+                    skillToExec.Add(skill);
+                    CheckRequisites(diceResults, skillReq, skill, skillToExec, isAlly, skilliterations);
+
+                }
+            }
+            else
+            {
+                Debug.Log("Skill Fallita");
+            }
+        }
+    }
+    private void ExecuteSkills(List<SkillData> skillsToExec, bool isAlly)
+    {
+        if (isAlly)
+        {
+            foreach (SkillData skill in skillsToExec)
+            {
+                CalculateSkill(skill, playerParryIteration, playerDodgePercent, enemyDamageTaken, enemyParryIteration, enemyDodgePercent);
+            }
+        }
+        else
+        {
+            foreach (SkillData skill in skillsToExec)
+            {
+                CalculateSkill(skill, enemyParryIteration, enemyDodgePercent, playerDamageTaken, playerParryIteration, playerDodgePercent);
+            }
+        }
+    }
+    private void CalculateSkill(SkillData skillToCalc, int personalParryIteration, int personalDodgePercent, int adversaryDamageTaken, int adversaryParryIteration, int adversaryDodgePercent)
+    {
+        personalParryIteration += skillToCalc.AefInstances;
+        personalDodgePercent += skillToCalc.Dodge;
+
+        if (skillToCalc.Damage > 0)
+        {
+            if (adversaryParryIteration >= skillToCalc.AtkInstances)
+            {
+                for (int i = 0; i < skillToCalc.AtkInstances; i++)
+                {
+                    adversaryParryIteration--;
+                }
+            }
+
+            if (adversaryParryIteration < skillToCalc.AtkInstances)
+            {
+                int remainingInstaces = skillToCalc.AtkInstances - adversaryParryIteration;
+                while (adversaryParryIteration > 0)
+                {
+                    adversaryParryIteration--;
+                }
+
+                if (adversaryDodgePercent > 0)
+                {
+                    for (int i = 0; i < remainingInstaces; i++)
+                    {
+                        int randomChance = Random.Range(0, 100);
+                        if (randomChance > adversaryDodgePercent)
+                        {
+                            adversaryDamageTaken += skillToCalc.Damage;
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < remainingInstaces; i++)
+                    {
+                        adversaryDamageTaken += skillToCalc.Damage;
+                    }
+                }
+            }
+
+        }
+    }
+
     private IEnumerator FightCoroutine()
     {
         Debug.Log("Fight!!");
