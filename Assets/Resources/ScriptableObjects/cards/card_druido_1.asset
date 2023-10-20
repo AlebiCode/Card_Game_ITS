@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ea55edae51cfb4a8824f3b8d141c61, type: 3}
+  m_Name: card_druido_1
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  spriteLarge: {fileID: 0}
+  cardName: card_druido_1
+  cardDescription: Default Description
+  cardAudioProfile: {fileID: 0}
+  skills:
+  - {fileID: 11400000, guid: bd166fe6c1b63a5438b406f59d541185, type: 2}
+  - {fileID: 11400000, guid: 34d4c2870936f7b40a28477753dbc713, type: 2}
+  - {fileID: 11400000, guid: 8d1fe2b358da22148b8c7379a70eb3a8, type: 2}
