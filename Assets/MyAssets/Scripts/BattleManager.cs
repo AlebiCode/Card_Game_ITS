@@ -31,12 +31,12 @@ public class BattleManager : MonoBehaviour
         instance = this;
     }
 
-    public void LoadCardDatas(CardData[] carteProprie, CardData[] carteAvversario)
+    public void LoadCardDatas(CardData[] carteProprie, EnemyData avversario)
     {
         for (int i = 0; i < 3; i++)
         {
             carteAmiche[i].LoadData(carteProprie[i]);
-            carteNemiche[i].LoadData(carteAvversario[i]);
+            carteNemiche[i].LoadData(avversario.EnemyCardDatas[i]);
         }
     }
     public void StartMatch() 

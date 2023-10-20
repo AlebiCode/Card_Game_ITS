@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DeckCreator : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class DeckCreator : MonoBehaviour
     private const int cards_per_deck = 3;
 
     [SerializeField] private string cardsResourcesPath;
+    [SerializeField] private string enemyResourcesPath;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private RectTransform cardsParent;
     [SerializeField] private GameObject startMatchButton;
@@ -76,7 +79,12 @@ public class DeckCreator : MonoBehaviour
         CardData[] cardData = new CardData[3];
         for (int i = 0; i < 3; i++)
             cardData[i] = selectedCards[i].CardData;
-        BattleManager.instance.LoadCardDatas(cardData, cardData);
+        BattleManager.instance.LoadCardDatas(cardData, GetRandomEnemy());
+    }
+
+    private EnemyData GetRandomEnemy() {
+        EnemyData[] enemies= Resources.LoadAll<EnemyData>(enemyResourcesPath);
+        return enemies[Random.Range(0, enemies.Length)];
     }
 
     private IEnumerator ScaleCard(RectTransform targetTransform, Vector2 targetSize)
