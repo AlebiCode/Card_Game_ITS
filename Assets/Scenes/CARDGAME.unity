@@ -1459,6 +1459,11 @@ MonoBehaviour:
   genericUiAudioSource: {fileID: 0}
   selectedCard: {fileID: 0}
   readyButton: {fileID: 1741304910}
+  pickCardText: {fileID: 0}
+  myCards: {fileID: 821773815}
+  emenyCards: {fileID: 1617909794}
+  cardsMovement: {x: 0, y: 300}
+  cardsMoveDuration: 2
 --- !u!114 &273348612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5057,7 +5062,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &866517796
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5130,6 +5135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a37c468ba02fa49ae4d16a09e62e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyAI: {fileID: 0}
   tablePanel: {fileID: 273348611}
   combatPanel: {fileID: 45992678}
   deckCarteNemiche:
@@ -5192,7 +5198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &877841390
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5230,6 +5236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deckPanel: {fileID: 1101607718}
+  pressToStartText: {fileID: 0}
 --- !u!114 &877841392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10792,10 +10799,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 273348609}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 273348611}
+        m_TargetAssemblyTypeName: TablePanel, Assembly-CSharp
+        m_MethodName: TablePanelToCombatPanelAnimation
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

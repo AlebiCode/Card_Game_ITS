@@ -15,6 +15,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     [SerializeField] private TMP_Text cardName;
     [SerializeField] private TMP_Text cardDescription;
     [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private Skill[] skills;
     [SerializeField] private bool lmbIneractable;
     [SerializeField] private bool rmbInteractable;
     [SerializeField] private UnityEvent lmbClick = new UnityEvent();
@@ -43,6 +44,25 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
         image.sprite = cardData.Sprite;
         cardName.text = cardData.CardName;
         cardDescription.text = cardData.CardDescription;
+        for (int i = 0; i < 3; i++)
+        {
+            int j = 0;
+            while (j < 3)
+            {
+                if (j < cardData.Skills[i].Skill_colorCost.Count)
+                {
+                    var face = cardData.Skills[i].Skill_colorCost[j];
+                    skills[i].SkillDices[j].gameObject.SetActive(true);
+                    //public enum diceFace { notRolled, red, blue, yellow }
+                    skills[i].SkillDices[j].color = Dice.FaceToRGB(face);
+                }
+                else
+                {
+                    skills[i].SkillDices[j].gameObject.SetActive(false);
+                }
+                j++;
+            }
+        }
     }
 
     public float EnterCombatSceneAnim() //retunrs total duration of animation
