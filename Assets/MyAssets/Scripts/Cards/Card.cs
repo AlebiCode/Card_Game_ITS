@@ -18,6 +18,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     [SerializeField] private bool lmbIneractable;
     [SerializeField] private bool rmbInteractable;
     [SerializeField] private UnityEvent lmbClick = new UnityEvent();
+    [SerializeField] private UnityEvent rmbClick = new UnityEvent();
     [SerializeField] private UnityEvent pointerEnter = new UnityEvent();
 
 
