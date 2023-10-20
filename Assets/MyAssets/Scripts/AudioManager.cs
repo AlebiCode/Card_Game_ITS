@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private List<AudioSource> uiAudio;
 
     [SerializeField] private AudioClip genericUiSelect;
+    [SerializeField] private AudioClip genericUiConfirm;
 
     private void Awake()
     {
@@ -36,6 +37,10 @@ public class AudioManager : MonoBehaviour
     public static void PlayUiSelectAudio()
     {
         PlayUiAudio(instance.genericUiSelect);
+    }
+    public static void PlayUiConfirmAudio()
+    {
+        PlayUiAudio(instance.genericUiConfirm);
     }
 
 }
