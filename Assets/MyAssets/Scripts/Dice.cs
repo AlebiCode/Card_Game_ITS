@@ -35,4 +35,18 @@ public class Dice : MonoBehaviour
         GetComponent<Image>().color = value ? Color.yellow : Color.white;
     }
 
+    public static Color FaceToRGB(diceFace diceFace)
+    {
+        switch (diceFace)
+        {
+            case diceFace.red:
+                return Color.red;
+            case diceFace.blue:
+                return Color.blue;
+            case diceFace.yellow:
+                return Color.yellow;
+        }
+        return Color.white;
+    }
+
 }

@@ -15,10 +15,10 @@ public class TitlePanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (Input.anyKeyDown)
+        if (Input.anyKeyDown)
         {
             deckPanel.SetActive(true);
             gameObject.SetActive(false);
-        }*/
+        }
     }
 }

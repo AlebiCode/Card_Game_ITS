@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Verminator
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 922d1243ff87dbe40948cbc159e253dc, type: 3}
+  spriteLarge: {fileID: 0}
   cardName: Verminator
   cardDescription: Non mangia. Non dorme. E' solo qui per distruggere
-  cardAudioProfile: {fileID: 11400000, guid: be0e31521915be349a27f743599f8bfb, type: 2}
+  cardAudioProfile: {fileID: 11400000, guid: ce54f1c2b40f4be4891ef944ea3d2e26, type: 2}
   skills:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: c6b3be35328b78545bc939dd0a9cf1ae, type: 2}
+  - {fileID: 11400000, guid: f3743b324715f214db1d3dc6eb6b77d0, type: 2}
+  - {fileID: 11400000, guid: c6b3be35328b78545bc939dd0a9cf1ae, type: 2}

@@ -88,9 +88,7 @@ public class DeckCreator : MonoBehaviour
         for (int i = 0; i < 3; i++)
             cardData[i] = selectedCards[i].CardData;
 
-        //commentata linea per fare dei test
         BattleManager.instance.LoadData(cardData, GetRandomEnemy());
-        //BattleManager.instance.LoadDeckCardDatas(cardData, GetRandomEnemy().EnemyCardDatas);
     }
 
     private EnemyData GetRandomEnemy() {
