@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 800b9eea700a34f4ab569eab6045050e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0774a834e770c3c4aa5b9b2dc84e9175, type: 3}
   m_Name: Mario
   m_EditorClassIdentifier: 
-  enemyName: 
-  enemyCards: []
-  enemyPlaystyle: 0
+  enemyName: Mario
+  enemyCardDatas:
+  - {fileID: 11400000, guid: 835275b7794088348b17d0575f573a4e, type: 2}
+  - {fileID: 11400000, guid: e2667592137b5bc45a58b8223c77e9e2, type: 2}
+  - {fileID: 11400000, guid: 961e54ae642afee459963adc13af9504, type: 2}
+  enemyPlaystyle: 1

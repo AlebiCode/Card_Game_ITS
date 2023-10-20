@@ -12,7 +12,7 @@ public class DeckCreator : MonoBehaviour
 
     [SerializeField] private string cardsResourcesPath;
     [SerializeField] private string enemyResourcesPath;
-    [SerializeField] private GameObject cardPrefab;
+    //[SerializeField] private GameObject cardPrefab;
     [SerializeField] private RectTransform cardsParent;
     [SerializeField] private GameObject startMatchButton;
     [SerializeField] private float cardSelectAnimSpeed = 1;
@@ -33,17 +33,25 @@ public class DeckCreator : MonoBehaviour
         CardData[] cardDatas = Resources.LoadAll<CardData>(cardsResourcesPath);
         int spawnedCards = 0;
 
-        foreach (var data in cardDatas)
+        //foreach (var data in cardDatas)
+        for(int i = 0; i < cardsParent.childCount; i++)
         {
-            Card card = Instantiate(cardPrefab, cardsParent.GetChild(spawnedCards++)).GetComponent<Card>();
-            card.LoadData(data, true, true);
-            card.OnClick.AddListener(OnCardClick);
-            card.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-            standardSmallCardSize = card.RectTransform.sizeDelta;
+            if (spawnedCards < cardDatas.Length)
+            {
+                Card card = cardsParent.GetChild(spawnedCards++).GetComponentInChildren<Card>();
+                card.LoadData(cardDatas[i]);
+                //card.OnClick.AddListener(OnCardClick);
+                card.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+                standardSmallCardSize = card.RectTransform.sizeDelta;
+            }
+            else
+            {
+                cardsParent.GetChild(spawnedCards++).gameObject.SetActive(false);
+            }
         }
     }
 
-    private void OnCardClick(Card card)
+    public void OnCardClick(Card card)
     {
         if (selectedCards.Contains(card))
         {
@@ -80,7 +88,9 @@ public class DeckCreator : MonoBehaviour
         for (int i = 0; i < 3; i++)
             cardData[i] = selectedCards[i].CardData;
 
+        //commentata linea per fare dei test
         BattleManager.instance.LoadData(cardData, GetRandomEnemy());
+        //BattleManager.instance.LoadDeckCardDatas(cardData, GetRandomEnemy().EnemyCardDatas);
     }
 
     private EnemyData GetRandomEnemy() {
