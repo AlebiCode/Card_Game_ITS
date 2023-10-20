@@ -17,6 +17,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Dice[] allyDices = new Dice[6];
     [SerializeField] private Dice[] enemyDices = new Dice[6];
 
+    private EnemyData enemyData;
     private bool allyWaitingForReroll;
     private bool enemyWaitingForReroll;
     private Coroutine fightCoroutine;
@@ -30,8 +31,12 @@ public class BattleManager : MonoBehaviour
         instance = this;
     }
 
-
-    public void LoadDeckCardDatas(CardData[] carteProprie, CardData[] carteAvversario)
+    public void LoadData(CardData[] carteProprie, EnemyData enemyData)
+    {
+        this.enemyData = enemyData;
+        LoadDeckCardDatas(carteProprie, enemyData.EnemyCardDatas);
+    }
+    private void LoadDeckCardDatas(CardData[] carteProprie, CardData[] carteAvversario)
     {
         for (int i = 0; i < 3; i++)
         {

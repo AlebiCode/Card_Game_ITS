@@ -49,7 +49,6 @@ public class Card : MonoBehaviour, IPointerClickHandler
 
     public void FireOnClick()
     {
-<<<<<<< Updated upstream
         if (selected) {
             audioSelect.PlayDeSelectAudio();
             selected = false;
@@ -57,10 +56,8 @@ public class Card : MonoBehaviour, IPointerClickHandler
             audioSelect.PlaySelectAudio();
             selected = true;
         }
-        onClick.Invoke(this);
-=======
+
         lmbClick.Invoke(this);
->>>>>>> Stashed changes
     }
 
     public float EnterCombatSceneAnim() //retunrs total duration of animation
