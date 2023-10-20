@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0774a834e770c3c4aa5b9b2dc84e9175, type: 3}
+  m_Name: enemy_james
+  m_EditorClassIdentifier: 
+  enemyName: enemy_james
+  enemyCardDatas:
+  - {fileID: 11400000, guid: de72ba0faa0df1c4f8e255819d5ef113, type: 2}
+  - {fileID: 11400000, guid: 3b20717a91c41034d90086c33e99b455, type: 2}
+  - {fileID: 11400000, guid: 2a08e20e599ce0845884b342a49e1499, type: 2}
+  enemyPlaystyle: 0
