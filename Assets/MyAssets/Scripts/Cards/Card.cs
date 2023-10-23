@@ -22,6 +22,8 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     [SerializeField] private UnityEvent rmbClick = new UnityEvent();
     [SerializeField] private UnityEvent pointerEnter = new UnityEvent();
 
+    public ParticleSystem selectEffect;
+
 
     public Image Image => image;
     public CardData CardData => cardData;
