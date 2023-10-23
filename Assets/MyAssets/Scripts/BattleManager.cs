@@ -30,14 +30,16 @@ public class BattleManager : MonoBehaviour
     private Coroutine fightCoroutine;
     private Coroutine enemyDiceSelectionCoroutine;
 
-    private int playerScore = 0;
-    private int playerDamageTaken = 0;
-    private int playerParryIteration = 0;
-    private int playerDodgePercent = 0;
-    private int enemyScore = 0;
-    private int enemyDamageTaken = 0;
-    private int enemyParryIteration = 0;
-    private int enemyDodgePercent = 0;
+    private int playerScore;
+    private int enemyScore;
+    private FightData playerFightData;
+    private FightData enemyFightData;
+    private struct FightData
+    {
+        public int damageTaken;
+        public int parryIteration;
+        public int dodgePercent;
+    }
 
     public UnityEvent<int> onPlayerScoreChanged = new();
     public UnityEvent<int> onEnemyScoreChanged = new();
@@ -82,6 +84,9 @@ public class BattleManager : MonoBehaviour
     public void StartMatch() 
     {
         Debug.Log("Match Start!");
+
+        playerFightData = new FightData();
+        enemyFightData = new FightData();
 
         combatPanel.SetInputsActive(true);
         allyWaitingForReroll = enemyWaitingForReroll = false;
@@ -165,13 +170,48 @@ public class BattleManager : MonoBehaviour
             StopCoroutine(fightCoroutine);
         fightCoroutine = StartCoroutine(FightCoroutine());
     }
-
-    private void SkillChecker(Card card, Dice[] dices)
+    private IEnumerator FightCoroutine()
     {
-        int skillIterations = 0; //Questa variabile è utile solo per la grafica
+        Debug.Log("Fight!!");
+        List<SkillData> allySkills = SkillChecker(cartaSelezionataAmica, allyDices);
+        List<SkillData> enemySkills = SkillChecker(cartaSelezionataNemica, enemyDices);
+        ExecuteSkillsDefences(allySkills, true);
+        ExecuteSkillsDefences(enemySkills, false);
+        Debug.Log("Player <Parry: " + playerFightData.parryIteration + "><Dodge: " + playerFightData.dodgePercent + ">");
+        Debug.Log("Enemy <Parry: " + enemyFightData.parryIteration + "><Dodge: " + enemyFightData.dodgePercent + ">");
+        ExecuteSkillsAttacks(allySkills, true);
+        ExecuteSkillsAttacks(enemySkills, false);
+        Debug.Log("Player <Damage Taken: " + playerFightData.damageTaken + ">");
+        Debug.Log("Enemy <Damage Taken: " + enemyFightData.damageTaken + ">");
+        yield return new WaitForSeconds(3);
+        UpdateWinnerScore(playerFightData.damageTaken <= enemyFightData.damageTaken);
+        tablePanel.gameObject.SetActive(true);
+        combatPanel.gameObject.SetActive(false);
+    }
+    private IEnumerator EnemyDiceSelectionCoroutine()
+    {
+        //ENEMY AI HERE
+
+       // EnemyAI.TurnLoop();
+    
+        for (int i = 0; i < Random.Range(2,6); i++)
+        {
+            yield return new WaitForSeconds(1);
+            enemyDices[i].LockDice(true);
+        }
+
+        yield return new WaitForSeconds(1);
+        RerollDices_enemy();
+    }
+
+    #region Skill check, calculation and execution
+
+    private List<SkillData> SkillChecker(Card card, Dice[] dices)
+    {
+        int skillIterations = 0; //Questa variabile Ã¨ utile solo per la grafica
         List<Dice.diceFace> diceResult = new List<Dice.diceFace>();
         List<SkillData> skillToExec = new List<SkillData>();
-        bool isAlly = card == cartaSelezionataAmica ? true : false;
+        bool isAlly = card == cartaSelezionataAmica;
 
         foreach (var dice in dices)
         {
@@ -183,8 +223,8 @@ public class BattleManager : MonoBehaviour
             List<Dice.diceFace> personalDiceResults = new List<Dice.diceFace>(diceResult);
             CheckRequisites(personalDiceResults, skill.Skill_colorCost, skill, skillToExec, isAlly, skillIterations);
         }
+        return skillToExec;
     }
-
     private void CheckRequisites(List<Dice.diceFace> diceResults, List<Dice.diceFace> skillReq, SkillData skill, List<SkillData> skillToExec, bool isAlly, int skilliterations)
     {
         for (int i = 0; i < skillReq.Count; i++)
@@ -198,107 +238,75 @@ public class BattleManager : MonoBehaviour
                     //Siamo all'ultimo requisito, ergo la skill riesce
                     skilliterations++;
                     skillToExec.Add(skill);
+                    //Debug.Log((isAlly ? "Ally" : "Enemy") + " can use skill " + skill.name);
+                    //SFX
                     CheckRequisites(diceResults, skillReq, skill, skillToExec, isAlly, skilliterations);
-
                 }
             }
             else
             {
-                Debug.Log("Skill Fallita");
+                //Debug.Log("Skill Fallita");
+                return;
             }
         }
     }
-    private void ExecuteSkills(List<SkillData> skillsToExec, bool isAlly)
+    private void ExecuteSkillsDefences(List<SkillData> skillsToExec, bool isAlly)
     {
-        if (isAlly)
+        foreach (SkillData skill in skillsToExec)
         {
-            foreach (SkillData skill in skillsToExec)
-            {
-                CalculateSkill(skill, playerParryIteration, playerDodgePercent, enemyDamageTaken, enemyParryIteration, enemyDodgePercent);
-            }
-        }
-        else
-        {
-            foreach (SkillData skill in skillsToExec)
-            {
-                CalculateSkill(skill, enemyParryIteration, enemyDodgePercent, playerDamageTaken, playerParryIteration, playerDodgePercent);
-            }
+            if (isAlly)
+                CalculateSkillDefence(skill, ref playerFightData);
+            else
+                CalculateSkillDefence(skill, ref enemyFightData);
+
+            Debug.Log((isAlly ? "Ally" : "Enemy") + " uses skill " + skill.name);
         }
     }
-    private void CalculateSkill(SkillData skillToCalc, int personalParryIteration, int personalDodgePercent, int adversaryDamageTaken, int adversaryParryIteration, int adversaryDodgePercent)
+    private void ExecuteSkillsAttacks(List<SkillData> skillsToExec, bool isAlly)
     {
-        personalParryIteration += skillToCalc.DefInstances;
-        personalDodgePercent += skillToCalc.Dodge;
-
-        if (skillToCalc.Damage > 0)
+        foreach (SkillData skill in skillsToExec)
         {
-            if (adversaryParryIteration >= skillToCalc.AtkInstances)
+            if (isAlly)
+                CalculateSkillAttack(skill, ref playerFightData);
+            else
+                CalculateSkillAttack(skill, ref enemyFightData);
+
+            Debug.Log((isAlly ? "Ally" : "Enemy") + " uses skill " + skill.name);
+        }
+    }
+
+    private void CalculateSkillDefence(SkillData skillToCalc, ref FightData fightData)
+    {
+        fightData.parryIteration += skillToCalc.DefInstances;
+        fightData.dodgePercent += skillToCalc.Dodge;
+    }
+
+    private void CalculateSkillAttack(SkillData skillToCalc, ref FightData defenderFightData)
+    {
+        for (int i = 0; i < skillToCalc.AtkInstances; i++)
+        {
+            if (defenderFightData.parryIteration == 0)
             {
-                for (int i = 0; i < skillToCalc.AtkInstances; i++)
+                int randomChance = Random.Range(1, 101);
+                if (randomChance > defenderFightData.dodgePercent)
                 {
-                    adversaryParryIteration--;
-                }
-            }
-
-            if (adversaryParryIteration < skillToCalc.AtkInstances)
-            {
-                int remainingInstaces = skillToCalc.AtkInstances - adversaryParryIteration;
-                while (adversaryParryIteration > 0)
-                {
-                    adversaryParryIteration--;
-                }
-
-                if (adversaryDodgePercent > 0)
-                {
-                    for (int i = 0; i < remainingInstaces; i++)
-                    {
-                        int randomChance = Random.Range(0, 100);
-                        if (randomChance > adversaryDodgePercent)
-                        {
-                            adversaryDamageTaken += skillToCalc.Damage;
-                        }
-                        else
-                        {
-
-                        }
-                    }
+                    defenderFightData.damageTaken += skillToCalc.Damage;
+                    //Hit
                 }
                 else
                 {
-                    for (int i = 0; i < remainingInstaces; i++)
-                    {
-                        adversaryDamageTaken += skillToCalc.Damage;
-                    }
+                    //Dodged
                 }
             }
-
+            else
+            {
+                //Blocked
+                defenderFightData.parryIteration--;
+            }
         }
     }
-
-    private IEnumerator FightCoroutine()
-    {
-        Debug.Log("Fight!!");
-        yield return new WaitForSeconds(3);
-        UpdateWinnerScore(Random.Range(0,2)==0);
-        tablePanel.gameObject.SetActive(true);
-        combatPanel.gameObject.SetActive(false);
-    }
-    private IEnumerator EnemyDiceSelectionCoroutine()
-    {
-        //ENEMY AI HERE
-
-       // EnemyAI.TurnLoop();
     
-        for (int i = 0; i < Random.Range(2,6); i++)
-        {
-            Debug.Log("Hmmmmm...");
-            yield return new WaitForSeconds(1);
-            enemyDices[i].LockDice(true);
-        }
-
-        yield return new WaitForSeconds(1);
-        RerollDices_enemy();
-    }
+    #endregion
 
     private void ResetScore() {
         EnemyScore = 0;
@@ -318,10 +326,11 @@ public class BattleManager : MonoBehaviour
                 StartCoroutine(EndBattle(false));
             }
         }
+        Debug.Log("Score: " + playerScore + "-" + enemyScore);
     }
 
     private IEnumerator EndBattle(bool hasPlayerWon) {
-        Debug.Log("Partita Conclusa");
+        Debug.Log("Partita Conclusa. " + (hasPlayerWon ? "Player won." : "Player lost."));
         yield return new WaitForSeconds(2);
         ResetScore();
         SceneManager.LoadScene(0);

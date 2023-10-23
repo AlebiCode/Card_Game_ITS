@@ -8074,12 +8074,12 @@ MonoBehaviour:
   - {fileID: 2074878234}
   - {fileID: 949016638}
   - {fileID: 1609527087}
-  diceRollLoop: {fileID: 0}
+  diceRollLoop: {fileID: 1823903025}
   genericUiSelect: {fileID: 8300000, guid: e77b0c16c8367d0419f43e9227593756, type: 3}
   genericUiConfirm: {fileID: 8300000, guid: c325f7b40e551084a8f2a86eb3d7ff70, type: 3}
-  attackBlocked: {fileID: 0}
-  attackDodged: {fileID: 0}
-  attackHit: {fileID: 0}
+  attackBlocked: {fileID: 8300000, guid: 0d1c30f1b9b37da4b9e7610a93e649e9, type: 3}
+  attackDodged: {fileID: 8300000, guid: 0d1c30f1b9b37da4b9e7610a93e649e9, type: 3}
+  attackHit: {fileID: 8300000, guid: d9e9acd4bc0e4cc42ad67e42dfc48175, type: 3}
 --- !u!4 &1235567077
 Transform:
   m_ObjectHideFlags: 0

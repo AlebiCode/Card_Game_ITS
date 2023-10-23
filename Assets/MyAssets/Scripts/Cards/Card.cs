@@ -86,12 +86,12 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left && lmbIneractable)
         {
-            Debug.Log("Left click");
+            //Debug.Log("Left click");
             lmbClick.Invoke();
         }
         else if (eventData.button == PointerEventData.InputButton.Right && lmbIneractable)
         {
-            Debug.Log("Right click");
+            //Debug.Log("Right click");
         }
     }
 
