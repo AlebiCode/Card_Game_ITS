@@ -16,7 +16,7 @@ MonoBehaviour:
   spriteLarge: {fileID: 0}
   cardName: Human Brute
   cardDescription: Umano brutto.
-  cardAudioProfile: {fileID: 0}
+  cardAudioProfile: {fileID: 11400000, guid: a8e96c105c9b0754b8716345aa907493, type: 2}
   skills:
   - {fileID: 11400000, guid: 3fd3be45ec6149042a158a490dda2095, type: 2}
   - {fileID: 11400000, guid: 95bfe7708f4d63d4cb4103d6cf43c94e, type: 2}

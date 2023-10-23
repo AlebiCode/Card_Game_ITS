@@ -5058,6 +5058,7 @@ GameObject:
   - component: {fileID: 866517798}
   - component: {fileID: 866517797}
   - component: {fileID: 866517799}
+  - component: {fileID: 866517800}
   m_Layer: 5
   m_Name: Battle Panel
   m_TagString: Untagged
@@ -5182,6 +5183,80 @@ MonoBehaviour:
   onEnemyScoreChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &866517800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866517795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34d9c44d2edcf4342945a3616bfda138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diceRolled: []
+  diceRolled_faces: 
+  diceRoll_RedMana: 0
+  diceRoll_YellowMana: 0
+  diceRoll_BlueMana: 0
+  diceRoll_byManaColor: 
+  skillsTotalActivations_bySkill: 
+  TotalDamageAfterFirstRoll: 0
+  selected_cards: []
+  battling_card: {fileID: 3342329311094680645, guid: 1f6f96939ddc61144acf7bd249998639, type: 3}
+  First_Skill:
+    skillData: {fileID: 0}
+    skill_ManaCost_list: 
+    total_manaCost: 0
+    skill_RedManaCost: 0
+    skill_YellowManaCost: 0
+    skill_BlueManaCost: 0
+    skill_ManaCost_byManaType: 
+    skill_maximum_activations: 0
+    redMana_activations_onRoll: 0
+    yellowMana_activationsonRoll: 0
+    blueMana_activations_onRoll: 0
+    activations_onRoll_byManaType: 
+    NumberOfSkillActivations: 0
+    isAttackPrecise: 0
+    defenceInstances_Activated: 0
+    dodgeInstances_Activated: 
+  Second_Skill:
+    skillData: {fileID: 0}
+    skill_ManaCost_list: 
+    total_manaCost: 0
+    skill_RedManaCost: 0
+    skill_YellowManaCost: 0
+    skill_BlueManaCost: 0
+    skill_ManaCost_byManaType: 
+    skill_maximum_activations: 0
+    redMana_activations_onRoll: 0
+    yellowMana_activationsonRoll: 0
+    blueMana_activations_onRoll: 0
+    activations_onRoll_byManaType: 
+    NumberOfSkillActivations: 0
+    isAttackPrecise: 0
+    defenceInstances_Activated: 0
+    dodgeInstances_Activated: 
+  Third_Skill:
+    skillData: {fileID: 0}
+    skill_ManaCost_list: 
+    total_manaCost: 0
+    skill_RedManaCost: 0
+    skill_YellowManaCost: 0
+    skill_BlueManaCost: 0
+    skill_ManaCost_byManaType: 
+    skill_maximum_activations: 0
+    redMana_activations_onRoll: 0
+    yellowMana_activationsonRoll: 0
+    blueMana_activations_onRoll: 0
+    activations_onRoll_byManaType: 
+    NumberOfSkillActivations: 0
+    isAttackPrecise: 0
+    defenceInstances_Activated: 0
+    dodgeInstances_Activated: 
+  CurrentCard_Skills: []
 --- !u!1 &877841389
 GameObject:
   m_ObjectHideFlags: 0
@@ -5238,7 +5313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deckPanel: {fileID: 1101607718}
-  audioClip: {fileID: 8300000, guid: c325f7b40e551084a8f2a86eb3d7ff70, type: 3}
+  audioClip: {fileID: 0}
 --- !u!114 &877841392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7999,12 +8074,12 @@ MonoBehaviour:
   - {fileID: 2074878234}
   - {fileID: 949016638}
   - {fileID: 1609527087}
-  diceRollLoop: {fileID: 1823903025}
+  diceRollLoop: {fileID: 0}
   genericUiSelect: {fileID: 8300000, guid: e77b0c16c8367d0419f43e9227593756, type: 3}
   genericUiConfirm: {fileID: 8300000, guid: c325f7b40e551084a8f2a86eb3d7ff70, type: 3}
-  attackBlocked: {fileID: 8300000, guid: 0d1c30f1b9b37da4b9e7610a93e649e9, type: 3}
-  attackDodged: {fileID: 8300000, guid: 0d1c30f1b9b37da4b9e7610a93e649e9, type: 3}
-  attackHit: {fileID: 8300000, guid: d9e9acd4bc0e4cc42ad67e42dfc48175, type: 3}
+  attackBlocked: {fileID: 0}
+  attackDodged: {fileID: 0}
+  attackHit: {fileID: 0}
 --- !u!4 &1235567077
 Transform:
   m_ObjectHideFlags: 0
