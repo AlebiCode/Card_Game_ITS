@@ -13,9 +13,9 @@ public class ScaleUpNDown : MonoBehaviour
     [SerializeField] private float delayBetweenAnimation;
 
     // Update is called once per frame
-    void Update()
+    void Start()
     {
-        Scaling();
+        StartCoroutine(Scaling());
     }
 
     private IEnumerator Scaling()
@@ -24,5 +24,6 @@ public class ScaleUpNDown : MonoBehaviour
         yield return new WaitForSeconds(delayBetweenAnimation);
         this.transform.DOScale(scaleDown, scaleTime);
         yield return new WaitForSeconds(delayBetweenAnimation);
+        StartCoroutine(Scaling());
     }
 }
