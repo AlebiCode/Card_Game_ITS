@@ -7,24 +7,34 @@ public class ParticleSystemActivator : MonoBehaviour {
 
     private void Start() {
         // Make sure the Particle System is not active at the beginning.
+        //Affinché l'effetto particellare si veda normale setto la sua scala a 0.1f di default, in caso non venga fatto
+        particleSystem.gameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         particleSystem.Stop();
         isParticleSystemActive = false;
     }
 
-    private void Update() {
-        // Check for UI element selection (e.g., Button click, Toggle change, etc.)
-        if (Input.GetMouseButtonDown(0)) // Change this condition based on your UI interaction
-        {
-            // Check if the Particle System is currently active
+
+    public void ActivateAnimation() {
+        if (particleSystem != null) {
             if (!isParticleSystemActive) {
-                // Activate the Particle System
                 particleSystem.Play();
                 isParticleSystemActive = true;
-            } else {
-                // Deactivate the Particle System
+            }
+        } else {
+            Debug.LogError("Couldn't locate Particle Effect for " + gameObject.name);
+        }
+
+    }
+
+    public void DeactivateAnimation() {
+        if (particleSystem != null) {
+            if (isParticleSystemActive) {
                 particleSystem.Stop();
                 isParticleSystemActive = false;
             }
+        } else {
+            Debug.LogError("Couldn't locate Particle Effect for " + gameObject.name);
         }
     }
 }
+
