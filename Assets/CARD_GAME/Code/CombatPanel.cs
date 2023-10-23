@@ -18,6 +18,8 @@ public class CombatPanel : MonoBehaviour
         if (!inputsActive)
             return;
 
+        AudioManager.PlayUiConfirmAudio();
+
         // Controllare che siamo in fase di reroll, altrimenti return
         if (dice.IsLocked)
         {
@@ -32,6 +34,7 @@ public class CombatPanel : MonoBehaviour
     {
         if (!inputsActive)
             return;
+        AudioManager.PlayUiConfirmAudio();
         BattleManager.instance.RerollDices_Ally();
     }
 

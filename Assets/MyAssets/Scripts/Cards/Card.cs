@@ -65,17 +65,20 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
         }
     }
 
-    public float EnterCombatSceneAnim() //retunrs total duration of animation
+    public IEnumerator EnterCombatSceneAnim() //retunrs total duration of animation
     {
         float duration = 0;
         duration = PlayEnteringAudio();
-        return duration;
+        yield return new WaitForSeconds(duration);
     }
     private float PlayEnteringAudio()
     {
-        AudioClip clip = cardData.CardAudioProfile.GetRandomClip();
-        AudioManager.PlayCardAudio(clip); 
-        return clip.length;
+        float offsetTime = 0.5f;
+        AudioClip entranceClip = cardData.CardAudioProfile.GetRandomEntranceClip();
+        AudioClip lineClip = cardData.CardAudioProfile.GetRandomLinesClip();
+        AudioManager.PlayCardAudio(entranceClip);
+        AudioManager.PlayCardAudio(lineClip, offsetTime);
+        return Mathf.Max(0, entranceClip.length + offsetTime, lineClip.length);
     }
 
     public void OnPointerClick(PointerEventData eventData)

@@ -82,7 +82,6 @@ public class BattleManager : MonoBehaviour
     public void StartMatch() 
     {
         Debug.Log("Match Start!");
-        StopAllCoroutines();
 
         combatPanel.SetInputsActive(true);
         allyWaitingForReroll = enemyWaitingForReroll = false;
@@ -94,14 +93,17 @@ public class BattleManager : MonoBehaviour
         cartaSelezionataNemica.LoadData(deckCarteNemiche[Random.Range(0, 3)].CardData);
         cartaSelezionataAmica.LoadData(tablePanel.selectedCard.CardData);
 
-        StartCoroutine(EnterCombatAnimations());
-
+        StopAllCoroutines();
+        StartCoroutine(StartMatch_Coroutine());
+    }
+    private IEnumerator StartMatch_Coroutine()
+    {
         StartingDicesRoll(allyDices);
         StartingDicesRoll(enemyDices);
         
-        if(enemyDiceSelectionCoroutine != null)
-            StopCoroutine(enemyDiceSelectionCoroutine);
-        enemyDiceSelectionCoroutine = StartCoroutine(EnemyDiceSelectionCoroutine());
+        yield return EnterCombatAnimations();
+
+        StartCoroutine(EnemyDiceSelectionCoroutine());
     }
     private void StartingDicesRoll(Dice[] dices)
     {
@@ -122,8 +124,10 @@ public class BattleManager : MonoBehaviour
     }
     private void RerollDices() 
     {
+        AudioManager.StartDiceRollLoop();
         if (!allyWaitingForReroll || !enemyWaitingForReroll)
             return;
+        AudioManager.StopDiceRollLoop();
 
         for (int i = 0; i < allyDices.Length; i++)
         {
@@ -285,13 +289,14 @@ public class BattleManager : MonoBehaviour
 
        // EnemyAI.TurnLoop();
     
-        for (int i = 0; i < Random.Range(0,6); i++)
+        for (int i = 0; i < Random.Range(2,6); i++)
         {
             Debug.Log("Hmmmmm...");
             yield return new WaitForSeconds(1);
-            //enemyDices[i].LockDice(true);
+            enemyDices[i].LockDice(true);
         }
-        
+
+        yield return new WaitForSeconds(1);
         RerollDices_enemy();
     }
 
@@ -325,9 +330,8 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator EnterCombatAnimations()
     {
-        float duration = cartaSelezionataAmica.EnterCombatSceneAnim();
-        yield return new WaitForSeconds(duration); 
-        cartaSelezionataNemica.EnterCombatSceneAnim();
+        yield return cartaSelezionataAmica.EnterCombatSceneAnim();
+        yield return cartaSelezionataNemica.EnterCombatSceneAnim();
     }
 
 }

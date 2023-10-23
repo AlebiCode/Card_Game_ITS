@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6465494f46751d42999999d6f97dc0a, type: 3}
   m_Name: diego_1
   m_EditorClassIdentifier: 
-  audioClips:
+  entranceClips:
   - {fileID: 8300000, guid: 09f1ad51e41de5943b374b0ef6c5e137, type: 3}
-  - {fileID: 8300000, guid: 5a0ffa6d0a9cc6b40b31abf91934d703, type: 3}
+  linesClips:
+  - {fileID: 8300000, guid: e2fa6431b88be0f47b57f18206eaecc0, type: 3}

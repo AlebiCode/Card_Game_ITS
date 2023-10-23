@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ea55edae51cfb4a8824f3b8d141c61, type: 3}
   m_Name: card_robot_1
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 097f33864966c8546b96cdedef24ff11, type: 3}
   spriteLarge: {fileID: 0}
   cardName: card_robot_1
   cardDescription: Default Description
-  cardAudioProfile: {fileID: 0}
+  cardAudioProfile: {fileID: 11400000, guid: a8e96c105c9b0754b8716345aa907493, type: 2}
   skills:
   - {fileID: 11400000, guid: ad610a863e9186d43889966ca5e301a6, type: 2}
   - {fileID: 11400000, guid: 525c5513e69250f4ba1ccd89b18c5f0a, type: 2}

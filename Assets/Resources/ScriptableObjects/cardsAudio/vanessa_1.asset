@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6465494f46751d42999999d6f97dc0a, type: 3}
   m_Name: vanessa_1
   m_EditorClassIdentifier: 
-  audioClips:
+  entranceClips:
   - {fileID: 8300000, guid: 0f78f14a1b2cc974d813784c1b9f450e, type: 3}
-  - {fileID: 8300000, guid: 4e7cffd612f2484488becc89813f1a47, type: 3}
+  linesClips:
+  - {fileID: 8300000, guid: e2fa6431b88be0f47b57f18206eaecc0, type: 3}

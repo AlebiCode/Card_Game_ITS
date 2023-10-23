@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ea55edae51cfb4a8824f3b8d141c61, type: 3}
   m_Name: card_umano_2
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: dcea51d6065d64246aeec467afeff684, type: 3}
   spriteLarge: {fileID: 0}
   cardName: card_umano_2
   cardDescription: Default Description
-  cardAudioProfile: {fileID: 0}
+  cardAudioProfile: {fileID: 11400000, guid: b01107fcdd14e0b499144d5d56a2773d, type: 2}
   skills:
   - {fileID: 11400000, guid: 77752cfe44335b74baeca9cc0acfa9ff, type: 2}
   - {fileID: 11400000, guid: 369cbd9476079e94eb51f518159c29ef, type: 2}

@@ -5,14 +5,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CardAudioProfile", menuName = "ScriptableObjects/Create CardAudioProfile", order = 1)]
 public class CardAudioProfile : ScriptableObject
 {
-    [SerializeField] private AudioClip[] audioClips;
+    [SerializeField] private AudioClip[] entranceClips;
+    [SerializeField] private AudioClip[] linesClips;
 
-    public AudioClip GetRandomClip()
+    public AudioClip GetRandomEntranceClip()
     {
-        if(audioClips == null || audioClips.Length == 0)
+        if (entranceClips == null || entranceClips.Length == 0)
             return null;
 
-        return audioClips[Random.Range(0,audioClips.Length)];
+        return entranceClips[Random.Range(0, entranceClips.Length)];
+    }
+    public AudioClip GetRandomLinesClip()
+    {
+        if (linesClips == null || linesClips.Length == 0)
+            return null;
+
+        return linesClips[Random.Range(0, linesClips.Length)];
     }
 
 }

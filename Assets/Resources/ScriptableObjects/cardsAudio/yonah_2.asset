@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6465494f46751d42999999d6f97dc0a, type: 3}
   m_Name: yonah_2
   m_EditorClassIdentifier: 
-  audioClips:
+  entranceClips:
   - {fileID: 8300000, guid: 1b998abb0f27cd14086028dd1861a96d, type: 3}
+  linesClips:
+  - {fileID: 8300000, guid: e2fa6431b88be0f47b57f18206eaecc0, type: 3}
