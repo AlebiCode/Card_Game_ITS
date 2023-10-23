@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class PausePanel : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void QuitButton()
     {
-        
+        Debug.Log("Quit");
+        Application.Quit();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
+    
 }
+
+

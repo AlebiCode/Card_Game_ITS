@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
+    public AudioMixer mainMixer;
 
     [Header("Audio Sources")]
     [SerializeField] private List<AudioSource> cardAudio;
@@ -72,4 +74,8 @@ public class AudioManager : MonoBehaviour
         instance.diceRollLoop.Stop();
     }
 
+    public void SetVolume(float volume)
+    {
+        mainMixer.SetFloat("Volume", volume);
+    }
 }
