@@ -227,7 +227,7 @@ public class BattleManager : MonoBehaviour
     }
     private void CalculateSkill(SkillData skillToCalc, int personalParryIteration, int personalDodgePercent, int adversaryDamageTaken, int adversaryParryIteration, int adversaryDodgePercent)
     {
-        personalParryIteration += skillToCalc.AefInstances;
+        personalParryIteration += skillToCalc.DefInstances;
         personalDodgePercent += skillToCalc.Dodge;
 
         if (skillToCalc.Damage > 0)
