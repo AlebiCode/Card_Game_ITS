@@ -77,7 +77,7 @@ public class EnemyBrain : MonoBehaviour
     {
         GetCurrentCardSkills();
 
-        GetRolledActivations();
+        GetRolledActivationsFromEachSkill();
 
         PreRerollDamageFormula();
     }
@@ -260,7 +260,7 @@ public class EnemyBrain : MonoBehaviour
         skillsTotalActivations_bySkill.Add(_skill.NumberOfSkillActivations);
     }
 
-    public void GetRolledActivations()
+    public void GetRolledActivationsFromEachSkill()
     {
         skillsTotalActivations_bySkill = new List<int>();
 
@@ -284,7 +284,7 @@ public class EnemyBrain : MonoBehaviour
 
         GetCurrentCardSkills();
 
-        GetRolledActivations();
+        GetRolledActivationsFromEachSkill();
 
         PreRerollDamageFormula();
     }
@@ -429,7 +429,7 @@ public class EnemyBrain : MonoBehaviour
         }
 
         int MaxDamage = (int)(CheckMaxDamage.Max());
-        
+        Debug.Log("damage max = " + MaxDamage);
 
         /*
         float probability1_maxActivations_after_roll = (First_Skill.skill_RedManaCost    > 0 ? (Mathf.Pow((1 / 2f), (max_activations1 * First_Skill.skill_RedManaCost) - diceRoll_RedMana)):1)
@@ -442,7 +442,16 @@ public class EnemyBrain : MonoBehaviour
         {
             Debug.Log("damage by set = " + damageSet.total_damage.ToString() + " - " + damageSet.skill_activation_set[0].ToString()+ damageSet.skill_activation_set[1].ToString()+ damageSet.skill_activation_set[2].ToString());
         }
+
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        max_activations1 = i;
+        for (i=0; i <= 6/First_Skill.total_manaCost; i++)
+            for(j=0; j<=6-(i*()
+
         */
+
     }
 
     private List<Dice.diceFace> diceFaces_toGetWithReroll;
