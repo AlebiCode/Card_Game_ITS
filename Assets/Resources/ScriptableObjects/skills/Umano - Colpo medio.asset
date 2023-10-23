@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Umano - Colpo medio
   m_EditorClassIdentifier: 
   skillName: Umano - Colpo medio
-  skill_colorCost: 0100000000000000
+  skill_colorCost: 0100000003000000
   damage: 200
   atkInstances: 1
   defInstances: 0

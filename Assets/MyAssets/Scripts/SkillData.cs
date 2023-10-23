@@ -18,7 +18,7 @@ public class SkillData : ScriptableObject
     public string SkillName => skillName;
     public int Damage => damage;
     public int AtkInstances => atkInstances;
-    public int AefInstances => defInstances;
+    public int DefInstances => defInstances;
     public int Dodge => dodge;
     public bool Precise => precise;
 
