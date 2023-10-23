@@ -74,7 +74,7 @@ public class DeckCreator : MonoBehaviour
         card.gameObject.GetComponent<ParticleSystemActivator>().ActivateAnimation();
         selectedCards.Add(card);
         card.StopAllCoroutines();
-        card.StartCoroutine(ScaleCard(card.RectTransform, standardSmallCardSize * 1.2f));
+        card.StartCoroutine(ScaleCard(card.RectTransform, standardSmallCardSize * 1.05f));
     }
     private void DeselectCard(Card card)
     {

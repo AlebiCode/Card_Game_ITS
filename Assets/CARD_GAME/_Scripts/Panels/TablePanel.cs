@@ -13,13 +13,21 @@ public class TablePanel : MonoBehaviour
     [SerializeField] private GameObject readyButton;
     [SerializeField] private GameObject pickCardText;
     [SerializeField] private GameObject myCards;
-    [SerializeField] private GameObject emenyCards;
-    [SerializeField] private Vector2 cardsMovement;
+    [SerializeField] private GameObject enemyCards;
+    [SerializeField] private float cardsMovement;
     [SerializeField] private float cardsMoveDuration;
+    private Vector3 myCardsInitialPosition;
+    private Vector3 enemyCardsInitialPosition;
 
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        myCardsInitialPosition = myCards.transform.position;
+        enemyCardsInitialPosition = enemyCards.transform.position;
     }
 
     public void OnPlayerCardClick(Card card )
@@ -70,14 +78,14 @@ public class TablePanel : MonoBehaviour
 
     public void TablePanelToCombatPanelAnimation()
     {
-        myCards.transform.DOLocalMove(-cardsMovement, cardsMoveDuration);
-        emenyCards.transform.DOLocalMove(cardsMovement, cardsMoveDuration);
+        myCards.transform.DOLocalMoveY(-cardsMovement, cardsMoveDuration);
+        enemyCards.transform.DOLocalMoveY(cardsMovement, cardsMoveDuration);
     }
 
     public void CombatPanelToTablePanelAnimation()
     {
-        myCards.transform.DOLocalMove(cardsMovement, cardsMoveDuration / 2);
-        emenyCards.transform.DOLocalMove(-cardsMovement, cardsMoveDuration / 2);
+        myCards.transform.DOLocalMoveY(myCardsInitialPosition.y, cardsMoveDuration / 2);
+        enemyCards.transform.DOLocalMoveY(enemyCardsInitialPosition.y, cardsMoveDuration / 2);
     }
 
 }

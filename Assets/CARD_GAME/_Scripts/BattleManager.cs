@@ -187,6 +187,7 @@ public class BattleManager : MonoBehaviour
         UpdateWinnerScore(playerFightData.damageTaken <= enemyFightData.damageTaken);
         tablePanel.gameObject.SetActive(true);
         combatPanel.gameObject.SetActive(false);
+        TablePanel.instance.CombatPanelToTablePanelAnimation();
     }
     private IEnumerator EnemyDiceSelectionCoroutine()
     {
