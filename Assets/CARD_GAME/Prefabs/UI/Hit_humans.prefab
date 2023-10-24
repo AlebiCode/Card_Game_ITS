@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8248509252058216252}
   - component: {fileID: 3671229742011571282}
   - component: {fileID: 2749449184468949764}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4881,7 +4881,7 @@ GameObject:
   - component: {fileID: 1826989721499770658}
   - component: {fileID: 2673493315820095048}
   - component: {fileID: 884888286119886221}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hit_humans
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4895,10 +4895,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3431793969946601703}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.34130096, y: -3.0335078, z: -2.9747572}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 58.65, y: 58.65, z: 58.65}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8248509252058216252}
   - {fileID: 8031551058876932654}
@@ -9754,7 +9754,7 @@ GameObject:
   - component: {fileID: 8031551058876932654}
   - component: {fileID: 5079694973777158040}
   - component: {fileID: 5449905682010826818}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shockwave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14633,7 +14633,7 @@ GameObject:
   - component: {fileID: 6135240371778470047}
   - component: {fileID: 2433289556693826578}
   - component: {fileID: 1773022667782212497}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ImpactShape
   m_TagString: Untagged
   m_Icon: {fileID: 0}

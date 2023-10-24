@@ -22,7 +22,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     [SerializeField] private UnityEvent rmbClick = new UnityEvent();
     [SerializeField] private UnityEvent pointerEnter = new UnityEvent();
 
-
+    public ParticleSystemActivator particleSystemList;
 
     public Image Image => image;
     public CardData CardData => cardData;

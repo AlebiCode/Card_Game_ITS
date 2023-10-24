@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8995479830711359498}
   - component: {fileID: 4463594545416594678}
   - component: {fileID: 5340414806681328185}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particle System (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4881,7 +4881,7 @@ GameObject:
   - component: {fileID: 4552455249261162918}
   - component: {fileID: 5438307630709295067}
   - component: {fileID: 6397395949662263494}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: vfx_scudogrigio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4895,10 +4895,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5854643546379812926}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: -0.2, y: -0.2, z: -0.2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8995479830711359498}
   - {fileID: 2335086714102319385}
@@ -9762,7 +9762,7 @@ GameObject:
   - component: {fileID: 2335086714102319385}
   - component: {fileID: 6926488522261820699}
   - component: {fileID: 8782931003471296082}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}

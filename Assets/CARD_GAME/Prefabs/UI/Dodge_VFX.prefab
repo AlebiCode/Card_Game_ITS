@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3644033288862896228}
   - component: {fileID: 7726194431130130219}
   - component: {fileID: 5046875489244478993}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4881,7 +4881,7 @@ GameObject:
   - component: {fileID: 8551501725287539000}
   - component: {fileID: 7889043900335319617}
   - component: {fileID: 4471255039913975452}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Foliage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9751,7 +9751,7 @@ GameObject:
   - component: {fileID: 2118665595827079548}
   - component: {fileID: 2599109597098303525}
   - component: {fileID: 5656803154451293818}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dodge_VFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9765,10 +9765,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3056382723869560027}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 2.31, y: 0.19999981, z: -14.650001}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: -0.2, y: -0.2, z: -0.2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3233023147258372539}
   - {fileID: 5178404157606438066}
@@ -14636,7 +14636,7 @@ GameObject:
   - component: {fileID: 2546618519049527297}
   - component: {fileID: 1518225006005817016}
   - component: {fileID: 4942870182873860676}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19506,7 +19506,7 @@ GameObject:
   - component: {fileID: 3233023147258372539}
   - component: {fileID: 5471664437955482035}
   - component: {fileID: 3346451539522206013}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SmokeParticles (Center)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24386,7 +24386,7 @@ GameObject:
   - component: {fileID: 3608076280181888290}
   - component: {fileID: 4341664296378171028}
   - component: {fileID: 440275530467922343}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Foliage 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29256,7 +29256,7 @@ GameObject:
   - component: {fileID: 5178404157606438066}
   - component: {fileID: 8600251731661635495}
   - component: {fileID: 7514740163767250386}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SmokeTrails
   m_TagString: Untagged
   m_Icon: {fileID: 0}

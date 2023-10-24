@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5811451742901035070}
   - component: {fileID: 1917007094626384144}
   - component: {fileID: 6357613752142012975}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particle System (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4881,7 +4881,7 @@ GameObject:
   - component: {fileID: 2846560860912560793}
   - component: {fileID: 3412730209636545492}
   - component: {fileID: 8948639857211176055}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: vfx_scudorosso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4895,10 +4895,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565282608510151463}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: -0.2, y: -0.2, z: -0.2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5811451742901035070}
   - {fileID: 2817504441641080522}
@@ -9734,7 +9734,7 @@ ParticleSystemRenderer:
   m_ShadowBias: 0
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
-  m_Flip: {x: 0, y: 0, z: 0}
+  m_Flip: {x: 0, y: 1, z: 0}
   m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
@@ -9762,7 +9762,7 @@ GameObject:
   - component: {fileID: 2817504441641080522}
   - component: {fileID: 4553199908960247790}
   - component: {fileID: 1535984788191121952}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
