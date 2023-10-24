@@ -10,6 +10,9 @@ public class TablePanel : MonoBehaviour
 
     public AudioSource genericUiAudioSource;
     public Card selectedCard;
+    private GameObject mySelectedCard;
+    [SerializeField] private GameObject myCombatCard;
+    [SerializeField] private Transform myCombatCardTargetPosition; 
     [SerializeField] private GameObject readyButton;
     [SerializeField] private GameObject pickCardText;
     [SerializeField] private GameObject myCards;
@@ -28,6 +31,17 @@ public class TablePanel : MonoBehaviour
     {
         myCardsInitialPosition = myCards.transform.position;
         enemyCardsInitialPosition = enemyCards.transform.position;
+    }
+
+    public void OnEnable()
+    {
+        // Se la carta era già selezionata la deseleziono
+        if (!selectedCard)
+        {
+            DeselectCard(selectedCard);
+            SyncReadyButton();
+            return;
+        }
     }
 
     public void OnPlayerCardClick(Card card )
@@ -57,11 +71,13 @@ public class TablePanel : MonoBehaviour
     {
         selectedCard = card;
         selectedCard.Image.GetComponent<Image>().color = Color.yellow;
+        selectedCard.tag = "SelectedCard";
     }
 
     void DeselectCard(Card card)
     {
         selectedCard.Image.GetComponent<Image>().color = Color.white;
+        selectedCard.tag = "Untagged";
         selectedCard = null;
     }
 
@@ -78,8 +94,21 @@ public class TablePanel : MonoBehaviour
 
     public void TablePanelToCombatPanelAnimation()
     {
+        mySelectedCard = GameObject.FindGameObjectWithTag("SelectedCard");
+        
         myCards.transform.DOLocalMoveY(-cardsMovement, cardsMoveDuration);
         enemyCards.transform.DOLocalMoveY(cardsMovement, cardsMoveDuration);
+        
+        StartCoroutine(WaitAndDeactivate(cardsMoveDuration, mySelectedCard));
+
+        myCombatCard.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 400);
+        //myCombatCard.transform.position = mySelectedCard.transform.position;
+
+        StartCoroutine(ScaleAndMove(myCombatCard, 1.84f, 1.4f, mySelectedCard.transform, myCombatCardTargetPosition.transform.position, 1.4f, cardsMoveDuration));
+
+        //myCombatCard.transform.DOScale(1.84f, 1.84f);
+        //myCombatCard.transform.DOMove(myCombatCardTargetPosition, 1);
+
     }
 
     public void CombatPanelToTablePanelAnimation()
@@ -88,4 +117,15 @@ public class TablePanel : MonoBehaviour
         enemyCards.transform.DOLocalMoveY(enemyCardsInitialPosition.y, cardsMoveDuration / 2);
     }
 
+    IEnumerator WaitAndDeactivate(float time, GameObject obj) { yield return new WaitForSeconds(time); obj.SetActive(false); }
+
+    IEnumerator ScaleAndMove(GameObject obj, float endScaleValue, float scaleTime, Transform selectedCard, Vector3 endPosition, float moveTime, float startTimeAnimation)
+    {
+        yield return new WaitForSeconds(startTimeAnimation);
+        obj.transform.DOScale(endScaleValue, scaleTime);
+        obj.transform.position = selectedCard.transform.position;
+        obj.transform.DOMove(endPosition, moveTime);
+    }
+
+    
 }
