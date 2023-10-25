@@ -263,14 +263,14 @@ public class BattleManager : MonoBehaviour
     {
         //ENEMY AI HERE
 
-        // EnemyAI.TurnLoop();
-
+        EnemyAI.TurnLoop();
+        /*
         for (int i = 0; i < Random.Range(2, 6); i++)
         {
             yield return new WaitForSeconds(1);
             enemyDices[i].LockDice(true);
         }
-
+        */
         yield return new WaitForSeconds(1);
         RerollDices_enemy();
     }

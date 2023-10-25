@@ -10,6 +10,7 @@ using UnityEngine;
 public class EnemyBrain : MonoBehaviour
 {
     [Header("DICES ROLL OUTCOME")]
+
     [SerializeField] private Dice[] diceRolled;
     [SerializeField] private Dice.diceFace[] diceRolled_faces;
 
@@ -18,16 +19,21 @@ public class EnemyBrain : MonoBehaviour
     [SerializeField] private int diceRoll_BlueMana = 0;
     [SerializeField] private int[] diceRoll_byManaColor;
 
-    [Header("DAMAGE")]
-    [SerializeField] private float TotalDamageAfterFirstRoll;
-
     [Header("CARD")]
     //[SerializeField] private Card enemy_SelectedCard;
     [SerializeField] private Card[] enemy_cards;
     [SerializeField] private Card selected_card;
     [SerializeField] private CardSelected battlingCardData;
 
-    [SerializeField] private List<TargetSet> targetSets;
+    //TO DO: metto skills dentro card
+    [Header("SKILLS")]
+    [SerializeField] private Skill First_Skill;
+    [SerializeField] private Skill Second_Skill;
+    [SerializeField] private Skill Third_Skill;
+    [SerializeField] private Skill[] CurrentCard_Skills;
+
+    [Header("DAMAGE")]
+    [SerializeField] private float TotalDamageAfterFirstRoll;
 
     [Serializable()]
     public class CardSelected
@@ -48,7 +54,6 @@ public class EnemyBrain : MonoBehaviour
         public int[] total_preciseIstances_Activated ;
         public List<int> total_dodgeInstances_Activated;
 
-        //[Serializable()]
         public List<ActivationSetsData> ActivationsSetsDataList;
 
         public List<float> setProbabilitiesAfterRoll_List;
@@ -60,20 +65,7 @@ public class EnemyBrain : MonoBehaviour
         public List<int[]> skillsDodgeIstancesValues_List;
 
     }
-
-    [Serializable()]
-    private struct TargetSet
-    {
-        public int[] set;
-    }
-
-    //TO DO: metto skills dentro card
-    [Header("SKILLS")]
-    [SerializeField] private Skill First_Skill;
-    [SerializeField] private Skill Second_Skill;
-    [SerializeField] private Skill Third_Skill;
-    [SerializeField] private Skill[] CurrentCard_Skills;
-
+    
     [Serializable()]
     public class Skill
     {
@@ -99,13 +91,51 @@ public class EnemyBrain : MonoBehaviour
         public int yellowMana_activationsonRoll = 0;
         public int blueMana_activations_onRoll = 0;
         public List<int> activations_onRoll_byManaType;
-
         public int NumberOfSkillActivations = 0;
+
         public int damageDone_byActivations = 0;
         public int defenceInstances_Activated = 0;
         public bool isAttackPrecise=false;
         public int preciseIstances_Activated = 0;
         public List<int> dodgeInstances_Activated;
+
+    }
+
+    [Serializable()]
+    public class ActivationSetsData
+    {
+        public ActivationSetsData(int[] _diceComboSet)
+        {
+            diceCombinationSet_byManaType = _diceComboSet;
+        }
+
+        //questo per test maximized
+        public ActivationSetsData(float _damage, int[] _diceComboSet)
+        {
+            diceCombinationSet_byManaType = _diceComboSet;
+            //occhio qua era skillactiv_sets
+
+            total_damage = _damage;
+        }
+
+        //[0] = red mana faces, [1] = yellow mana faces, [2] = blue mana faces
+        public int[] diceCombinationSet_byManaType;
+        public float set_probability_preRoll;
+        public float set_probability_afterRoll;
+
+        //[0] = first skill activations, [1] = second skill activations, [2] = third skill activations
+        public int[] skill_activation_set;
+
+        //somma del danno di ogni abilità per le rispettive istanze e attivazioni del set
+        public float total_damage;
+        public int defence_instances;
+        public int[] precise_instances;
+        public int[] dodge_instances_values /*= new int[] {}*/;
+
+        //public float damage_toDo;
+        //public float damage_done_withActivs;
+
+        public float damageMultipliedByChance;
 
     }
 
@@ -124,6 +154,7 @@ public class EnemyBrain : MonoBehaviour
 
         AfterRollDamageFormula();
     }
+
     public void CalculateChanceButtonTest()
     {
         DiceCombinationsCalculator();
@@ -138,22 +169,22 @@ public class EnemyBrain : MonoBehaviour
         CheckMaxDamageBetweenSets(battlingCardData.ActivationsSetsDataList);
 
     }
-    public void GetCreateDice()
+
+    public void RollDices()
+    {
+        foreach (Dice die in diceRolled)
+        {
+            die.RollDice();
+        }
+    }
+   
+    public void GetDice()
     {
         
         diceRolled = BattleManager.instance.EnemyDices;
 
-        //remove comments after testing
-        /*
-        diceRolled = new Dice[6];
-
-        for(int i = 0; i < diceRolled.Length; i++)
-        {
-            diceRolled[i] = new Dice();
-        }
-        */
     }
-   
+
     public void GetCardDataAndSkills()
     {
         //get skills from card and reset values of roll
@@ -165,14 +196,6 @@ public class EnemyBrain : MonoBehaviour
 
         battlingCardData = new CardSelected(selected_card, CurrentCard_Skills);
 
-    }
-
-    public void RollDices()
-    {
-        foreach (Dice die in diceRolled)
-        {
-            die.RollDice();
-        }
     }
 
     public void GetRolledDiceFaces()
@@ -366,76 +389,136 @@ public class EnemyBrain : MonoBehaviour
     
     }
 
+    private int GetLockedDicesByColor(Dice.diceFace color){
+        int n = 0;
+        for (int x=0; x<diceRolled.Length; x++){
+            if (diceRolled[x].Result == color){
+                n++;
+            }
+        }
+        return n;
+    }
+
     public void TurnLoop()
     {
         //START
-        GetCardDataAndSkills();
-
-        GetCreateDice();
-
         //ROLL DICE
-        RollDices();
+        //RollDices();
+
+        GetDice();
 
         GetRolledDiceFaces();
 
         GetCardDataAndSkills();
 
-        //CHECK ROLLED EFFECTS
-        //first check of damage with roll
         GetRolledActivationsAndDamageFromEachSkill();
 
-        //CALCULATE POSSIBLE COMBINATIONS FOR LOCK
-        //get all possible diceCombination(by mana type)
-        DiceCombinationsCalculator();
+        //PRIORITÁ DELLE MOSSE: ORDINAMENTO
+        List<Skill> skillsByPriority = new List<Skill>();
 
-        //get all chances to do each diceCombination (by type)
-        GetChanceOfEachDiceCombinationFromRoll();
+        skillsByPriority.Add(First_Skill);
+        skillsByPriority.Add(Second_Skill);
+        skillsByPriority.Add(Third_Skill);
 
-        GetSkillActivationsSetsFromEachDiceCombination(/*battlingCardData.ActivationsSetsDataList*/);
+        List<Dice> diceToLock = new List<Dice>();
 
-        GetDamageAndEffectsFromEachActivationSet(/*battlingCardData.ActivationsSetsDataList*/);
+        foreach (Skill s in skillsByPriority){
+            List<Dice.diceFace> skillCost = s.skillData.Skill_colorCost;
+            GetSingleSkillActivationsAfterFirstRoll(s);
+            int numberOfActivations = s.NumberOfSkillActivations;
+            if (numberOfActivations == 0)
+                continue;
 
-        CheckMaxDamageBetweenSets(battlingCardData.ActivationsSetsDataList);
+            int redDiceLocked = GetLockedDicesByColor(Dice.diceFace.red);
+            for (int y=0; y< s.skill_RedManaCost; y++){
+                if (redDiceLocked == s.skill_RedManaCost-1)
+                            break;
+                for (int x=0; x<diceRolled.Length; x++){
+                    if (diceRolled[x].Result == Dice.diceFace.red){
+                        if (!diceRolled[x].IsLocked){
+                        diceRolled[x].LockDice(true);
+                        redDiceLocked++;
+                        }
+                        if (redDiceLocked == s.skill_RedManaCost-1)
+                            break;
+                    }
+                }                    
+            }
+
+            int yellowDiceLocked = GetLockedDicesByColor(Dice.diceFace.yellow);
+            for (int y=0; y< s.skill_YellowManaCost; y++){
+                if (yellowDiceLocked == s.skill_YellowManaCost-1)
+                        break;
+                for (int x=0; x<diceRolled.Length; x++){
+                    if (diceRolled[x].Result == Dice.diceFace.yellow){
+                    if (!diceRolled[x].IsLocked){
+                        diceRolled[x].LockDice(true);
+                        yellowDiceLocked++;
+                    }
+                    if (yellowDiceLocked == s.skill_YellowManaCost-1)
+                        break;
+                }
+                }                    
+            }
+
+            int blueDiceLocked = GetLockedDicesByColor(Dice.diceFace.blue);
+            for (int y=0; y< s.skill_BlueManaCost; y++){
+                if (blueDiceLocked == s.skill_BlueManaCost-1)
+                        break;
+                for (int x=0; x<diceRolled.Length; x++){
+                    if (diceRolled[x].Result == Dice.diceFace.blue){
+                    if (!diceRolled[x].IsLocked){
+                        diceRolled[x].LockDice(true);
+                        blueDiceLocked++;
+                    }
+                    if (blueDiceLocked == s.skill_BlueManaCost-1)
+                        break;
+                }
+                }
+                
+            }
+            
+        }
+
+
+
+
+
+        //PER OGNI MOSSA
+        // SE POSSO FARLA, LOCKO I DADI NECESSARI PER FARLA : PROBABILITÁ 100%
+        // RIPETERE LA STESSA MOSSA É SEMPRE PREFERIBILE A FARNE DUE DIVERSE
+
+        //REROLLO TUTTI I DADI CHE NON SONO LOCKATI
+
+        // da qui inizia a decidere quali lockare
+
+        // //CHECK ROLLED EFFECTS
+        // //first check of damage with roll
+        // GetRolledActivationsAndDamageFromEachSkill();
+
+        // //CALCULATE POSSIBLE COMBINATIONS FOR LOCK
+        // //get all possible diceCombination(by mana type)
+        // DiceCombinationsCalculator();
+
+        // //get all chances to do each diceCombination (by type)
+        // GetChanceOfEachDiceCombinationFromRoll();
+
+        // GetSkillActivationsSetsFromEachDiceCombination(/*battlingCardData.ActivationsSetsDataList*/);
+
+        // GetDamageAndEffectsFromEachActivationSet(/*battlingCardData.ActivationsSetsDataList*/);
+
+        // CheckMaxDamageBetweenSets(battlingCardData.ActivationsSetsDataList);
+
+        // // Qui ha deciso quali rerollare
+
+        for (int x = 0; x < diceRolled.Length; x++)
+        {
+            Dice d = diceRolled[x];
+            Debug.Log($"Dice {x} - {d.Result} - {d.IsLocked}");
+        }
+
 
         AfterRollDamageFormula();
-    }
-
-    [Serializable()]
-    public class ActivationSetsData
-    {
-        public ActivationSetsData(int[] _diceComboSet)
-        {
-            diceCombinationSet_byManaType = _diceComboSet;
-        }
-
-        //questo per test maximized
-        public ActivationSetsData(float _damage, int[] _diceComboSet)
-        {
-            diceCombinationSet_byManaType = _diceComboSet;
-            //occhio qua era skillactiv_sets
-            
-            total_damage = _damage;
-        }
-
-        //[0] = red mana faces, [1] = yellow mana faces, [2] = blue mana faces
-        public int[] diceCombinationSet_byManaType;
-        public float set_probability_preRoll;
-        public float set_probability_afterRoll;
-
-        //[0] = first skill activations, [1] = second skill activations, [2] = third skill activations
-        public int[] skill_activation_set;
-
-        //somma del danno di ogni abilità per le rispettive istanze e attivazioni del set
-        public float total_damage;
-        public int defence_instances;
-        public int[] precise_instances;
-        public int[] dodge_instances_values /*= new int[] {}*/;
-
-        //public float damage_toDo;
-        //public float damage_done_withActivs;
-
-        public float damageMultipliedByChance;
-
     }
 
     public void DiceCombinationsCalculator()
@@ -687,14 +770,18 @@ public class EnemyBrain : MonoBehaviour
         //here get all atk def, dodge, ecc
         activatedSet_afterFirstRoll.skill_activation_set = new int[] { First_Skill.NumberOfSkillActivations, Second_Skill.NumberOfSkillActivations, Third_Skill.NumberOfSkillActivations };
 
-        //ADD TO CHECK MAX DAMAGE OF ROLLED COMBINATION
+        //ADD TO LIST TO CHECK MAX DAMAGE OF ROLLED COMBINATION
         singleSkillMaximized_ActivationDataSets.Add(activatedSet_afterFirstRoll);
 
+
+        //maximize activations of single skill
+        //
         List<float> maximizedSkills_activationsChances_List = new List<float>();
 
         for (int i=0; i< CurrentCard_Skills.Length; i++)
         {
             float maximizedSkill_activationChance = GetMaximizedSingleSkillTargetActivationsChance(CurrentCard_Skills[i], CurrentCard_Skills[i].skill_maximum_activations);
+
             float baseDamage =  CurrentCard_Skills[i].skillData.AtkInstances * CurrentCard_Skills[i].skillData.Damage;
 
             float doneDamage = baseDamage * CurrentCard_Skills[i].NumberOfSkillActivations;
@@ -703,12 +790,12 @@ public class EnemyBrain : MonoBehaviour
             float damageToRollByChance = toRollDamage * maximizedSkill_activationChance;
 
             //peso del danno = danno iterazioni mancanti * chance + danno iterazioni fatte
-            float damageTotalFormulax = baseDamage * (CurrentCard_Skills[i].NumberOfSkillActivations + maximizedSkill_activationChance * (CurrentCard_Skills[i].skill_maximum_activations - CurrentCard_Skills[i].NumberOfSkillActivations));
-            float damageTotalFormula = doneDamage + damageToRollByChance;
+            float damageTotalChanceFormulax = baseDamage * (CurrentCard_Skills[i].NumberOfSkillActivations + maximizedSkill_activationChance * (CurrentCard_Skills[i].skill_maximum_activations - CurrentCard_Skills[i].NumberOfSkillActivations));
+            float damageTotalChanceFormula = doneDamage + damageToRollByChance;
 
+            //create activation set with dice set array
             //here i set total_damage as damage multiplied by missing activations chance + damage done
-            
-            ActivationSetsData activation_Set_afterFirstRoll = new ActivationSetsData(damageTotalFormula, new int[] { CurrentCard_Skills[i].skill_maximum_activations * CurrentCard_Skills[i].skill_RedManaCost, CurrentCard_Skills[i].skill_maximum_activations * CurrentCard_Skills[i].skill_YellowManaCost, CurrentCard_Skills[i].skill_maximum_activations * CurrentCard_Skills[i].skill_BlueManaCost });
+            ActivationSetsData activation_Set_afterFirstRoll = new ActivationSetsData(damageTotalChanceFormula, new int[] { CurrentCard_Skills[i].skill_maximum_activations * CurrentCard_Skills[i].skill_RedManaCost, CurrentCard_Skills[i].skill_maximum_activations * CurrentCard_Skills[i].skill_YellowManaCost, CurrentCard_Skills[i].skill_maximum_activations * CurrentCard_Skills[i].skill_BlueManaCost });
             
             activation_Set_afterFirstRoll.set_probability_afterRoll = maximizedSkill_activationChance;
 
@@ -716,10 +803,19 @@ public class EnemyBrain : MonoBehaviour
 
             maximizedSkills_activationsChances_List.Add(maximizedSkill_activationChance);
 
+            singleSkillMaximized_ActivationDataSets.Add(activation_Set_afterFirstRoll);
+
             Debug.Log("skill_"+(i+1)+ "_maxed chance = " + maximizedSkill_activationChance);
 
-            Debug.Log("skill_" + (i + 1) + "_maxed damage = " + damageTotalFormula +" -- "+ damageTotalFormulax);
+            Debug.Log("skill_" + (i + 1) + "_maxed damage = " + damageTotalChanceFormula + " -- "+ damageTotalChanceFormulax);
         }
+
+        Debug.Log("damage with this roll = " + TotalDamageAfterFirstRoll);
+
+        //CHECK MAX DAMAGE BETWEEN ROLLED AND MAXIMIZED ACTIVATIONS FOR EACH SKILL
+        //
+        CheckMaxDamageBetweenSets(singleSkillMaximized_ActivationDataSets);
+
 
         #region one skill maximize
 
@@ -747,33 +843,14 @@ public class EnemyBrain : MonoBehaviour
         #endregion
 
         //ADD TO CHECK MAX DAMAGE OF MAXIMIZED SET
-        ActivationSetsData activatedSet1_afterFirstRoll = new ActivationSetsData(probability_totalDamage1_afterRoll, new int[] { max_activations1 * First_Skill.skill_RedManaCost, max_activations1 * First_Skill.skill_YellowManaCost, max_activations1 * First_Skill.skill_BlueManaCost });
-        ActivationSetsData activatedSet2_afterFirstRoll = new ActivationSetsData(probability_totalDamage2_afterRoll, new int[] { max_activations2 * Second_Skill.skill_RedManaCost, max_activations2 * Second_Skill.skill_YellowManaCost, max_activations2 * Second_Skill.skill_BlueManaCost });      
-        ActivationSetsData activatedSet3_afterFirstRoll = new ActivationSetsData(probability_totalDamage3_afterRoll, new int[] { max_activations3 * Third_Skill.skill_RedManaCost, max_activations3 * Third_Skill.skill_YellowManaCost, max_activations3 * Third_Skill.skill_BlueManaCost });
-        
-        activatedSet1_afterFirstRoll.skill_activation_set = new int[] { max_activations1, 0, 0 };
-        activatedSet2_afterFirstRoll.skill_activation_set = new int[] { 0, max_activations2, 0 };
-        activatedSet3_afterFirstRoll.skill_activation_set = new int[] { 0, 0, max_activations3 };
 
-        activatedSet1_afterFirstRoll.set_probability_afterRoll = probability1_maxActivations_after;
-        activatedSet2_afterFirstRoll.set_probability_afterRoll = probability2_maxActivations_after;
-        activatedSet3_afterFirstRoll.set_probability_afterRoll = probability3_maxActivations_after;
-
-        singleSkillMaximized_ActivationDataSets.Add(activatedSet1_afterFirstRoll);
-        singleSkillMaximized_ActivationDataSets.Add(activatedSet2_afterFirstRoll);
-        singleSkillMaximized_ActivationDataSets.Add(activatedSet3_afterFirstRoll);
+        //activatedSet1_afterFirstRoll.skill_activation_set = new int[] { max_activations1, 0, 0 };
+        //activatedSet2_afterFirstRoll.skill_activation_set = new int[] { 0, max_activations2, 0 };
+        //activatedSet3_afterFirstRoll.skill_activation_set = new int[] { 0, 0, max_activations3 };
 
         //show damage
-        Debug.Log("damage with this roll = " + TotalDamageAfterFirstRoll);
-        Debug.Log("damage with 1 skill maximized = " + probability_totalDamage1_afterRoll.ToString());
-        Debug.Log("damage with 2 skill maximized = " + probability_totalDamage2_afterRoll.ToString());
-        Debug.Log("damage with 3 skill maximized = " + probability_totalDamage3_afterRoll.ToString());
 
         #endregion
-
-        //CHECK MAX DAMAGE BETWEEN ROLLED AND MAXIMIZED ACTIVATIONS FOR EACH SKILL
-        //
-        CheckMaxDamageBetweenSets(singleSkillMaximized_ActivationDataSets);
 
     }
 
@@ -791,9 +868,6 @@ public class EnemyBrain : MonoBehaviour
         Debug.Log("damage max between maxed sets = " + MaxDamage);
     }
 
-
-
-    private List<Dice.diceFace> diceFaces_toGetWithReroll;
     private float behaviourLimit;
 
     public void CheckSkillBehaviour()
@@ -841,15 +915,4 @@ public class EnemyBrain : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
