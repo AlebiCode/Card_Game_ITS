@@ -66,7 +66,8 @@ public class ParticleSystemActivator : MonoBehaviour {
 
             private void StartAnimation(ParticleSystem particleSystem) {
                 if (particleSystem != null) {
-                        particleSystem.Play();
+            particleSystem.gameObject.SetActive(true);
+            particleSystem.Play();
                         if (particleSystem.loop)
                             isSelected = true;
                 } else {
@@ -76,8 +77,10 @@ public class ParticleSystemActivator : MonoBehaviour {
             }
 
     private void StopAnimation(ParticleSystem particleSystem) {
+        ParticleSystem[] psList;
         if (particleSystem != null) {
             if (isSelected && particleSystem.isPlaying) {
+                particleSystem.gameObject.SetActive(false);
                 particleSystem.Stop();
                 isSelected = false;
             }
