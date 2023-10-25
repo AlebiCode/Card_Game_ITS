@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,13 +15,15 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private EnemyBrain EnemyAI;
 
+    [SerializeField] private GameObject lockAndRollButton;
     [SerializeField] private TablePanel tablePanel;
     [SerializeField] private CombatPanel combatPanel;
-    [SerializeField]private Card[] deckCarteNemiche = new Card[3];
-    [SerializeField]private Card[] deckCarteAmiche = new Card[3];
-    [SerializeField]private Card cartaSelezionataAmica;
-    [SerializeField]private Card cartaSelezionataNemica;
+    [SerializeField] private Card[] deckCarteNemiche = new Card[3];
+    [SerializeField] private Card[] deckCarteAmiche = new Card[3];
+    [SerializeField] private Card cartaSelezionataAmica;
+    [SerializeField] private Card cartaSelezionataNemica;
 
+    [SerializeField] private Vector3 diceAnimationOffset = Vector3.left * 1;
     [SerializeField] private Dice[] allyDices = new Dice[6];
     [SerializeField] private Dice[] enemyDices = new Dice[6];
 
@@ -39,7 +42,6 @@ public class BattleManager : MonoBehaviour
         public int damageTaken;
         public int parryIteration;
         public int dodgePercent;
-        
     }
 
     public UnityEvent<int> onPlayerScoreChanged = new();
@@ -47,17 +49,24 @@ public class BattleManager : MonoBehaviour
     public UnityEvent<int> onPlayerCardDamaged = new();
     public UnityEvent<int> onEnemyCardDamaged = new();
 
-    public int PlayerScore {
-        get { return playerScore; } 
-        set { playerScore = value;
-            onPlayerScoreChanged?.Invoke(playerScore);}
+    public int PlayerScore
+    {
+        get { return playerScore; }
+        set
+        {
+            playerScore = value;
+            onPlayerScoreChanged?.Invoke(playerScore);
+        }
     }
 
-    public int EnemyScore {
+    public int EnemyScore
+    {
         get { return enemyScore; }
-        set {
+        set
+        {
             enemyScore = value;
-            onEnemyScoreChanged?.Invoke(enemyScore);}
+            onEnemyScoreChanged?.Invoke(enemyScore);
+        }
     }
     public Dice[] EnemyDices => enemyDices;
     public Dice[] AllyDices => allyDices;
@@ -67,7 +76,8 @@ public class BattleManager : MonoBehaviour
         instance = this;
     }
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         ResetScore();
     }
 
@@ -84,9 +94,10 @@ public class BattleManager : MonoBehaviour
             deckCarteNemiche[i].LoadData(carteAvversario[i]);
         }
     }
-    public void StartMatch() 
+    public void StartMatch()
     {
         Debug.Log("Match Start!");
+        lockAndRollButton.SetActive(false);
 
         playerFightData = new FightData();
         enemyFightData = new FightData();
@@ -94,9 +105,9 @@ public class BattleManager : MonoBehaviour
         combatPanel.SetInputsActive(true);
         allyWaitingForReroll = enemyWaitingForReroll = false;
         for (int i = 0; i < allyDices.Length; i++)
-                allyDices[i].LockDice(false);
+            allyDices[i].LockDice(false);
         for (int i = 0; i < enemyDices.Length; i++)
-                enemyDices[i].LockDice(false);
+            enemyDices[i].LockDice(false);
 
         cartaSelezionataNemica.LoadData(deckCarteNemiche[Random.Range(0, 3)].CardData);
         cartaSelezionataAmica.LoadData(tablePanel.selectedCard.CardData);
@@ -108,9 +119,11 @@ public class BattleManager : MonoBehaviour
     {
         StartingDicesRoll(allyDices);
         StartingDicesRoll(enemyDices);
-        
-        yield return EnterCombatAnimations();
 
+        yield return EnterCombatAnimations();
+        yield return RollDices(3);
+
+        lockAndRollButton.SetActive(true);
         StartCoroutine(EnemyDiceSelectionCoroutine());
     }
     private void StartingDicesRoll(Dice[] dices)
@@ -123,42 +136,74 @@ public class BattleManager : MonoBehaviour
     public void RerollDices_Ally()
     {
         allyWaitingForReroll = true;
-        RerollDices();
+        lockAndRollButton.SetActive(false);
+
+        if (allyWaitingForReroll && enemyWaitingForReroll)
+            StartCoroutine(RerollAndFight());
     }
     private void RerollDices_enemy()
     {
         enemyWaitingForReroll = true;
-        RerollDices();
+
+        if (allyWaitingForReroll && enemyWaitingForReroll)
+            StartCoroutine(RerollAndFight());
     }
-    private void RerollDices() 
+    private IEnumerator RollDices(float rollingTime)
     {
         AudioManager.StartDiceRollLoop();
-        if (!allyWaitingForReroll || !enemyWaitingForReroll)
-            return;
+
+        for (int i = 0; i < allyDices.Length; i++)
+        {
+            if (!allyDices[i].IsLocked)
+            {
+                allyDices[i].StartRollAnimation();
+            }
+            if (!enemyDices[i].IsLocked)
+            {
+                enemyDices[i].StartRollAnimation();
+            }
+        }
+
+        yield return new WaitForSeconds(rollingTime);
+
         AudioManager.StopDiceRollLoop();
+        for (int i = 0; i < allyDices.Length; i++)
+        {
+            if (!allyDices[i].IsLocked)
+            {
+                allyDices[i].RollDice();
+                allyDices[i].StopRollAnimation(1);
+            }
+            if (!enemyDices[i].IsLocked)
+            {
+                enemyDices[i].RollDice();
+                enemyDices[i].StopRollAnimation(1);
+            }
+        }
+    }
+    private IEnumerator RerollAndFight()
+    {
+        yield return RollDices(2);
 
         for (int i = 0; i < allyDices.Length; i++)
         {
             if (allyDices[i].IsLocked == false)
             {
-                allyDices[i].RollDice();
                 allyDices[i].LockDice(true);
             }
-        }
-        for (int i = 0; i < enemyDices.Length; i++)
-        {
             if (enemyDices[i].IsLocked == false)
             {
-                enemyDices[i].RollDice();
                 enemyDices[i].LockDice(true);
             }
         }
 
-        StartFightCheck();
+        yield return new WaitForSeconds(2);
+
+        StartFight();
     }
     private void StartFightCheck()
     {
-        for(int i = 0; i < allyDices.Length; i++)
+        for (int i = 0; i < allyDices.Length; i++)
         {
             if (!allyDices[i].IsLocked || !enemyDices[i].IsLocked)
                 return;
@@ -169,7 +214,7 @@ public class BattleManager : MonoBehaviour
     private void StartFight()
     {
         combatPanel.SetInputsActive(false);
-        if(fightCoroutine != null)
+        if (fightCoroutine != null)
             StopCoroutine(fightCoroutine);
         fightCoroutine = StartCoroutine(FightCoroutine());
     }
@@ -196,9 +241,9 @@ public class BattleManager : MonoBehaviour
     {
         //ENEMY AI HERE
 
-       // EnemyAI.TurnLoop();
-    
-        for (int i = 0; i < Random.Range(2,6); i++)
+        // EnemyAI.TurnLoop();
+
+        for (int i = 0; i < Random.Range(2, 6); i++)
         {
             yield return new WaitForSeconds(1);
             enemyDices[i].LockDice(true);
@@ -271,9 +316,9 @@ public class BattleManager : MonoBehaviour
         foreach (SkillData skill in skillsToExec)
         {
             if (isAlly)
-                CalculateSkillAttack(skill, ref playerFightData,isAlly);
+                CalculateSkillAttack(skill, ref playerFightData, isAlly);
             else
-                CalculateSkillAttack(skill, ref enemyFightData,isAlly);
+                CalculateSkillAttack(skill, ref enemyFightData, isAlly);
 
             Debug.Log((isAlly ? "Ally" : "Enemy") + " uses skill " + skill.name);
         }
@@ -295,6 +340,7 @@ public class BattleManager : MonoBehaviour
                 if (randomChance > defenderFightData.dodgePercent)
                 {
                     defenderFightData.damageTaken += skillToCalc.Damage;
+                    //Hit
                     if (isAlly)
                         onEnemyCardDamaged?.Invoke(skillToCalc.Damage);
                     else
@@ -312,31 +358,39 @@ public class BattleManager : MonoBehaviour
             }
         }
     }
-    
+
     #endregion
 
-    private void ResetScore() {
+    private void ResetScore()
+    {
         EnemyScore = 0;
         PlayerScore = 0;
     }
 
-    private void UpdateWinnerScore(bool isPlayerTheRoundWinner) {
+    private void UpdateWinnerScore(bool isPlayerTheRoundWinner)
+    {
 
-        if (isPlayerTheRoundWinner) {
+        if (isPlayerTheRoundWinner)
+        {
             PlayerScore++;
-            if(playerScore >= pointsNeededToWin) {
+            if (playerScore >= pointsNeededToWin)
+            {
                 StartCoroutine(EndBattle(true));
             }
-        } else {
+        }
+        else
+        {
             EnemyScore++;
-            if(enemyScore>= pointsNeededToWin) {
+            if (enemyScore >= pointsNeededToWin)
+            {
                 StartCoroutine(EndBattle(false));
             }
         }
         Debug.Log("Score: " + playerScore + "-" + enemyScore);
     }
 
-    private IEnumerator EndBattle(bool hasPlayerWon) {
+    private IEnumerator EndBattle(bool hasPlayerWon)
+    {
         Debug.Log("Partita Conclusa. " + (hasPlayerWon ? "Player won." : "Player lost."));
         yield return new WaitForSeconds(2);
         ResetScore();
@@ -346,8 +400,43 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator EnterCombatAnimations()
     {
-        yield return cartaSelezionataAmica.EnterCombatSceneAnim();
-        yield return cartaSelezionataNemica.EnterCombatSceneAnim();
+        for (int i = 0; i < allyDices.Length; i++)
+        {
+            allyDices[i].transform.position -= diceAnimationOffset;
+            enemyDices[i].transform.position += diceAnimationOffset;
+        }
+        float duration = cartaSelezionataAmica.EnterCombatSceneAnim();
+        StartCoroutine(AnimateEnteringDicesAlly(0.5f));
+        yield return new WaitForSeconds(duration);
+        duration = cartaSelezionataNemica.EnterCombatSceneAnim();
+        StartCoroutine(AnimateEnteringDicesEnemy(0.5f));
+        yield return new WaitForSeconds(duration);
+    }
+    private IEnumerator AnimateEnteringDicesAlly(float diceDuration)
+    {
+        for (int i = 0; i < allyDices.Length; i++)
+        {
+            allyDices[i].gameObject.SetActive(true);
+            Vector3 targetPos = allyDices[i].transform.position + diceAnimationOffset;
+            allyDices[i].transform.DOMove(targetPos, diceDuration);
+            while (allyDices[i].transform.position != targetPos)
+            {
+                yield return null;
+            }
+        }
+    }
+    private IEnumerator AnimateEnteringDicesEnemy(float diceDuration)
+    {
+        for (int i = 0; i < enemyDices.Length; i++)
+        {
+            enemyDices[i].gameObject.SetActive(true);
+            Vector3 targetPos = enemyDices[i].transform.position - diceAnimationOffset;
+            enemyDices[i].transform.DOMove(targetPos, diceDuration);
+            while (enemyDices[i].transform.position != targetPos)
+            {
+                yield return null;
+            }
+        }
     }
 
 }

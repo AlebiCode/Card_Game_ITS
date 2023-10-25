@@ -32,7 +32,6 @@ public class DeckCreator : MonoBehaviour
     {
         CardData[] cardDatas = Resources.LoadAll<CardData>(cardsResourcesPath);
         int spawnedCards = 0;
-        Debug.Log(">>>>>>>>>>>>> " + cardDatas.Length);
         //foreach (var data in cardDatas)
         for(int i = 0; i < cardsParent.childCount; i++)
         {

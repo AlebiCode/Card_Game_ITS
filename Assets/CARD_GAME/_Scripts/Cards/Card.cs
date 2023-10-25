@@ -66,11 +66,11 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
         }
     }
 
-    public IEnumerator EnterCombatSceneAnim() //retunrs total duration of animation
+    public float EnterCombatSceneAnim() //retunrs total duration of animation
     {
         float duration = 0;
         duration = PlayEnteringAudio();
-        yield return new WaitForSeconds(duration);
+        return duration;
     }
     private float PlayEnteringAudio()
     {

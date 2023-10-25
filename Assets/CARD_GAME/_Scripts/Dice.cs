@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+
 
 public class Dice : MonoBehaviour
 {
     public enum diceFace { notRolled, red, blue, yellow }
 
+    private Image image;
     private diceFace result = diceFace.notRolled;
     private bool locked = false;
 
     public diceFace Result => result;
     public bool IsLocked => locked;
 
+    private void Start()
+    {
+        image = GetComponent<Image>();
+    }
 
     public void RollDice()
     {
@@ -23,8 +30,6 @@ public class Dice : MonoBehaviour
             result = diceFace.yellow;
         else
             result = diceFace.blue;
-
-        GetComponentInChildren<TMPro.TMP_Text>().text = result.ToString();
     }
 
     public void LockDice(bool value)
@@ -32,7 +37,7 @@ public class Dice : MonoBehaviour
         locked = value;
 
         // Attiva/Disattiva grafica o fx di selezione
-        GetComponent<Image>().color = value ? Color.yellow : Color.white;
+        GetComponentInChildren<TMPro.TMP_Text>().text = locked ? "Locked" : "";
     }
 
     public static Color FaceToRGB(diceFace diceFace)
@@ -47,6 +52,27 @@ public class Dice : MonoBehaviour
                 return Color.yellow;
         }
         return Color.white;
+    }
+
+    public void StartRollAnimation()
+    {
+        StopAllCoroutines();
+        StartCoroutine(RollAnimation(1, 400));
+    }
+    public void StopRollAnimation(float duration)
+    {
+        StopAllCoroutines();
+        image.DOColor(FaceToRGB(result), duration);
+        transform.DORotate(Vector3.zero, duration);
+    }
+    private IEnumerator RollAnimation(float whiteningDuration, float rotationSpeed)
+    {
+        image.DOColor(Color.white, whiteningDuration);
+        while (true)
+        {
+            transform.Rotate(new Vector3(0, 0, rotationSpeed * Time.deltaTime));
+            yield return null;
+        }
     }
 
 }
