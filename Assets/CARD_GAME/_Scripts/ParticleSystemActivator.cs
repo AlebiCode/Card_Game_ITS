@@ -7,7 +7,7 @@ public class ParticleSystemActivator : MonoBehaviour {
     public ParticleSystem attackEffect;
     public ParticleSystem defenseEffect;
     public ParticleSystem dodgeEffect;
-    public bool isSelected = false;
+    private bool isSelected = false;
 
     private void Start() {
         // Make sure the Particle System is not active at the beginning.
