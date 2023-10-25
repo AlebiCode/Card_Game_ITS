@@ -39,10 +39,13 @@ public class BattleManager : MonoBehaviour
         public int damageTaken;
         public int parryIteration;
         public int dodgePercent;
+        
     }
 
     public UnityEvent<int> onPlayerScoreChanged = new();
     public UnityEvent<int> onEnemyScoreChanged = new();
+    public UnityEvent<int> onPlayerCardDamaged = new();
+    public UnityEvent<int> onEnemyCardDamaged = new();
 
     public int PlayerScore {
         get { return playerScore; } 
@@ -268,9 +271,9 @@ public class BattleManager : MonoBehaviour
         foreach (SkillData skill in skillsToExec)
         {
             if (isAlly)
-                CalculateSkillAttack(skill, ref playerFightData);
+                CalculateSkillAttack(skill, ref playerFightData,isAlly);
             else
-                CalculateSkillAttack(skill, ref enemyFightData);
+                CalculateSkillAttack(skill, ref enemyFightData,isAlly);
 
             Debug.Log((isAlly ? "Ally" : "Enemy") + " uses skill " + skill.name);
         }
@@ -282,7 +285,7 @@ public class BattleManager : MonoBehaviour
         fightData.dodgePercent += skillToCalc.Dodge;
     }
 
-    private void CalculateSkillAttack(SkillData skillToCalc, ref FightData defenderFightData)
+    private void CalculateSkillAttack(SkillData skillToCalc, ref FightData defenderFightData, bool isAlly)
     {
         for (int i = 0; i < skillToCalc.AtkInstances; i++)
         {
@@ -292,7 +295,10 @@ public class BattleManager : MonoBehaviour
                 if (randomChance > defenderFightData.dodgePercent)
                 {
                     defenderFightData.damageTaken += skillToCalc.Damage;
-                    //Hit
+                    if (isAlly)
+                        onEnemyCardDamaged?.Invoke(skillToCalc.Damage);
+                    else
+                        onPlayerCardDamaged?.Invoke(skillToCalc.Damage);
                 }
                 else
                 {

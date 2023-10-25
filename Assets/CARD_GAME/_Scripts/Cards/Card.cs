@@ -16,10 +16,10 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     [SerializeField] private TMP_Text cardDescription;
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private Skill[] skills;
-    [SerializeField] private bool lmbIneractable;
+    [SerializeField] private bool lmbInteractable;
     [SerializeField] private bool rmbInteractable;
     [SerializeField] private UnityEvent lmbClick = new UnityEvent();
-    [SerializeField] private UnityEvent rmbClick = new UnityEvent();
+    [SerializeField] private UnityEvent<Card> rmbClick = new UnityEvent<Card>();
     [SerializeField] private UnityEvent pointerEnter = new UnityEvent();
 
     public ParticleSystemActivator particleSystemList;
@@ -35,7 +35,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     }
     public void LoadData(CardData cardData, bool lmbIneractable, bool rmbInteractable)
     {
-        this.lmbIneractable = lmbIneractable;
+        this.lmbInteractable = lmbIneractable;
         this.rmbInteractable = rmbInteractable;
         LoadData(cardData);
     }
@@ -84,14 +84,14 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left && lmbIneractable)
+        if (eventData.button == PointerEventData.InputButton.Left && lmbInteractable)
         {
             //Debug.Log("Left click");
             lmbClick.Invoke();
         }
-        else if (eventData.button == PointerEventData.InputButton.Right && lmbIneractable)
+        else if (eventData.button == PointerEventData.InputButton.Right && rmbInteractable)
         {
-            //Debug.Log("Right click");
+            rmbClick.Invoke(this);
         }
     }
 
