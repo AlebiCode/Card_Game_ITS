@@ -27,6 +27,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Dice[] allyDices = new Dice[6];
     [SerializeField] private Dice[] enemyDices = new Dice[6];
 
+    private List<int> enemySelectedCardIndexList = new List<int> { 0, 1, 2 };
     private int enemySelectedCardIndex;
     private EnemyData enemyData;
     private bool allyWaitingForReroll;
@@ -116,8 +117,12 @@ public class BattleManager : MonoBehaviour
             enemyDices[i].LockDice(false);
             enemyDices[i].ResetColor();
         }
+        
+        int randomIndex = Random.Range(0, enemySelectedCardIndexList.Count);
+        enemySelectedCardIndex = enemySelectedCardIndexList[randomIndex];
+        enemySelectedCardIndexList.Remove(randomIndex);
+        //enemySelectedCardIndex = Random.Range(0, 3);
 
-        enemySelectedCardIndex = Random.Range(0, 3);
         enemyCombatCard.LoadData(deckCarteNemiche[enemySelectedCardIndex].CardData);
         allyCombatCard.LoadData(tablePanel.selectedCard.CardData);
 

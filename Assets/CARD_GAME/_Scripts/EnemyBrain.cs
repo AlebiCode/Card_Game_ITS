@@ -391,8 +391,10 @@ public class EnemyBrain : MonoBehaviour
 
     private int GetLockedDicesByColor(Dice.diceFace color){
         int n = 0;
-        for (int x=0; x<diceRolled.Length; x++){
-            if (diceRolled[x].Result == color){
+        for (int x=0; x<diceRolled.Length; x++)
+        {
+            if (diceRolled[x].Result == color)
+            {
                 n++;
             }
         }
@@ -422,7 +424,8 @@ public class EnemyBrain : MonoBehaviour
 
         List<Dice> diceToLock = new List<Dice>();
 
-        foreach (Skill s in skillsByPriority){
+        foreach (Skill s in skillsByPriority)
+        {
             List<Dice.diceFace> skillCost = s.skillData.Skill_colorCost;
             GetSingleSkillActivationsAfterFirstRoll(s);
             int numberOfActivations = s.NumberOfSkillActivations;
@@ -430,14 +433,18 @@ public class EnemyBrain : MonoBehaviour
                 continue;
 
             int redDiceLocked = GetLockedDicesByColor(Dice.diceFace.red);
-            for (int y=0; y< s.skill_RedManaCost; y++){
+            for (int y=0; y< s.skill_RedManaCost; y++)
+            {
                 if (redDiceLocked == s.skill_RedManaCost-1)
                             break;
-                for (int x=0; x<diceRolled.Length; x++){
-                    if (diceRolled[x].Result == Dice.diceFace.red){
-                        if (!diceRolled[x].IsLocked){
-                        diceRolled[x].LockDice(true);
-                        redDiceLocked++;
+                for (int x=0; x<diceRolled.Length; x++)
+                {
+                    if (diceRolled[x].Result == Dice.diceFace.red)
+                    {
+                        if (!diceRolled[x].IsLocked)
+                        {
+                            diceRolled[x].LockDice(true);
+                            redDiceLocked++;
                         }
                         if (redDiceLocked == s.skill_RedManaCost-1)
                             break;
@@ -446,38 +453,44 @@ public class EnemyBrain : MonoBehaviour
             }
 
             int yellowDiceLocked = GetLockedDicesByColor(Dice.diceFace.yellow);
-            for (int y=0; y< s.skill_YellowManaCost; y++){
+            for (int y=0; y< s.skill_YellowManaCost; y++)
+            {
                 if (yellowDiceLocked == s.skill_YellowManaCost-1)
                         break;
-                for (int x=0; x<diceRolled.Length; x++){
-                    if (diceRolled[x].Result == Dice.diceFace.yellow){
-                    if (!diceRolled[x].IsLocked){
-                        diceRolled[x].LockDice(true);
-                        yellowDiceLocked++;
+                for (int x=0; x<diceRolled.Length; x++)
+                {
+                    if (diceRolled[x].Result == Dice.diceFace.yellow)
+                    {
+                        if (!diceRolled[x].IsLocked)
+                        {
+                            diceRolled[x].LockDice(true);
+                            yellowDiceLocked++;
+                        }
+                        if (yellowDiceLocked == s.skill_YellowManaCost-1)
+                            break;
                     }
-                    if (yellowDiceLocked == s.skill_YellowManaCost-1)
-                        break;
-                }
                 }                    
             }
 
             int blueDiceLocked = GetLockedDicesByColor(Dice.diceFace.blue);
-            for (int y=0; y< s.skill_BlueManaCost; y++){
+            for (int y=0; y< s.skill_BlueManaCost; y++)
+            {
                 if (blueDiceLocked == s.skill_BlueManaCost-1)
                         break;
-                for (int x=0; x<diceRolled.Length; x++){
-                    if (diceRolled[x].Result == Dice.diceFace.blue){
-                    if (!diceRolled[x].IsLocked){
-                        diceRolled[x].LockDice(true);
-                        blueDiceLocked++;
+                for (int x=0; x<diceRolled.Length; x++)
+                {
+                    if (diceRolled[x].Result == Dice.diceFace.blue)
+                    {
+                        if (!diceRolled[x].IsLocked)
+                        {
+                            diceRolled[x].LockDice(true);
+                            blueDiceLocked++;
+                        }
+                        if (blueDiceLocked == s.skill_BlueManaCost-1)
+                            break;
                     }
-                    if (blueDiceLocked == s.skill_BlueManaCost-1)
-                        break;
-                }
-                }
-                
-            }
-            
+                }                
+            }  
         }
 
 

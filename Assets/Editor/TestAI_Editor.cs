@@ -18,7 +18,7 @@ public class TestAI_Editor : Editor
             enemyBrain.RollDiceButtonTest();
         }
 
-        if(GUILayout.Button("start loop"))
+        if(GUILayout.Button("Calculate Activations"))
         {
             enemyBrain.CalculateSkillActivationsButtonTest();
         }
