@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class DeckCreator : MonoBehaviour
@@ -20,6 +21,10 @@ public class DeckCreator : MonoBehaviour
     [SerializeField] private List<Card> selectedCards = new List<Card>();
 
     private Vector2 standardSmallCardSize;
+
+    [SerializeField] private Card easterEggCard;
+    [SerializeField] private Sprite easterSprite;
+    private int easterEggClicks;
 
     public bool SelectionCompleted => selectedCards.Count == cards_per_deck;
 
@@ -62,10 +67,20 @@ public class DeckCreator : MonoBehaviour
         }
         UpdateButton();
     }
-
-    private void UpdateButton()
+    public void EasterEggClick()
     {
-        startMatchButton.SetActive(SelectionCompleted);
+        Debug.Log("???");
+        easterEggClicks++;
+        if (easterEggClicks == 9)
+        {
+            easterEggCard.gameObject.SetActive(true);
+            easterEggCard.LoadGraphics();
+        }
+        if (easterEggClicks == 20)
+        {
+            Image[] images = cardsParent.GetComponentsInChildren<Image>();
+            foreach (Image image in images) { image.sprite = easterSprite; }
+        }
     }
 
     private void SelectCard(Card card)
@@ -81,6 +96,10 @@ public class DeckCreator : MonoBehaviour
         selectedCards.Remove(card);
         card.StopAllCoroutines();
         card.StartCoroutine(ScaleCard(card.RectTransform, standardSmallCardSize));
+    }
+    private void UpdateButton()
+    {
+        startMatchButton.SetActive(SelectionCompleted);
     }
 
     public void LoadCombatCardData()

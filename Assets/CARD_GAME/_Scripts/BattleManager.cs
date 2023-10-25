@@ -316,9 +316,9 @@ public class BattleManager : MonoBehaviour
         foreach (SkillData skill in skillsToExec)
         {
             if (isAlly)
-                CalculateSkillAttack(skill, ref playerFightData, isAlly);
-            else
                 CalculateSkillAttack(skill, ref enemyFightData, isAlly);
+            else
+                CalculateSkillAttack(skill, ref playerFightData, isAlly);
 
             Debug.Log((isAlly ? "Ally" : "Enemy") + " uses skill " + skill.name);
         }
