@@ -6,13 +6,14 @@ using UnityEngine.EventSystems;
 public class InspectorPanel : MonoBehaviour, IPointerClickHandler
 {
    
-    Card card;
+    [SerializeField]Card card;
 
     public void OnPointerClick(PointerEventData eventData) {
         gameObject.SetActive(false);
     }
 
-    public void SetCardToBeInspected(Card card) {
-        this.card = card;
+    public void SetCardToBeInspected(Card _card) {
+        card.LoadData(_card.CardData);
+        
     }
 }
