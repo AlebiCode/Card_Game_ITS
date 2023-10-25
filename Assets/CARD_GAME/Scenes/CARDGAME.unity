@@ -768,7 +768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2270,7 +2270,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   genericUiAudioSource: {fileID: 0}
   selectedCard: {fileID: 0}
-  enemySelectedCard: {fileID: 0}
   myCombatCardTargetPosition: {fileID: 268862498}
   enemyCombatCardTargetPosition: {fileID: 328182376}
   pickYourCardText: {fileID: 1959368867}
@@ -2282,7 +2281,7 @@ MonoBehaviour:
   - {fileID: 496187161}
   - {fileID: 428714480}
   cardsMovement: 300
-  cardsMoveDuration: 2
+  cardsMoveDuration: 1
 --- !u!114 &273348612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2690,7 +2689,6 @@ GameObject:
   m_Component:
   - component: {fileID: 405307103}
   - component: {fileID: 405307105}
-  - component: {fileID: 405307104}
   m_Layer: 5
   m_Name: Enemy Panel
   m_TagString: Untagged
@@ -2727,36 +2725,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &405307104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 405307102}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &405307105
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3705,7 +3673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3342329311094680651, guid: 5ec5b754c2c6fc04198f9b98b6b01c6a, type: 3}
       propertyPath: m_Name
-      value: Card
+      value: Card(1)
       objectReference: {fileID: 0}
     - target: {fileID: 3342329311094680651, guid: 5ec5b754c2c6fc04198f9b98b6b01c6a, type: 3}
       propertyPath: m_IsActive
@@ -7856,9 +7824,9 @@ MonoBehaviour:
   - {fileID: 1737170179}
   - {fileID: 1011913411}
   - {fileID: 636606739}
-  cartaSelezionataAmica: {fileID: 2053611269}
-  cartaSelezionataNemica: {fileID: 517745722}
-  diceAnimationOffset: {x: -1, y: 0, z: 0}
+  allyCombatCard: {fileID: 2053611269}
+  enemyCombatCard: {fileID: 517745722}
+  diceAnimationOffset: {x: -10, y: 0, z: 0}
   allyDices:
   - {fileID: 519110189}
   - {fileID: 747936462}
@@ -16484,30 +16452,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45992674}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 866517799}
-        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: StartMatch
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 273348611}
         m_TargetAssemblyTypeName: TablePanel, Assembly-CSharp
         m_MethodName: TablePanelToCombatPanelAnimation
@@ -16719,7 +16663,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1811111475}
   - component: {fileID: 1811111477}
-  - component: {fileID: 1811111476}
   m_Layer: 5
   m_Name: Player Panel
   m_TagString: Untagged
@@ -16757,36 +16700,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1811111476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811111474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1811111477
 CanvasRenderer:
   m_ObjectHideFlags: 0

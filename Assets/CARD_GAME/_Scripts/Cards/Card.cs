@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
-    
     [SerializeField] private CardData cardData;
 
     [SerializeField] private Image image;

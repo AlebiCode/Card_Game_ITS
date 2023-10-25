@@ -12,7 +12,6 @@ public class TablePanel : MonoBehaviour
     
     public Card selectedCard;
     private GameObject mySelectedCard;
-    [SerializeField]private GameObject enemySelectedCard;
     
     //[SerializeField] private GameObject myCombatCard;
     [SerializeField] private Transform myCombatCardTargetPosition;
@@ -117,8 +116,8 @@ public class TablePanel : MonoBehaviour
         {
             c.transform.DORotate(new Vector3(0, 0, 180), cardsMoveDuration / 2);
         }
-       
 
+        StartCoroutine(StartMatch(cardsMoveDuration));
     }
 
     public void CombatPanelToTablePanelAnimation()
@@ -135,38 +134,33 @@ public class TablePanel : MonoBehaviour
     }
 
     // CALL THIS METHOD IN THE BATTLE MANAGER
-    public void ScaleAndMoveMyCard(GameObject myCombatCard)
+    public IEnumerator ScaleAndMoveMyCard(GameObject myCombatCard)
     {
-        StartCoroutine(WaitAndDeactivate(cardsMoveDuration, mySelectedCard));
-
         myCombatCard.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 400);
-        myCombatCard.SetActive(false);
 
-        StartCoroutine(ScaleAndMove(myCombatCard, 1.84f, 1.4f, mySelectedCard.transform, myCombatCardTargetPosition.transform.position, 1.4f, cardsMoveDuration));
+        yield return ScaleAndMove(myCombatCard, 1.84f, 1.4f, mySelectedCard.transform, myCombatCardTargetPosition.transform.position, 1.4f, cardsMoveDuration);
     }
 
     // CALL THIS METHOD IN THE BATTLE MANAGER
-    public void ScaleAndMoveEnemyCard(GameObject enemyCombatCard)
+    public IEnumerator ScaleAndMoveEnemyCard(GameObject enemyCombatCard)
     {
-        StartCoroutine(WaitAndDeactivate(cardsMoveDuration, enemySelectedCard));
-
         enemyCombatCard.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 400);
-        enemyCombatCard.SetActive(false);
 
-        StartCoroutine(ScaleAndMove(enemyCombatCard, 1.84f, 1.4f, enemySelectedCard.transform, enemyCombatCardTargetPosition.transform.position, 1.4f, cardsMoveDuration));
+        yield return ScaleAndMove(enemyCombatCard, 1.84f, 1.4f, BattleManager.instance.EnemySelectedCard.transform, enemyCombatCardTargetPosition.transform.position, 1.4f, cardsMoveDuration);
     }
 
-    IEnumerator StartMatch(float time) { yield return new WaitForSeconds(time); BattleManager.instance.StartMatch(); }
-    IEnumerator WaitAndDeactivate(float time, GameObject obj) { yield return new WaitForSeconds(time); obj.SetActive(false); }
+    private IEnumerator StartMatch(float time) { yield return new WaitForSeconds(time); BattleManager.instance.StartMatch(); }
 
-    IEnumerator ScaleAndMove(GameObject combatCard, float endScaleValue, float scaleTime, Transform selectedCard, Vector3 endPosition, float moveTime, float startTimeAnimation)
+    private IEnumerator ScaleAndMove(GameObject combatCard, float endScaleValue, float scaleTime, Transform selectedCard, Vector3 endPosition, float moveTime, float startTimeAnimation)
     {
-        yield return new WaitForSeconds(startTimeAnimation);
-        combatCard.transform.localScale = new Vector3(0.55f, 0.55f, 1);
+        //yield return new WaitForSeconds(startTimeAnimation);
+        selectedCard.gameObject.SetActive(false);
         combatCard.SetActive(true);
-        combatCard.transform.DOScale(endScaleValue, scaleTime);
         combatCard.transform.position = selectedCard.transform.position;
+        combatCard.transform.localScale = new Vector3(0.55f, 0.55f, 1);
         combatCard.transform.DOMove(endPosition, moveTime);
+        combatCard.transform.DOScale(endScaleValue, scaleTime);
+        yield return new WaitForSeconds(Mathf.Max(0, scaleTime, moveTime));
     }
 
     

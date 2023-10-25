@@ -18,7 +18,7 @@ public class Dice : MonoBehaviour
     public diceFace Result => result;
     public bool IsLocked => locked;
 
-    private void Start()
+    private void Awake()
     {
         image = GetComponent<Image>();
     }
@@ -55,11 +55,15 @@ public class Dice : MonoBehaviour
         }
         return Color.white;
     }
+    public void ResetColor()
+    {
+        image.color = Color.white;
+    }
 
-    public void StartRollAnimation()
+    public void StartRollAnimation(float rotationSpeed, float fadeDuration)
     {
         StopAllCoroutines();
-        StartCoroutine(RollAnimation(1, 400));
+        StartCoroutine(RollAnimation(rotationSpeed, fadeDuration));
     }
     public void StopRollAnimation(float duration)
     {
@@ -67,9 +71,9 @@ public class Dice : MonoBehaviour
         image.DOColor(FaceToRGB(result), duration);
         transform.DORotate(Vector3.zero, duration);
     }
-    private IEnumerator RollAnimation(float whiteningDuration, float rotationSpeed)
+    private IEnumerator RollAnimation(float rotationSpeed, float fadeDuration)
     {
-        image.DOColor(Color.white, whiteningDuration);
+        image.DOColor(Color.white, fadeDuration);
         while (true)
         {
             transform.Rotate(new Vector3(0, 0, rotationSpeed * Time.deltaTime));

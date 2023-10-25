@@ -20,13 +20,14 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private CombatPanel combatPanel;
     [SerializeField] private Card[] deckCarteNemiche = new Card[3];
     [SerializeField] private Card[] deckCarteAmiche = new Card[3];
-    [SerializeField] private Card cartaSelezionataAmica;
-    [SerializeField] private Card cartaSelezionataNemica;
+    [SerializeField] private Card allyCombatCard;
+    [SerializeField] private Card enemyCombatCard;
 
     [SerializeField] private Vector3 diceAnimationOffset = Vector3.left * 1;
     [SerializeField] private Dice[] allyDices = new Dice[6];
     [SerializeField] private Dice[] enemyDices = new Dice[6];
 
+    private int enemySelectedCardIndex;
     private EnemyData enemyData;
     private bool allyWaitingForReroll;
     private bool enemyWaitingForReroll;
@@ -70,6 +71,7 @@ public class BattleManager : MonoBehaviour
     }
     public Dice[] EnemyDices => enemyDices;
     public Dice[] AllyDices => allyDices;
+    public Card EnemySelectedCard => deckCarteNemiche[enemySelectedCardIndex];
 
     private void Awake()
     {
@@ -97,20 +99,25 @@ public class BattleManager : MonoBehaviour
     public void StartMatch()
     {
         Debug.Log("Match Start!");
+        combatPanel.gameObject.SetActive(true);
+        combatPanel.SetInputsActive(false);
         lockAndRollButton.SetActive(false);
 
         playerFightData = new FightData();
         enemyFightData = new FightData();
 
-        combatPanel.SetInputsActive(true);
         allyWaitingForReroll = enemyWaitingForReroll = false;
         for (int i = 0; i < allyDices.Length; i++)
+        {
             allyDices[i].LockDice(false);
-        for (int i = 0; i < enemyDices.Length; i++)
+            allyDices[i].ResetColor();
             enemyDices[i].LockDice(false);
+            enemyDices[i].ResetColor();
+        }
 
-        cartaSelezionataNemica.LoadData(deckCarteNemiche[Random.Range(0, 3)].CardData);
-        cartaSelezionataAmica.LoadData(tablePanel.selectedCard.CardData);
+        enemySelectedCardIndex = Random.Range(0, 3);
+        enemyCombatCard.LoadData(deckCarteNemiche[enemySelectedCardIndex].CardData);
+        allyCombatCard.LoadData(tablePanel.selectedCard.CardData);
 
         StopAllCoroutines();
         StartCoroutine(StartMatch_Coroutine());
@@ -121,8 +128,9 @@ public class BattleManager : MonoBehaviour
         StartingDicesRoll(enemyDices);
 
         yield return EnterCombatAnimations();
-        yield return RollDices(3);
+        yield return RollDices(1.5f);
 
+        combatPanel.SetInputsActive(true);
         lockAndRollButton.SetActive(true);
         StartCoroutine(EnemyDiceSelectionCoroutine());
     }
@@ -156,11 +164,11 @@ public class BattleManager : MonoBehaviour
         {
             if (!allyDices[i].IsLocked)
             {
-                allyDices[i].StartRollAnimation();
+                allyDices[i].StartRollAnimation(1000, 1);
             }
             if (!enemyDices[i].IsLocked)
             {
-                enemyDices[i].StartRollAnimation();
+                enemyDices[i].StartRollAnimation(1000, 1);
             }
         }
 
@@ -221,8 +229,8 @@ public class BattleManager : MonoBehaviour
     private IEnumerator FightCoroutine()
     {
         Debug.Log("Fight!!");
-        List<SkillData> allySkills = SkillChecker(cartaSelezionataAmica, allyDices);
-        List<SkillData> enemySkills = SkillChecker(cartaSelezionataNemica, enemyDices);
+        List<SkillData> allySkills = SkillChecker(allyCombatCard, allyDices);
+        List<SkillData> enemySkills = SkillChecker(enemyCombatCard, enemyDices);
         ExecuteSkillsDefences(allySkills, true);
         ExecuteSkillsDefences(enemySkills, false);
         Debug.Log("Player <Parry: " + playerFightData.parryIteration + "><Dodge: " + playerFightData.dodgePercent + ">");
@@ -260,7 +268,7 @@ public class BattleManager : MonoBehaviour
         int skillIterations = 0; //Questa variabile è utile solo per la grafica
         List<Dice.diceFace> diceResult = new List<Dice.diceFace>();
         List<SkillData> skillToExec = new List<SkillData>();
-        bool isAlly = card == cartaSelezionataAmica;
+        bool isAlly = card == allyCombatCard;
 
         foreach (var dice in dices)
         {
@@ -402,23 +410,29 @@ public class BattleManager : MonoBehaviour
     {
         for (int i = 0; i < allyDices.Length; i++)
         {
-            allyDices[i].transform.position -= diceAnimationOffset;
-            enemyDices[i].transform.position += diceAnimationOffset;
+            allyDices[i].transform.position += diceAnimationOffset;
+            enemyDices[i].transform.position -= diceAnimationOffset;
         }
-        float duration = cartaSelezionataAmica.EnterCombatSceneAnim();
+
+        allyCombatCard.gameObject.SetActive(false);
+        enemyCombatCard.gameObject.SetActive(false);
+
+        float duration = allyCombatCard.EnterCombatSceneAnim();
+        StartCoroutine(tablePanel.ScaleAndMoveMyCard(allyCombatCard.gameObject));
         StartCoroutine(AnimateEnteringDicesAlly(0.5f));
         yield return new WaitForSeconds(duration);
-        duration = cartaSelezionataNemica.EnterCombatSceneAnim();
+        duration = enemyCombatCard.EnterCombatSceneAnim();
+        StartCoroutine(tablePanel.ScaleAndMoveEnemyCard(enemyCombatCard.gameObject));
         StartCoroutine(AnimateEnteringDicesEnemy(0.5f));
         yield return new WaitForSeconds(duration);
     }
-    private IEnumerator AnimateEnteringDicesAlly(float diceDuration)
+    private IEnumerator AnimateEnteringDicesAlly(float singleDiceEnteringDuration)
     {
         for (int i = 0; i < allyDices.Length; i++)
         {
             allyDices[i].gameObject.SetActive(true);
-            Vector3 targetPos = allyDices[i].transform.position + diceAnimationOffset;
-            allyDices[i].transform.DOMove(targetPos, diceDuration);
+            Vector3 targetPos = allyDices[i].transform.position - diceAnimationOffset;
+            allyDices[i].transform.DOMove(targetPos, singleDiceEnteringDuration);
             while (allyDices[i].transform.position != targetPos)
             {
                 yield return null;
@@ -430,7 +444,7 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < enemyDices.Length; i++)
         {
             enemyDices[i].gameObject.SetActive(true);
-            Vector3 targetPos = enemyDices[i].transform.position - diceAnimationOffset;
+            Vector3 targetPos = enemyDices[i].transform.position + diceAnimationOffset;
             enemyDices[i].transform.DOMove(targetPos, diceDuration);
             while (enemyDices[i].transform.position != targetPos)
             {
