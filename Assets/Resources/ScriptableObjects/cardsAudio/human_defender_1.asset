@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: human_defender_1
   m_EditorClassIdentifier: 
   entranceClips:
-  - {fileID: 8300000, guid: 4e7cffd612f2484488becc89813f1a47, type: 3}
+  - {fileID: 8300000, guid: 4f2e1109009f8cd42b59575ea0fa365f, type: 3}
   linesClips:
-  - {fileID: 8300000, guid: d0db2ee7d33399340a4b45ac543c85cf, type: 3}
+  - {fileID: 8300000, guid: af3fb5fa9a5ac0041a2ab2fbe507d72c, type: 3}

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: druid_defender_1
   m_EditorClassIdentifier: 
   entranceClips:
-  - {fileID: 8300000, guid: 5f545e4f989ffa247a3e238c96636d09, type: 3}
+  - {fileID: 8300000, guid: 194d1fcec91583e4883c5d1db4949423, type: 3}
   linesClips:
-  - {fileID: 8300000, guid: 8d3c3bc01ac49da41a7bb00fbdc53b6f, type: 3}
+  - {fileID: 8300000, guid: f182162797babfc4092889d8bbdbd667, type: 3}

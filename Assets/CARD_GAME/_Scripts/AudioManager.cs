@@ -17,6 +17,8 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Clips")]
     [SerializeField] private AudioClip genericUiSelect;
     [SerializeField] private AudioClip genericUiConfirm;
+    [SerializeField] private AudioClip genericUiConfirm2;
+    [SerializeField] private AudioClip diceLocked;
     [SerializeField] private AudioClip attackBlocked;
     [SerializeField] private AudioClip attackDodged;
     [SerializeField] private AudioClip attackHit;
@@ -63,6 +65,10 @@ public class AudioManager : MonoBehaviour
     {
         PlayUiAudio(instance.genericUiConfirm);
     }
+    public static void PlayUiConfirmAudio2()
+    {
+        PlayUiAudio(instance.genericUiConfirm2);
+    }
 
     public static void StartDiceRollLoop()
     {
@@ -72,6 +78,10 @@ public class AudioManager : MonoBehaviour
     public static void StopDiceRollLoop()
     {
         instance.diceRollLoop.Stop();
+    }
+    public static void PlayUiDiceLocked()
+    {
+        PlayUiAudio(instance.diceLocked);
     }
 
     public void SetVolume(float volume)

@@ -24,6 +24,7 @@ public class DeckCreator : MonoBehaviour
 
     [SerializeField] private Card easterEggCard;
     [SerializeField] private Sprite easterSprite;
+    [SerializeField] private AudioClip easterAudioClip;
     private int easterEggClicks;
 
     public bool SelectionCompleted => selectedCards.Count == cards_per_deck;
@@ -75,6 +76,7 @@ public class DeckCreator : MonoBehaviour
         {
             easterEggCard.gameObject.SetActive(true);
             easterEggCard.LoadGraphics();
+            AudioManager.PlayUiAudio(easterAudioClip);
         }
         if (easterEggClicks == 20)
         {

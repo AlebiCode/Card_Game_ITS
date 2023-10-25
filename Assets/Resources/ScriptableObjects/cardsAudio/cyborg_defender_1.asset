@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: cyborg_defender_1
   m_EditorClassIdentifier: 
   entranceClips:
-  - {fileID: 8300000, guid: 5a0ffa6d0a9cc6b40b31abf91934d703, type: 3}
+  - {fileID: 8300000, guid: 56f0e9f167d217547ae7b85f6ee2bbe9, type: 3}
   linesClips:
-  - {fileID: 8300000, guid: e387f3872d4927b4680436a0cb1b86b6, type: 3}
+  - {fileID: 8300000, guid: 3907a22faeff1f941a304f92c2533dd6, type: 3}

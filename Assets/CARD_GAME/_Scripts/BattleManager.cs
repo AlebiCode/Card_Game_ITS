@@ -43,6 +43,8 @@ public class BattleManager : MonoBehaviour
         public int damageTaken;
         public int parryIteration;
         public int dodgePercent;
+        public int successfullBlocks;
+        public int successfullDodges;
     }
 
     public UnityEvent<int> onPlayerScoreChanged = new();
@@ -229,17 +231,29 @@ public class BattleManager : MonoBehaviour
     private IEnumerator FightCoroutine()
     {
         Debug.Log("Fight!!");
+
         List<SkillData> allySkills = SkillChecker(allyCombatCard, allyDices);
         List<SkillData> enemySkills = SkillChecker(enemyCombatCard, enemyDices);
         ExecuteSkillsDefences(allySkills, true);
         ExecuteSkillsDefences(enemySkills, false);
-        Debug.Log("Player <Parry: " + playerFightData.parryIteration + "><Dodge: " + playerFightData.dodgePercent + ">");
-        Debug.Log("Enemy <Parry: " + enemyFightData.parryIteration + "><Dodge: " + enemyFightData.dodgePercent + ">");
+
+        string debugText = "";
+        foreach (SkillData skill in allySkills)
+            debugText += '(' + skill.name + ") ";
+        Debug.Log("Ally used skills:\n" + debugText);
+        debugText = "";
+        foreach (SkillData skill in enemySkills)
+            debugText += '(' + skill.name + ") ";
+        Debug.Log("Enemy used skills:\n" + debugText);
+        Debug.Log("Player <Parry Instances: " + playerFightData.parryIteration + "><Dodge Chance: " + playerFightData.dodgePercent + ">");
+        Debug.Log("Enemy <Parry Instances: " + enemyFightData.parryIteration + "><Dodge Chance: " + enemyFightData.dodgePercent + ">");
+
         ExecuteSkillsAttacks(allySkills, true);
         ExecuteSkillsAttacks(enemySkills, false);
-        Debug.Log("Player <Damage Taken: " + playerFightData.damageTaken + ">");
-        Debug.Log("Enemy <Damage Taken: " + enemyFightData.damageTaken + ">");
+        Debug.Log("Player <Damage Taken: " + playerFightData.damageTaken + "><Attacks Blocked: " + playerFightData.successfullBlocks + "><Attacks Dodged: " + playerFightData.successfullDodges + ">");
+        Debug.Log("Enemy <Damage Taken: " + enemyFightData.damageTaken + "><Attacks Blocked: " + enemyFightData.successfullBlocks + "><Attacks Dodged: " + enemyFightData.successfullDodges + ">");
         yield return new WaitForSeconds(3);
+
         UpdateWinnerScore();
         tablePanel.gameObject.SetActive(true);
         combatPanel.gameObject.SetActive(false);
@@ -315,8 +329,6 @@ public class BattleManager : MonoBehaviour
                 CalculateSkillDefence(skill, ref playerFightData);
             else
                 CalculateSkillDefence(skill, ref enemyFightData);
-
-            Debug.Log((isAlly ? "Ally" : "Enemy") + " uses skill " + skill.name);
         }
     }
     private void ExecuteSkillsAttacks(List<SkillData> skillsToExec, bool isAlly)
@@ -327,8 +339,6 @@ public class BattleManager : MonoBehaviour
                 CalculateSkillAttack(skill, ref enemyFightData, isAlly);
             else
                 CalculateSkillAttack(skill, ref playerFightData, isAlly);
-
-            Debug.Log((isAlly ? "Ally" : "Enemy") + " uses skill " + skill.name);
         }
     }
 
@@ -357,11 +367,13 @@ public class BattleManager : MonoBehaviour
                 else
                 {
                     //Dodged
+                    defenderFightData.successfullDodges++;
                 }
             }
             else
             {
                 //Blocked
+                defenderFightData.successfullBlocks++;
                 defenderFightData.parryIteration--;
             }
         }
@@ -378,7 +390,7 @@ public class BattleManager : MonoBehaviour
     private void UpdateWinnerScore()
     {
 
-        if (playerFightData.damageTaken < enemyFightData.damageTaken)
+        if (playerFightData.damageTaken <= enemyFightData.damageTaken)
         {
             PlayerScore++;
             if (playerScore >= pointsNeededToWin)
@@ -396,7 +408,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            //pareggio!
+            //in parità, vince il player ^^^^^^^^^^^^^
         }
         Debug.Log("Score: " + playerScore + "-" + enemyScore);
     }

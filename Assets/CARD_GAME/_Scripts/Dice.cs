@@ -38,6 +38,8 @@ public class Dice : MonoBehaviour
     {
         locked = value;
 
+        AudioManager.PlayUiDiceLocked();
+
         // Attiva/Disattiva grafica o fx di selezione
         GetComponentInChildren<TMPro.TMP_Text>().text = locked ? "Locked" : "";
     }

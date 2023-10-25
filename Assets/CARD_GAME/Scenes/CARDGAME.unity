@@ -8019,7 +8019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be65c04726609ee489d209917bb0f618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 0}
+  audioClip: {fileID: 8300000, guid: aeed16c7fd2ad90449c5611a3db7feed, type: 3}
 --- !u!114 &877841392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10305,6 +10305,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1235567076}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayUiConfirmAudio2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1101607723}
         m_TargetAssemblyTypeName: DeckCreator, Assembly-CSharp
         m_MethodName: LoadCombatCardData
@@ -10556,8 +10568,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -206.6}
-  m_SizeDelta: {x: 300, y: 80}
+  m_AnchoredPosition: {x: 0, y: 0.0042229}
+  m_SizeDelta: {x: 1920, y: 1080.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1069806455
 MonoBehaviour:
@@ -10795,8 +10807,9 @@ MonoBehaviour:
   startMatchButton: {fileID: 1051902580}
   cardSelectAnimSpeed: 1000
   selectedCards: []
-  easterEggCard: {fileID: 0}
-  easterSprite: {fileID: 0}
+  easterEggCard: {fileID: 1705843501}
+  easterSprite: {fileID: 21300000, guid: 865392ad4d4709247bb258a060fa7d01, type: 3}
+  easterAudioClip: {fileID: 8300000, guid: c589a6e5c3d8575419be1326d91a9cf6, type: 3}
 --- !u!1 &1118101244
 GameObject:
   m_ObjectHideFlags: 0
@@ -11791,7 +11804,9 @@ MonoBehaviour:
   - {fileID: 1609527087}
   diceRollLoop: {fileID: 1823903025}
   genericUiSelect: {fileID: 8300000, guid: e77b0c16c8367d0419f43e9227593756, type: 3}
-  genericUiConfirm: {fileID: 8300000, guid: c325f7b40e551084a8f2a86eb3d7ff70, type: 3}
+  genericUiConfirm: {fileID: 8300000, guid: 0d2c10b52d383b849acd90ba72432aad, type: 3}
+  genericUiConfirm2: {fileID: 8300000, guid: 1043b2695c889b846bf82943e3055afa, type: 3}
+  diceLocked: {fileID: 8300000, guid: d0efca57412a38f429e96e4654fe4849, type: 3}
   attackBlocked: {fileID: 8300000, guid: 0d1c30f1b9b37da4b9e7610a93e649e9, type: 3}
   attackDodged: {fileID: 8300000, guid: 0d1c30f1b9b37da4b9e7610a93e649e9, type: 3}
   attackHit: {fileID: 8300000, guid: d9e9acd4bc0e4cc42ad67e42dfc48175, type: 3}
@@ -13582,9 +13597,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45992678}
-        m_TargetAssemblyTypeName: CombatPanel, Assembly-CSharp
-        m_MethodName: LockAndRolls
+      - m_Target: {fileID: 866517799}
+        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+        m_MethodName: RerollDices_Ally
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1235567076}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayUiConfirmAudio2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16452,6 +16479,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1235567076}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayUiConfirmAudio2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 273348611}
         m_TargetAssemblyTypeName: TablePanel, Assembly-CSharp
         m_MethodName: TablePanelToCombatPanelAnimation
@@ -16750,7 +16789,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 3c94d842a81eca94f8e2e06fab90e21f, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 976da298519d00c449bd54a310c31c06, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0d93fc873737cb746889396571254386, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

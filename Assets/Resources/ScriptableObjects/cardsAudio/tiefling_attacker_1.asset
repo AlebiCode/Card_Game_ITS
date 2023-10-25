@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: tiefling_attacker_1
   m_EditorClassIdentifier: 
   entranceClips:
-  - {fileID: 8300000, guid: 615778f9fe1420847b6cb09d34e29137, type: 3}
+  - {fileID: 8300000, guid: 5fea39aae6622a84d85668320ec02a45, type: 3}
   linesClips:
-  - {fileID: 8300000, guid: b024bcc1a1de0834fb732623c1594d43, type: 3}
+  - {fileID: 8300000, guid: 4aecf56ed8e16ac4787cb57690bd2fea, type: 3}

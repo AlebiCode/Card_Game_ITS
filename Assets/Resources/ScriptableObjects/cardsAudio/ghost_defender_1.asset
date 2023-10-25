@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ghost_defender_1
   m_EditorClassIdentifier: 
   entranceClips:
-  - {fileID: 8300000, guid: 1b998abb0f27cd14086028dd1861a96d, type: 3}
+  - {fileID: 8300000, guid: b18091de9ec749b4e8468b19c09885c9, type: 3}
   linesClips:
-  - {fileID: 8300000, guid: c92bcc475f95659479a846ce9769c949, type: 3}
+  - {fileID: 8300000, guid: 5dd087cd98f518246aa688b4da3a09e3, type: 3}
