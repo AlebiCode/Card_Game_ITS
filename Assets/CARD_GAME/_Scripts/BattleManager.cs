@@ -144,6 +144,7 @@ public class BattleManager : MonoBehaviour
     public void RerollDices_Ally()
     {
         allyWaitingForReroll = true;
+        combatPanel.SetInputsActive(false);
         lockAndRollButton.SetActive(false);
 
         if (allyWaitingForReroll && enemyWaitingForReroll)
@@ -221,7 +222,6 @@ public class BattleManager : MonoBehaviour
 
     private void StartFight()
     {
-        combatPanel.SetInputsActive(false);
         if (fightCoroutine != null)
             StopCoroutine(fightCoroutine);
         fightCoroutine = StartCoroutine(FightCoroutine());
@@ -240,7 +240,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log("Player <Damage Taken: " + playerFightData.damageTaken + ">");
         Debug.Log("Enemy <Damage Taken: " + enemyFightData.damageTaken + ">");
         yield return new WaitForSeconds(3);
-        UpdateWinnerScore(playerFightData.damageTaken <= enemyFightData.damageTaken);
+        UpdateWinnerScore();
         tablePanel.gameObject.SetActive(true);
         combatPanel.gameObject.SetActive(false);
         TablePanel.instance.CombatPanelToTablePanelAnimation();
@@ -375,10 +375,10 @@ public class BattleManager : MonoBehaviour
         PlayerScore = 0;
     }
 
-    private void UpdateWinnerScore(bool isPlayerTheRoundWinner)
+    private void UpdateWinnerScore()
     {
 
-        if (isPlayerTheRoundWinner)
+        if (playerFightData.damageTaken < enemyFightData.damageTaken)
         {
             PlayerScore++;
             if (playerScore >= pointsNeededToWin)
@@ -386,13 +386,17 @@ public class BattleManager : MonoBehaviour
                 StartCoroutine(EndBattle(true));
             }
         }
-        else
+        else if (playerFightData.damageTaken > enemyFightData.damageTaken)
         {
             EnemyScore++;
             if (enemyScore >= pointsNeededToWin)
             {
                 StartCoroutine(EndBattle(false));
             }
+        }
+        else
+        {
+            //pareggio!
         }
         Debug.Log("Score: " + playerScore + "-" + enemyScore);
     }
