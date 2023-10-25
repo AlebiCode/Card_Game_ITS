@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: _BaseSkill
   m_EditorClassIdentifier: 
   skillName: 
-  skill_colorCost: 
+  skill_colorCost: 0100000003000000
   damage: 200
   atkInstances: 1
-  defInstances: 0
+  defInstances: 1
   dodge: 0
-  precise: 0
+  precise: 1
   animation: ANIM STUFF HERE

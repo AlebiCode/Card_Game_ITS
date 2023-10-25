@@ -17,6 +17,6 @@ MonoBehaviour:
   damage: 60
   atkInstances: 3
   defInstances: 0
-  dodge: 0
+  dodge: 20
   precise: 0
   animation: ANIM STUFF HERE

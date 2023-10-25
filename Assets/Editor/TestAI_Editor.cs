@@ -23,6 +23,13 @@ public class TestAI_Editor : Editor
             enemyBrain.CalculateSkillActivationsButtonTest();
         }
 
+        if (GUILayout.Button("Calculate Chance"))
+        {
+            enemyBrain.CalculateChanceButtonTest();
+        }
+
+
+
         base.OnInspectorGUI();
     }
 

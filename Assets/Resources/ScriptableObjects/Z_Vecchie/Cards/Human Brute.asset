@@ -19,5 +19,5 @@ MonoBehaviour:
   cardAudioProfile: {fileID: 11400000, guid: a8e96c105c9b0754b8716345aa907493, type: 2}
   skills:
   - {fileID: 11400000, guid: 3fd3be45ec6149042a158a490dda2095, type: 2}
-  - {fileID: 11400000, guid: 95bfe7708f4d63d4cb4103d6cf43c94e, type: 2}
+  - {fileID: 11400000, guid: c6b3be35328b78545bc939dd0a9cf1ae, type: 2}
   - {fileID: 11400000, guid: 82c04e6358554fb4398188bc159a2f81, type: 2}

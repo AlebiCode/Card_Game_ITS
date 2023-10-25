@@ -16,7 +16,7 @@ MonoBehaviour:
   skill_colorCost: 0100000003000000
   damage: 200
   atkInstances: 1
-  defInstances: 0
+  defInstances: 1
   dodge: 0
   precise: 0
   animation: ANIM STUFF HERE
