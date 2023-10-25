@@ -9672,6 +9672,7 @@ GameObject:
   - component: {fileID: 6443314950388237206}
   - component: {fileID: 6443314950388237205}
   - component: {fileID: 6443314950388237204}
+  - component: {fileID: 6116702051068081493}
   m_Layer: 0
   m_Name: Square VFX (Yellow)
   m_TagString: Untagged
@@ -9712,7 +9713,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -14443,8 +14444,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1564545999
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -14476,6 +14477,23 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &6116702051068081493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6443314950388237195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2d37037e973d64d9a0a5c8368eaa8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectionEffect: {fileID: 0}
+  attackEffect: {fileID: 0}
+  defenseEffect: {fileID: 0}
+  dodgeEffect: {fileID: 0}
+  isSelected: 0
 --- !u!1 &7253317749368570984
 GameObject:
   m_ObjectHideFlags: 0

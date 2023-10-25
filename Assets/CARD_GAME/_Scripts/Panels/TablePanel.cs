@@ -9,16 +9,24 @@ public class TablePanel : MonoBehaviour
     public static TablePanel instance;
 
     public AudioSource genericUiAudioSource;
+    
     public Card selectedCard;
     private GameObject mySelectedCard;
-    [SerializeField] private GameObject myCombatCard;
-    [SerializeField] private Transform myCombatCardTargetPosition; 
+    [SerializeField]private GameObject enemySelectedCard;
+    
+    //[SerializeField] private GameObject myCombatCard;
+    [SerializeField] private Transform myCombatCardTargetPosition;
+    //[SerializeField] private GameObject enemyCombatCard;
+    [SerializeField] private Transform enemyCombatCardTargetPosition;
+    
+    [SerializeField] private GameObject pickYourCardText;
     [SerializeField] private GameObject readyButton;
-    [SerializeField] private GameObject pickCardText;
     [SerializeField] private GameObject myCards;
     [SerializeField] private GameObject enemyCards;
+    [SerializeField] private GameObject[] enemyCardsList;
     [SerializeField] private float cardsMovement;
     [SerializeField] private float cardsMoveDuration;
+    
     private Vector3 myCardsInitialPosition;
     private Vector3 enemyCardsInitialPosition;
 
@@ -50,7 +58,6 @@ public class TablePanel : MonoBehaviour
         if (card == selectedCard)
         {
             DeselectCard(card);
-            SyncReadyButton();
             return;
         }
 
@@ -61,7 +68,6 @@ public class TablePanel : MonoBehaviour
         // Seleziono la nuova carta
         SelectCard(card);
 
-        SyncReadyButton();
     }
 
     public void OnEnemyCardClick(Card card )
@@ -70,15 +76,20 @@ public class TablePanel : MonoBehaviour
     void SelectCard(Card card)
     {
         selectedCard = card;
-        selectedCard.Image.GetComponent<Image>().color = Color.yellow;
+        //selectedCard.Image.GetComponent<Image>().color = Color.yellow;
+        selectedCard.particleSystemList.ActivateAnimation(VFX_TYPE.SELECT);
         selectedCard.tag = "SelectedCard";
+
+        SyncReadyButton();
     }
 
     void DeselectCard(Card card)
     {
-        selectedCard.Image.GetComponent<Image>().color = Color.white;
+        selectedCard.particleSystemList.DeactivateAnimation(VFX_TYPE.SELECT);
+        //selectedCard.Image.GetComponent<Image>().color = Color.white;
         selectedCard.tag = "Untagged";
         selectedCard = null;
+        SyncReadyButton();
     }
 
     void SyncReadyButton()
@@ -94,37 +105,68 @@ public class TablePanel : MonoBehaviour
 
     public void TablePanelToCombatPanelAnimation()
     {
+        readyButton.SetActive(false);
+        pickYourCardText.SetActive(false);
+
         mySelectedCard = GameObject.FindGameObjectWithTag("SelectedCard");
         
         myCards.transform.DOLocalMoveY(-cardsMovement, cardsMoveDuration);
         enemyCards.transform.DOLocalMoveY(cardsMovement, cardsMoveDuration);
-        
-        StartCoroutine(WaitAndDeactivate(cardsMoveDuration, mySelectedCard));
 
-        myCombatCard.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 400);
-        //myCombatCard.transform.position = mySelectedCard.transform.position;
-
-        StartCoroutine(ScaleAndMove(myCombatCard, 1.84f, 1.4f, mySelectedCard.transform, myCombatCardTargetPosition.transform.position, 1.4f, cardsMoveDuration));
-
-        //myCombatCard.transform.DOScale(1.84f, 1.84f);
-        //myCombatCard.transform.DOMove(myCombatCardTargetPosition, 1);
+        foreach(GameObject c in enemyCardsList)
+        {
+            c.transform.DORotate(new Vector3(0, 0, 180), cardsMoveDuration / 2);
+        }
+       
 
     }
 
     public void CombatPanelToTablePanelAnimation()
     {
+        pickYourCardText.SetActive(true);
+
         myCards.transform.DOLocalMoveY(myCardsInitialPosition.y, cardsMoveDuration / 2);
         enemyCards.transform.DOLocalMoveY(enemyCardsInitialPosition.y, cardsMoveDuration / 2);
+
+        foreach (GameObject c in enemyCardsList)
+        {
+            c.transform.DORotate(new Vector3(0, 0, 0), cardsMoveDuration / 2);
+        }
     }
 
+    // CALL THIS METHOD IN THE BATTLE MANAGER
+    public void ScaleAndMoveMyCard(GameObject myCombatCard)
+    {
+        StartCoroutine(WaitAndDeactivate(cardsMoveDuration, mySelectedCard));
+
+        myCombatCard.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 400);
+        myCombatCard.SetActive(false);
+
+        StartCoroutine(ScaleAndMove(myCombatCard, 1.84f, 1.4f, mySelectedCard.transform, myCombatCardTargetPosition.transform.position, 1.4f, cardsMoveDuration));
+    }
+
+    // CALL THIS METHOD IN THE BATTLE MANAGER
+    public void ScaleAndMoveEnemyCard(GameObject enemyCombatCard)
+    {
+        StartCoroutine(WaitAndDeactivate(cardsMoveDuration, enemySelectedCard));
+
+        enemyCombatCard.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 400);
+        enemyCombatCard.SetActive(false);
+
+        StartCoroutine(ScaleAndMove(enemyCombatCard, 1.84f, 1.4f, enemySelectedCard.transform, enemyCombatCardTargetPosition.transform.position, 1.4f, cardsMoveDuration));
+    }
+
+    IEnumerator StartMatch(float time) { yield return new WaitForSeconds(time); BattleManager.instance.StartMatch(); }
     IEnumerator WaitAndDeactivate(float time, GameObject obj) { yield return new WaitForSeconds(time); obj.SetActive(false); }
 
-    IEnumerator ScaleAndMove(GameObject obj, float endScaleValue, float scaleTime, Transform selectedCard, Vector3 endPosition, float moveTime, float startTimeAnimation)
+    IEnumerator ScaleAndMove(GameObject combatCard, float endScaleValue, float scaleTime, Transform selectedCard, Vector3 endPosition, float moveTime, float startTimeAnimation)
     {
         yield return new WaitForSeconds(startTimeAnimation);
-        obj.transform.DOScale(endScaleValue, scaleTime);
-        obj.transform.position = selectedCard.transform.position;
-        obj.transform.DOMove(endPosition, moveTime);
+        combatCard.transform.localScale = new Vector3(0.55f, 0.55f, 1);
+        combatCard.SetActive(true);
+        combatCard.transform.DOScale(endScaleValue, scaleTime);
+        combatCard.transform.position = selectedCard.transform.position;
+        combatCard.transform.DOMove(endPosition, moveTime);
     }
 
     

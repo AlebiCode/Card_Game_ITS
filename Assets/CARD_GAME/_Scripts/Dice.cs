@@ -9,6 +9,8 @@ public class Dice : MonoBehaviour
 {
     public enum diceFace { notRolled, red, blue, yellow }
 
+    public ParticleSystemActivator particle;
+
     private Image image;
     private diceFace result = diceFace.notRolled;
     private bool locked = false;

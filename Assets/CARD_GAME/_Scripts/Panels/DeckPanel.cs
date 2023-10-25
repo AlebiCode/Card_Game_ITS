@@ -26,8 +26,10 @@ public class DeckPanel : MonoBehaviour
 
         // Aggiungiamo la carta alla lista delle selezionate
         cardList.Add(cardToAdd);
+        cardToAdd.GetComponent<Card>().particleSystemList.ActivateAnimation(VFX_TYPE.SELECT);
 
         // TODO: Aggiungere fx vari di selezione
+        
         // TODO: Attiviamo effetto di selezione (sprite o fx)
         cardToAdd.GetComponent<Image>().color = Color.white / 2;
 

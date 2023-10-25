@@ -28,6 +28,7 @@ public class CombatPanel : MonoBehaviour
         }
 
         dice.LockDice(true);
+        dice.particle.ActivateAnimation(VFX_TYPE.SELECT);
     }
 
     public void LockAndRolls()
