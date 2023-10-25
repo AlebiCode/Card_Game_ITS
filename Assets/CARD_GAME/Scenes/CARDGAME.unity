@@ -2052,6 +2052,7 @@ MonoBehaviour:
   genericUiAudioSource: {fileID: 0}
   selectedCard: {fileID: 0}
   myCombatCard: {fileID: 2053611268}
+  myCombatCardTargetPosition: {fileID: 0}
   readyButton: {fileID: 1741304910}
   pickCardText: {fileID: 0}
   myCards: {fileID: 821773815}
@@ -6794,7 +6795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a37c468ba02fa49ae4d16a09e62e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyAI: {fileID: 0}
+  EnemyAI: {fileID: 866517800}
   tablePanel: {fileID: 273348611}
   combatPanel: {fileID: 45992678}
   deckCarteNemiche:
@@ -6857,10 +6858,18 @@ MonoBehaviour:
   diceRoll_YellowMana: 0
   diceRoll_BlueMana: 0
   diceRoll_byManaColor: 
-  skillsTotalActivations_bySkill: 
   TotalDamageAfterFirstRoll: 0
-  selected_cards: []
-  battling_card: {fileID: 3342329311094680645, guid: 1f6f96939ddc61144acf7bd249998639, type: 3}
+  enemy_cards: []
+  selected_card: {fileID: 3342329311094680645, guid: 1f6f96939ddc61144acf7bd249998639, type: 3}
+  battlingCardData:
+    battlingCard: {fileID: 0}
+    NumberOfSkillsActivatedSet_afterFirstRoll: 
+    total_damageDone_byActivations: 0
+    total_defenceInstances_Activated: 0
+    total_preciseIstances_Activated: 
+    total_dodgeInstances_Activated: 
+    setProbabilitiesAfterRoll_List: []
+  targetSets: []
   First_Skill:
     skillData: {fileID: 0}
     skill_ManaCost_list: 
@@ -6875,8 +6884,10 @@ MonoBehaviour:
     blueMana_activations_onRoll: 0
     activations_onRoll_byManaType: 
     NumberOfSkillActivations: 0
-    isAttackPrecise: 0
+    damageDone_byActivations: 0
     defenceInstances_Activated: 0
+    isAttackPrecise: 0
+    preciseIstances_Activated: 0
     dodgeInstances_Activated: 
   Second_Skill:
     skillData: {fileID: 0}
@@ -6892,8 +6903,10 @@ MonoBehaviour:
     blueMana_activations_onRoll: 0
     activations_onRoll_byManaType: 
     NumberOfSkillActivations: 0
-    isAttackPrecise: 0
+    damageDone_byActivations: 0
     defenceInstances_Activated: 0
+    isAttackPrecise: 0
+    preciseIstances_Activated: 0
     dodgeInstances_Activated: 
   Third_Skill:
     skillData: {fileID: 0}
@@ -6909,8 +6922,10 @@ MonoBehaviour:
     blueMana_activations_onRoll: 0
     activations_onRoll_byManaType: 
     NumberOfSkillActivations: 0
-    isAttackPrecise: 0
+    damageDone_byActivations: 0
     defenceInstances_Activated: 0
+    isAttackPrecise: 0
+    preciseIstances_Activated: 0
     dodgeInstances_Activated: 
   CurrentCard_Skills: []
 --- !u!1 &877841389
