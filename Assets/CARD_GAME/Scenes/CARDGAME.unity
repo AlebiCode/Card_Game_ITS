@@ -2088,6 +2088,7 @@ GameObject:
   - component: {fileID: 269612690}
   - component: {fileID: 269612692}
   - component: {fileID: 269612691}
+  - component: {fileID: 269612693}
   m_Layer: 5
   m_Name: EnemyDamageTaken Text
   m_TagString: Untagged
@@ -2212,6 +2213,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269612689}
   m_CullTransparentMesh: 1
+--- !u!114 &269612693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269612689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 927aaecdf7cdac542a096252fba26511, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownText: {fileID: 269612691}
 --- !u!1 &273348609
 GameObject:
   m_ObjectHideFlags: 0
@@ -7873,10 +7887,34 @@ MonoBehaviour:
         m_CallState: 2
   onPlayerCardDamaged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1954350859}
+        m_TargetAssemblyTypeName: TextUpdater, Assembly-CSharp
+        m_MethodName: UpdateValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onEnemyCardDamaged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 269612693}
+        m_TargetAssemblyTypeName: TextUpdater, Assembly-CSharp
+        m_MethodName: UpdateValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &866517800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7895,18 +7933,20 @@ MonoBehaviour:
   diceRoll_YellowMana: 0
   diceRoll_BlueMana: 0
   diceRoll_byManaColor: 
-  TotalDamageAfterFirstRoll: 0
   enemy_cards: []
   selected_card: {fileID: 3342329311094680645, guid: 1f6f96939ddc61144acf7bd249998639, type: 3}
   battlingCardData:
     battlingCard: {fileID: 0}
+    currentCardSkills: []
     NumberOfSkillsActivatedSet_afterFirstRoll: 
-    total_damageDone_byActivations: 0
+    total_damageDone_afterRoll: 0
     total_defenceInstances_Activated: 0
     total_preciseIstances_Activated: 
     total_dodgeInstances_Activated: 
+    ActivationsSetsDataList: []
     setProbabilitiesAfterRoll_List: []
-  targetSets: []
+    damageByEachSetOfActivations_List: []
+    defencesByEachSetOfActivations_List: []
   First_Skill:
     skillData: {fileID: 0}
     skill_ManaCost_list: 
@@ -7916,9 +7956,6 @@ MonoBehaviour:
     skill_BlueManaCost: 0
     skill_ManaCost_byManaType: 
     skill_maximum_activations: 0
-    redMana_activations_onRoll: 0
-    yellowMana_activationsonRoll: 0
-    blueMana_activations_onRoll: 0
     activations_onRoll_byManaType: 
     NumberOfSkillActivations: 0
     damageDone_byActivations: 0
@@ -7935,9 +7972,6 @@ MonoBehaviour:
     skill_BlueManaCost: 0
     skill_ManaCost_byManaType: 
     skill_maximum_activations: 0
-    redMana_activations_onRoll: 0
-    yellowMana_activationsonRoll: 0
-    blueMana_activations_onRoll: 0
     activations_onRoll_byManaType: 
     NumberOfSkillActivations: 0
     damageDone_byActivations: 0
@@ -7954,9 +7988,6 @@ MonoBehaviour:
     skill_BlueManaCost: 0
     skill_ManaCost_byManaType: 
     skill_maximum_activations: 0
-    redMana_activations_onRoll: 0
-    yellowMana_activationsonRoll: 0
-    blueMana_activations_onRoll: 0
     activations_onRoll_byManaType: 
     NumberOfSkillActivations: 0
     damageDone_byActivations: 0
@@ -7965,6 +7996,7 @@ MonoBehaviour:
     preciseIstances_Activated: 0
     dodgeInstances_Activated: 
   CurrentCard_Skills: []
+  TotalDamageAfterFirstRoll: 0
 --- !u!1 &877841389
 GameObject:
   m_ObjectHideFlags: 0
@@ -18327,6 +18359,7 @@ GameObject:
   - component: {fileID: 1954350856}
   - component: {fileID: 1954350858}
   - component: {fileID: 1954350857}
+  - component: {fileID: 1954350859}
   m_Layer: 5
   m_Name: PlayerDamageTaken Text
   m_TagString: Untagged
@@ -18451,6 +18484,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954350855}
   m_CullTransparentMesh: 1
+--- !u!114 &1954350859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954350855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 927aaecdf7cdac542a096252fba26511, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownText: {fileID: 1954350857}
 --- !u!1 &1959368867
 GameObject:
   m_ObjectHideFlags: 0
