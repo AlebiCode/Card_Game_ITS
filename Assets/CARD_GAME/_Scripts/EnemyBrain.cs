@@ -360,6 +360,7 @@ public class EnemyBrain : MonoBehaviour
 
     public void GetRolledActivationsAndDamageFromEachSkill()
     {
+        battlingCardData.total_dodgeInstances_Activated = new List<int>();
         battlingCardData.total_preciseIstances_Activated = new int[3] ;
         battlingCardData.NumberOfSkillsActivatedSet_afterFirstRoll = new int[3];
 
