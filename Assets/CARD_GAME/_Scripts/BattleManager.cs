@@ -138,6 +138,12 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator StartMatch_Coroutine()
     {
+        playerFightData.damageTaken = 0;
+        enemyFightData.damageTaken = 0;
+        
+        onEnemyCardDamaged?.Invoke(enemyFightData.damageTaken);
+        onPlayerCardDamaged?.Invoke(playerFightData.damageTaken);
+
         StartingDicesRoll(allyDices);
         StartingDicesRoll(enemyDices);
 
@@ -243,7 +249,6 @@ public class BattleManager : MonoBehaviour
     private IEnumerator FightCoroutine()
     {
         Debug.Log("Fight!!");
-
         List<SkillData> allySkills = SkillChecker(allyCombatCard, allyDices);
         List<SkillData> enemySkills = SkillChecker(enemyCombatCard, enemyDices);
         ExecuteSkillsDefences(allySkills, true);
@@ -372,9 +377,9 @@ public class BattleManager : MonoBehaviour
                     defenderFightData.damageTaken += skillToCalc.Damage;
                     //Hit
                     if (isAlly)
-                        onEnemyCardDamaged?.Invoke(skillToCalc.Damage);
+                        onEnemyCardDamaged?.Invoke(defenderFightData.damageTaken);
                     else
-                        onPlayerCardDamaged?.Invoke(skillToCalc.Damage);
+                        onPlayerCardDamaged?.Invoke(defenderFightData.damageTaken);
                 }
                 else
                 {
