@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class EnemyBrain : MonoBehaviour
 {
     [Header("DICES ROLL OUTCOME")]
-
     [SerializeField] private Dice[] diceRolled;
     [SerializeField] private Dice.diceFace[] diceRolled_faces;
 
@@ -45,14 +45,16 @@ public class EnemyBrain : MonoBehaviour
         {
             battlingCard = _selected_card;
 
-            //currentCardSkills = _selectedCard_skills;
         }
 
         public int[] NumberOfSkillsActivatedSet_afterFirstRoll;
-        public int total_damageDone_afterRoll;
+        public int total_DamageDone_afterRoll;
+        public int total_PrecisionDamage_afterRoll;
+        public int total_NormalDamage_afterRoll;
         public int total_defenceInstances_Activated ;
         public int[] total_preciseIstances_Activated ;
         public List<int> total_dodgeInstances_Activated;
+
 
         public List<ActivationSetsData> ActivationsSetsDataList;
 
@@ -63,7 +65,6 @@ public class EnemyBrain : MonoBehaviour
         public List<float> defencesByEachSetOfActivations_List ;
         public List<int[]> preciseIstances_List;
         public List<int[]> skillsDodgeIstancesValues_List;
-
     }
     
     [Serializable()]
@@ -76,10 +77,10 @@ public class EnemyBrain : MonoBehaviour
         {
             skillData = _skillData;
             skill_ManaCost_list = _skillData.Skill_colorCost;
-
         }
+
         [Header("Skill Mana Cost")]
-        public int total_manaCost = 0;
+        public int skill_totalManaCost = 0;
         public int skill_RedManaCost = 0;
         public int skill_YellowManaCost = 0;
         public int skill_BlueManaCost = 0;
@@ -90,12 +91,13 @@ public class EnemyBrain : MonoBehaviour
         public List<int> activations_onRoll_byManaType;
         public int NumberOfSkillActivations = 0;
 
-        public int damageDone_byActivations = 0;
+        public int attackInstances_Activated = 0;
         public int defenceInstances_Activated = 0;
         public bool isAttackPrecise=false;
         public int preciseIstances_Activated = 0;
         public List<int> dodgeInstances_Activated;
 
+        public int skillDamageDone_byAttackInstancesActivated = 0;
     }
 
     [Serializable()]
@@ -115,25 +117,23 @@ public class EnemyBrain : MonoBehaviour
             total_damage = _damage;
         }
 
+        //[0] = first skill activations, [1] = second skill activations, [2] = third skill activations
+        public int[] skill_activation_set;
+
         //[0] = red mana faces, [1] = yellow mana faces, [2] = blue mana faces
         public int[] diceCombinationSet_byManaType;
         public float set_probability_preRoll;
         public float set_probability_afterRoll;
 
-        //[0] = first skill activations, [1] = second skill activations, [2] = third skill activations
-        public int[] skill_activation_set;
-
         //somma del danno di ogni abilità per le rispettive istanze e attivazioni del set
         public float total_damage;
+        public float damageMultipliedByChance;
         public int defence_instances;
         public int[] precise_instances;
         public int[] dodge_instances_values /*= new int[] {}*/;
 
         //public float damage_toDo;
         //public float damage_done_withActivs;
-
-        public float damageMultipliedByChance;
-
     }
 
     public void RollDiceButtonTest()
@@ -263,7 +263,7 @@ public class EnemyBrain : MonoBehaviour
 
     public void GetSingleSkillManaCost(Skill _skill)
     {
-        _skill.total_manaCost = _skill.skill_ManaCost_list.Count;
+        _skill.skill_totalManaCost = _skill.skill_ManaCost_list.Count;
 
         foreach (var face in _skill.skill_ManaCost_list)
         {
@@ -289,7 +289,7 @@ public class EnemyBrain : MonoBehaviour
 
         _skill.skill_ManaCost_byManaType = new int[3] { _skill.skill_RedManaCost , _skill.skill_YellowManaCost , _skill.skill_BlueManaCost };
 
-        _skill.skill_maximum_activations = (int) (6 / (_skill.total_manaCost));
+        _skill.skill_maximum_activations = (int) (6 / (_skill.skill_totalManaCost));
 
         Debug.Log(_skill.skill_ManaCost_byManaType.ToString());
     }
@@ -317,24 +317,30 @@ public class EnemyBrain : MonoBehaviour
 
     public void GetDamageAndEffectsActivatedForSingleSkillAfterRoll(Skill _skill)
     {
-        //get damage done by activs
-        _skill.damageDone_byActivations = 0;
-        _skill.damageDone_byActivations = _skill.skillData.Damage * _skill.skillData.AtkInstances * _skill.NumberOfSkillActivations;
+        //get attack instances 
+        _skill.attackInstances_Activated = 0;
+        _skill.attackInstances_Activated = _skill.skillData.AtkInstances * _skill.NumberOfSkillActivations;
+
+        //get precise and normal damage istances
+        _skill.preciseIstances_Activated = 0;
+        if (_skill.isAttackPrecise)
+        {
+            _skill.preciseIstances_Activated = _skill.attackInstances_Activated;
+            battlingCardData.total_PrecisionDamage_afterRoll += _skill.skillDamageDone_byAttackInstancesActivated;
+        }
+        else
+        {
+            battlingCardData.total_NormalDamage_afterRoll += _skill.skillDamageDone_byAttackInstancesActivated;
+        }
+        battlingCardData.total_preciseIstances_Activated.Append(_skill.preciseIstances_Activated);
 
         //get skill defence istances
         _skill.defenceInstances_Activated = 0;
         _skill.defenceInstances_Activated = _skill.skillData.DefInstances * _skill.NumberOfSkillActivations;
-
-        //get precise istances
-        _skill.preciseIstances_Activated = 0;
-        if (_skill.isAttackPrecise)
-        {
-            _skill.preciseIstances_Activated = _skill.NumberOfSkillActivations;
-        }
+        battlingCardData.total_defenceInstances_Activated += _skill.defenceInstances_Activated;
 
         //get skill dodge istances
         _skill.dodgeInstances_Activated = new List<int>();
-
         if (_skill.skillData.Dodge > 0)
         {
             for (int i = 0; i < _skill.NumberOfSkillActivations; i++)
@@ -342,18 +348,22 @@ public class EnemyBrain : MonoBehaviour
                 _skill.dodgeInstances_Activated.Add(_skill.skillData.Dodge);
             }
         }
+        battlingCardData.total_dodgeInstances_Activated.AddRange(_skill.dodgeInstances_Activated);
 
+        //get damage done by single skill activs
+        _skill.skillDamageDone_byAttackInstancesActivated = 0;
+        _skill.skillDamageDone_byAttackInstancesActivated = (_skill.skillData.Damage * _skill.attackInstances_Activated);
+
+        //set total damage done by all skill activs
+        battlingCardData.total_DamageDone_afterRoll = battlingCardData.total_PrecisionDamage_afterRoll + battlingCardData.total_NormalDamage_afterRoll;
     }
 
     public void GetRolledActivationsAndDamageFromEachSkill()
     {
+        battlingCardData.total_preciseIstances_Activated = new int[3] ;
         battlingCardData.NumberOfSkillsActivatedSet_afterFirstRoll = new int[3];
-        int total_damage = 0;
-        int total_defences = 0;
-        //int[] total_preciseIstances;
-        List<int> total_dodgeInstances = new List<int>();
 
-        for(int i = 0; i< CurrentCard_Skills.Length; i++)
+        for (int i = 0; i < CurrentCard_Skills.Length; i++)
         //foreach (Skill skill in CurrentCard_Skills)
         {
             GetSingleSkillManaCost(CurrentCard_Skills[i]);
@@ -362,23 +372,14 @@ public class EnemyBrain : MonoBehaviour
 
             GetDamageAndEffectsActivatedForSingleSkillAfterRoll(CurrentCard_Skills[i]);
 
-            total_damage += CurrentCard_Skills[i].damageDone_byActivations;
-            total_defences += CurrentCard_Skills[i].defenceInstances_Activated;
-            total_dodgeInstances.AddRange(CurrentCard_Skills[i].dodgeInstances_Activated);
-
         }
 
-        battlingCardData.total_damageDone_afterRoll = total_damage;
-        battlingCardData.total_defenceInstances_Activated = total_defences;
-        battlingCardData.total_dodgeInstances_Activated = total_dodgeInstances;
-        battlingCardData.total_preciseIstances_Activated = new int[3] { CurrentCard_Skills[0].preciseIstances_Activated, CurrentCard_Skills[1].preciseIstances_Activated, CurrentCard_Skills[2].preciseIstances_Activated };
-
-        Debug.Log("ROLLED EFFECTS - damage = " + battlingCardData.total_damageDone_afterRoll.ToString() 
-            + " - defences = " + battlingCardData.total_defenceInstances_Activated.ToString()
-            + " - dodge istances = " + battlingCardData.total_dodgeInstances_Activated.ToString() 
-            + " - precise istances = " + battlingCardData.total_preciseIstances_Activated[0].ToString()
-            + battlingCardData.total_preciseIstances_Activated[1].ToString() 
-            + battlingCardData.total_preciseIstances_Activated[2].ToString());
+        Debug.Log($"ROLLED EFFECTS - damage =  {battlingCardData.total_DamageDone_afterRoll}" +
+                                 $"- defences = {battlingCardData.total_defenceInstances_Activated}" +
+                                 $"- dodge istances = {battlingCardData.total_dodgeInstances_Activated.Count}" +
+                                 $"- precise istances = {battlingCardData.total_preciseIstances_Activated[0]}" +
+                                 $"                       {battlingCardData.total_preciseIstances_Activated[1]}" +
+                                 $"                      {battlingCardData.total_preciseIstances_Activated[2]}");
     
     }
 
@@ -387,7 +388,7 @@ public class EnemyBrain : MonoBehaviour
         int n = 0;
         for (int x=0; x<diceRolled.Length; x++)
         {
-            if (diceRolled[x].Result == color)
+            if (diceRolled[x].Result == color&& diceRolled[x].IsLocked)
             {
                 n++;
             }
@@ -395,20 +396,8 @@ public class EnemyBrain : MonoBehaviour
         return n;
     }
 
-    public void TurnLoop()
+    public void CheckDiceToLock()
     {
-        //START
-        //ROLL DICE
-        //RollDices();
-
-        GetDice();
-
-        GetRolledDiceFaces();
-
-        GetCardDataAndSkills();
-
-        GetRolledActivationsAndDamageFromEachSkill();
-
         //PRIORITÁ DELLE MOSSE: ORDINAMENTO
         //different skill priority orders
         List<Skill> skillsByPriority = new List<Skill>();
@@ -428,11 +417,11 @@ public class EnemyBrain : MonoBehaviour
                 continue;
 
             int redDiceLocked = GetLockedDicesByColor(Dice.diceFace.red);
-            for (int y=0; y< s.skill_RedManaCost; y++)
+            for (int y = 0; y < s.skill_RedManaCost * numberOfActivations; y++)
             {
-                if (redDiceLocked == s.skill_RedManaCost-1)
-                            break;
-                for (int x=0; x<diceRolled.Length; x++)
+                if (redDiceLocked == s.skill_RedManaCost * numberOfActivations)
+                    break;
+                for (int x = 0; x < diceRolled.Length; x++)
                 {
                     if (diceRolled[x].Result == Dice.diceFace.red)
                     {
@@ -441,18 +430,18 @@ public class EnemyBrain : MonoBehaviour
                             diceRolled[x].LockDice(true);
                             redDiceLocked++;
                         }
-                        if (redDiceLocked == s.skill_RedManaCost-1)
+                        if (redDiceLocked == s.skill_RedManaCost * numberOfActivations)
                             break;
                     }
-                }                    
+                }
             }
 
             int yellowDiceLocked = GetLockedDicesByColor(Dice.diceFace.yellow);
-            for (int y=0; y< s.skill_YellowManaCost; y++)
+            for (int y = 0; y < s.skill_YellowManaCost * numberOfActivations; y++)
             {
-                if (yellowDiceLocked == s.skill_YellowManaCost-1)
-                        break;
-                for (int x=0; x<diceRolled.Length; x++)
+                if (yellowDiceLocked == s.skill_YellowManaCost * numberOfActivations)
+                    break;
+                for (int x = 0; x < diceRolled.Length; x++)
                 {
                     if (diceRolled[x].Result == Dice.diceFace.yellow)
                     {
@@ -461,18 +450,18 @@ public class EnemyBrain : MonoBehaviour
                             diceRolled[x].LockDice(true);
                             yellowDiceLocked++;
                         }
-                        if (yellowDiceLocked == s.skill_YellowManaCost-1)
+                        if (yellowDiceLocked == s.skill_YellowManaCost * numberOfActivations)
                             break;
                     }
-                }                    
+                }
             }
 
             int blueDiceLocked = GetLockedDicesByColor(Dice.diceFace.blue);
-            for (int y=0; y< s.skill_BlueManaCost; y++)
+            for (int y = 0; y < s.skill_BlueManaCost * numberOfActivations; y++)
             {
-                if (blueDiceLocked == s.skill_BlueManaCost-1)
-                        break;
-                for (int x=0; x<diceRolled.Length; x++)
+                if (blueDiceLocked == s.skill_BlueManaCost * numberOfActivations)
+                    break;
+                for (int x = 0; x < diceRolled.Length; x++)
                 {
                     if (diceRolled[x].Result == Dice.diceFace.blue)
                     {
@@ -481,16 +470,30 @@ public class EnemyBrain : MonoBehaviour
                             diceRolled[x].LockDice(true);
                             blueDiceLocked++;
                         }
-                        if (blueDiceLocked == s.skill_BlueManaCost-1)
+                        if (blueDiceLocked == s.skill_BlueManaCost * numberOfActivations)
                             break;
                     }
-                }                
-            }  
+                }
+            }
         }
+    }
 
+    public void TurnLoop()
+    {
+        //START
+        //ROLL DICE
+        //RollDices();
 
+        GetDice();
 
+        GetRolledDiceFaces();
 
+        GetCardDataAndSkills();
+
+        GetRolledActivationsAndDamageFromEachSkill();
+
+        //check and lock dice
+        CheckDiceToLock();
 
         //PER OGNI MOSSA
         // SE POSSO FARLA, LOCKO I DADI NECESSARI PER FARLA : PROBABILITÁ 100%
@@ -759,13 +762,13 @@ public class EnemyBrain : MonoBehaviour
         float damage2 = Second_Skill.NumberOfSkillActivations * Second_Skill.skillData.AtkInstances * Second_Skill.skillData.Damage;
         float damage3 = Third_Skill.NumberOfSkillActivations * Third_Skill.skillData.AtkInstances * Third_Skill.skillData.Damage;
 
-        battlingCardData.total_damageDone_afterRoll = (int)(damage1 + damage2 + damage3);
-        TotalDamageAfterFirstRoll = battlingCardData.total_damageDone_afterRoll;
+        battlingCardData.total_DamageDone_afterRoll = (int)(damage1 + damage2 + damage3);
+        TotalDamageAfterFirstRoll = battlingCardData.total_DamageDone_afterRoll;
 
         //CREATE SETS WITH RESPECTIVE DAMAGE
         List<ActivationSetsData> singleSkillMaximized_ActivationDataSets = new List<ActivationSetsData>();
 
-        ActivationSetsData activatedSet_afterFirstRoll = new ActivationSetsData(battlingCardData.total_damageDone_afterRoll, new int[] { diceRoll_RedMana, diceRoll_YellowMana, diceRoll_BlueMana });
+        ActivationSetsData activatedSet_afterFirstRoll = new ActivationSetsData(battlingCardData.total_DamageDone_afterRoll, new int[] { diceRoll_RedMana, diceRoll_YellowMana, diceRoll_BlueMana });
 
         //here get all atk def, dodge, ecc
         activatedSet_afterFirstRoll.skill_activation_set = new int[] { First_Skill.NumberOfSkillActivations, Second_Skill.NumberOfSkillActivations, Third_Skill.NumberOfSkillActivations };
