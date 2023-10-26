@@ -118,9 +118,7 @@ public class BattleManager : MonoBehaviour
             enemyDices[i].ResetColor();
         }
         
-        int randomIndex = Random.Range(0, enemySelectedCardIndexList.Count);
-        enemySelectedCardIndex = enemySelectedCardIndexList[randomIndex];
-        enemySelectedCardIndexList.Remove(randomIndex);
+        enemySelectedCardIndex = ChooseEnemyCardIndex();
         //enemySelectedCardIndex = Random.Range(0, 3);
 
         enemyCombatCard.LoadData(deckCarteNemiche[enemySelectedCardIndex].CardData);
@@ -129,6 +127,15 @@ public class BattleManager : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(StartMatch_Coroutine());
     }
+
+    public int ChooseEnemyCardIndex()
+    {
+        int randomIndex = Random.Range(0, enemySelectedCardIndexList.Count);
+        int enemyCardIndex = enemySelectedCardIndexList[randomIndex];
+        enemySelectedCardIndexList.RemoveAt(randomIndex);
+        return enemyCardIndex;
+    }
+
     private IEnumerator StartMatch_Coroutine()
     {
         StartingDicesRoll(allyDices);

@@ -41,11 +41,11 @@ public class EnemyBrain : MonoBehaviour
         public Card battlingCard;
         public Skill[] currentCardSkills;
 
-        public CardSelected(Card _selected_card, Skill[] _selectedCard_skills)
+        public CardSelected(Card _selected_card)
         {
             battlingCard = _selected_card;
 
-            currentCardSkills = _selectedCard_skills;
+            //currentCardSkills = _selectedCard_skills;
         }
 
         public int[] NumberOfSkillsActivatedSet_afterFirstRoll;
@@ -87,9 +87,6 @@ public class EnemyBrain : MonoBehaviour
 
         [Header("Activations")]
         public int skill_maximum_activations;
-        public int redMana_activations_onRoll = 0;
-        public int yellowMana_activationsonRoll = 0;
-        public int blueMana_activations_onRoll = 0;
         public List<int> activations_onRoll_byManaType;
         public int NumberOfSkillActivations = 0;
 
@@ -188,13 +185,14 @@ public class EnemyBrain : MonoBehaviour
     public void GetCardDataAndSkills()
     {
         //get skills from card and reset values of roll
+        battlingCardData = new CardSelected(BattleManager.instance.EnemySelectedCard);
 
-        First_Skill = new Skill(selected_card.CardData.Skills[0]);
-        Second_Skill = new Skill(selected_card.CardData.Skills[1]);
-        Third_Skill = new Skill(selected_card.CardData.Skills[2]);
-        CurrentCard_Skills = new Skill[3] { First_Skill, Second_Skill, Third_Skill };
+        First_Skill = new Skill(battlingCardData.battlingCard.CardData.Skills[0]);
+        Second_Skill = new Skill(battlingCardData.battlingCard.CardData.Skills[1]);
+        Third_Skill = new Skill(battlingCardData.battlingCard.CardData.Skills[2]);
+        CurrentCard_Skills =  new Skill[3] { First_Skill, Second_Skill, Third_Skill };
+        battlingCardData.currentCardSkills = CurrentCard_Skills;
 
-        battlingCardData = new CardSelected(selected_card, CurrentCard_Skills);
 
     }
 
@@ -299,7 +297,6 @@ public class EnemyBrain : MonoBehaviour
     public void GetSingleSkillActivationsAfterFirstRoll(Skill _skill)
     {
         _skill.activations_onRoll_byManaType = new List<int>();
-        int[] activsByMana= new int[3];
 
         for (int i = 0; i < 3; i++)
         {
@@ -308,12 +305,8 @@ public class EnemyBrain : MonoBehaviour
                 int activs = (int)(diceRoll_byManaColor[i] / _skill.skill_ManaCost_byManaType[i]);
 
                 _skill.activations_onRoll_byManaType.Add(activs);
-                activsByMana[i] = activs;
             }
         }
-        _skill.redMana_activations_onRoll = activsByMana[0];
-        _skill.yellowMana_activationsonRoll = activsByMana[1];
-        _skill.blueMana_activations_onRoll = activsByMana[2];
 
         //get skill final activations
         _skill.NumberOfSkillActivations = _skill.activations_onRoll_byManaType.Min();
@@ -325,15 +318,15 @@ public class EnemyBrain : MonoBehaviour
     public void GetDamageAndEffectsActivatedForSingleSkillAfterRoll(Skill _skill)
     {
         //get damage done by activs
-        //_skill.damageDone_byActivations = 0;
+        _skill.damageDone_byActivations = 0;
         _skill.damageDone_byActivations = _skill.skillData.Damage * _skill.skillData.AtkInstances * _skill.NumberOfSkillActivations;
 
         //get skill defence istances
-        //_skill.defenceInstances_Activated = 0;
+        _skill.defenceInstances_Activated = 0;
         _skill.defenceInstances_Activated = _skill.skillData.DefInstances * _skill.NumberOfSkillActivations;
 
         //get precise istances
-        //_skill.preciseIstances_Activated = 0;
+        _skill.preciseIstances_Activated = 0;
         if (_skill.isAttackPrecise)
         {
             _skill.preciseIstances_Activated = _skill.NumberOfSkillActivations;
@@ -389,7 +382,8 @@ public class EnemyBrain : MonoBehaviour
     
     }
 
-    private int GetLockedDicesByColor(Dice.diceFace color){
+    private int GetLockedDicesByColor(Dice.diceFace color)
+    {
         int n = 0;
         for (int x=0; x<diceRolled.Length; x++)
         {
@@ -416,6 +410,7 @@ public class EnemyBrain : MonoBehaviour
         GetRolledActivationsAndDamageFromEachSkill();
 
         //PRIORITÁ DELLE MOSSE: ORDINAMENTO
+        //different skill priority orders
         List<Skill> skillsByPriority = new List<Skill>();
 
         skillsByPriority.Add(First_Skill);
