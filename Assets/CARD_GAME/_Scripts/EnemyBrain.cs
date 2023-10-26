@@ -730,28 +730,19 @@ public class EnemyBrain : MonoBehaviour
         #region skill data pre-roll
 
         //foreach(Skill skill in CurrentCard_Skills)
-        //skill base probability
-        float base_probability1 = Mathf.Pow((1 / 2f), (First_Skill.skill_RedManaCost)) * Mathf.Pow((1 / 3f), (First_Skill.skill_YellowManaCost)) * Mathf.Pow((1 / 6f), ( First_Skill.skill_BlueManaCost));
-        float base_probability2 = Mathf.Pow((1 / 2f), (Second_Skill.skill_RedManaCost)) * Mathf.Pow((1 / 3f), (Second_Skill.skill_YellowManaCost)) * Mathf.Pow((1 / 6f), (Second_Skill.skill_BlueManaCost));
-        float base_probability3 = Mathf.Pow((1 / 2f), (Third_Skill.skill_RedManaCost)) * Mathf.Pow((1 / 3f), (Third_Skill.skill_YellowManaCost)) * Mathf.Pow((1 / 6f), (Third_Skill.skill_BlueManaCost));
-
-        //maximum activations with 6 dice
-        int max_activations1 = First_Skill.skill_maximum_activations;
-        int max_activations2 = Second_Skill.skill_maximum_activations;
-        int max_activations3 = Third_Skill.skill_maximum_activations;
 
         //probabilità che escano dadi per ripetere la skill max_activations volte a partire da nessun roll
         float probability1_maxActivations = Mathf.Pow(((Mathf.Pow((1 / 2f), (First_Skill.skill_RedManaCost))) 
                                                      * (Mathf.Pow((1 / 3f), (First_Skill.skill_YellowManaCost))) 
-                                                     * (Mathf.Pow((1 / 6f), (First_Skill.skill_BlueManaCost)))), max_activations1);
+                                                     * (Mathf.Pow((1 / 6f), (First_Skill.skill_BlueManaCost)))), First_Skill.skill_maximum_activations);
 
         float probability2_maxActivations = Mathf.Pow(((Mathf.Pow((1 / 2f), (Second_Skill.skill_RedManaCost)))
                                                      * (Mathf.Pow((1 / 3f), (Second_Skill.skill_YellowManaCost)))
-                                                     * (Mathf.Pow((1 / 6f), (Second_Skill.skill_BlueManaCost)))), max_activations2);
+                                                     * (Mathf.Pow((1 / 6f), (Second_Skill.skill_BlueManaCost)))), Second_Skill.skill_maximum_activations);
 
         float probability3_maxActivations = Mathf.Pow(((Mathf.Pow((1 / 2f), (Third_Skill.skill_RedManaCost)))
                                                      * (Mathf.Pow((1 / 3f), (Third_Skill.skill_YellowManaCost)))
-                                                     * (Mathf.Pow((1 / 6f), (Third_Skill.skill_BlueManaCost)))), max_activations3);
+                                                     * (Mathf.Pow((1 / 6f), (Third_Skill.skill_BlueManaCost)))), Third_Skill.skill_maximum_activations);
 
         //skill base damage without activations from roll (damage * base_attack_instances)
         float base_damage1 = First_Skill.skillData.AtkInstances * First_Skill.skillData.Damage;
@@ -770,6 +761,7 @@ public class EnemyBrain : MonoBehaviour
 
         battlingCardData.total_damageDone_afterRoll = (int)(damage1 + damage2 + damage3);
         TotalDamageAfterFirstRoll = battlingCardData.total_damageDone_afterRoll;
+
         //CREATE SETS WITH RESPECTIVE DAMAGE
         List<ActivationSetsData> singleSkillMaximized_ActivationDataSets = new List<ActivationSetsData>();
 
@@ -780,7 +772,6 @@ public class EnemyBrain : MonoBehaviour
 
         //ADD TO LIST TO CHECK MAX DAMAGE OF ROLLED COMBINATION
         singleSkillMaximized_ActivationDataSets.Add(activatedSet_afterFirstRoll);
-
 
         //maximize activations of single skill
         //
@@ -823,32 +814,6 @@ public class EnemyBrain : MonoBehaviour
         //CHECK MAX DAMAGE BETWEEN ROLLED AND MAXIMIZED ACTIVATIONS FOR EACH SKILL
         //
         CheckMaxDamageBetweenSets(singleSkillMaximized_ActivationDataSets);
-
-
-        #region one skill maximize
-
-        //ONLY ONE SKILL MAXIMIZED FROM ROLLED DICE
-        //Probabilità che escano dadi per ripetere la skill max_activations volte a partire dai dadi rollati la prima volta
-        //
-        //Skill 1
-        //(redDiceNeeded1 - redDiceSpared1 =  First_Skill.skill_RedManaCost * max_activations1 - diceRoll_RedMana;
-        //float redDiceNeeded1 = First_Skill.skill_RedManaCost * (max_activations1 - First_Skill.NumberOfSkillActivations);
-        //float redDiceSpared1 = diceRoll_RedMana - First_Skill.NumberOfSkillActivations * First_Skill.skill_RedManaCost;
-
-        //float yellowDiceNeeded1 = First_Skill.skill_YellowManaCost * (max_activations1 - First_Skill.NumberOfSkillActivations);
-        //float yellowDiceSpared1 = diceRoll_YellowMana - First_Skill.NumberOfSkillActivations * First_Skill.skill_YellowManaCost;
-
-        //float blueDiceNeeded1 = First_Skill.skill_BlueManaCost * (max_activations1 - First_Skill.NumberOfSkillActivations);
-        //float bluedDiceSpared1 = diceRoll_BlueMana - First_Skill.NumberOfSkillActivations * First_Skill.skill_BlueManaCost;
-
-        //float probability1_maxActivations_after = First_Skill.NumberOfSkillActivations < max_activations1 ?
-        //                                                    ((Mathf.Pow((1 / 2f), redDiceNeeded1 > redDiceSpared1 ? (redDiceNeeded1 - redDiceSpared1) : 0))
-        //                                                   * (Mathf.Pow((1 / 3f), yellowDiceNeeded1 > yellowDiceSpared1 ? (yellowDiceNeeded1 - yellowDiceSpared1) : 0))
-        //                                                   * (Mathf.Pow((1 / 6f), blueDiceNeeded1 > bluedDiceSpared1 ? (blueDiceNeeded1 - bluedDiceSpared1) : 0))) : 0;
-
-        //float probability_totalDamage1_afterRoll = base_damage1 * (First_Skill.NumberOfSkillActivations + probability1_maxActivations_after*(max_activations1- First_Skill.NumberOfSkillActivations));
-
-        #endregion
 
         //ADD TO CHECK MAX DAMAGE OF MAXIMIZED SET
 
