@@ -565,8 +565,8 @@ public class EnemyBrain : MonoBehaviour
     {
 
         //_activationDataSets = battlingCardData.ActivationsSetsDataList;
-
         battlingCardData.setProbabilitiesAfterRoll_List = new List<float>();
+        battlingCardData.total_dodgeInstances_Activated = new List<int>();
         int debug = 0;
 
         foreach (ActivationSetsData setData in battlingCardData.ActivationsSetsDataList)
@@ -585,7 +585,10 @@ public class EnemyBrain : MonoBehaviour
             battlingCardData.setProbabilitiesAfterRoll_List.Add(_probability_set_after_roll);
 
             debug++;
-            Debug.Log("Set probabilities after roll " + debug + " = " + _probability_set_after_roll);
+            Debug.Log("Set (" + debug + ") " +
+                    "- skills (" + setData.skill_activation_set + ") " +
+                    "- dice (" + setData.diceCombinationSet_byManaType +") " +
+                    "- probabilities after roll = " + setData.set_probability_afterRoll);
 
         }
 
