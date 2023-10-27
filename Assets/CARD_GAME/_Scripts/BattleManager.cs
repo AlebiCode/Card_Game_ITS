@@ -280,7 +280,8 @@ public class BattleManager : MonoBehaviour
     {
         //ENEMY AI HERE
 
-        EnemyAI.TurnLoop();
+        yield return new WaitForSeconds(1);
+
         /*
         for (int i = 0; i < Random.Range(2, 6); i++)
         {
@@ -288,7 +289,8 @@ public class BattleManager : MonoBehaviour
             enemyDices[i].LockDice(true);
         }
         */
-        yield return new WaitForSeconds(1);
+
+        EnemyAI.TurnLoop();
         RerollDices_enemy();
     }
 
