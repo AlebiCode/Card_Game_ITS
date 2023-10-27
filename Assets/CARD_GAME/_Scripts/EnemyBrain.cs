@@ -267,6 +267,9 @@ public class EnemyBrain : MonoBehaviour
     public void GetSingleSkillManaCost(Skill _skill)
     {
         _skill.skill_totalManaCost = _skill.skill_ManaCost_list.Count;
+        _skill.skill_RedManaCost = 0;
+        _skill.skill_YellowManaCost = 0;
+        _skill.skill_BlueManaCost = 0;
 
         foreach (var face in _skill.skill_ManaCost_list)
         {
@@ -294,7 +297,7 @@ public class EnemyBrain : MonoBehaviour
 
         _skill.skill_maximum_activations = (int) (6 / (_skill.skill_totalManaCost));
 
-        Debug.Log(_skill.skill_ManaCost_byManaType.ToString());
+        Debug.Log("mana cost by type = "+_skill.skill_ManaCost_byManaType[0] + _skill.skill_ManaCost_byManaType[1] + _skill.skill_ManaCost_byManaType[2]);
     }
 
     public void GetSingleSkillActivationsAfterFirstRoll(Skill _skill)
@@ -320,9 +323,14 @@ public class EnemyBrain : MonoBehaviour
 
     public void GetDamageAndEffectsActivatedForSingleSkillAfterRoll(Skill _skill)
     {
+
         //get attack instances 
         _skill.attackInstances_Activated = 0;
         _skill.attackInstances_Activated = _skill.skillData.AtkInstances * _skill.NumberOfSkillActivations;
+
+        //get damage done by single skill activs
+        _skill.skillDamageDone_byAttackInstancesActivated = 0;
+        _skill.skillDamageDone_byAttackInstancesActivated = (_skill.skillData.Damage * _skill.attackInstances_Activated);
 
         //get precise and normal damage istances
         _skill.preciseIstances_Activated = 0;
@@ -352,10 +360,6 @@ public class EnemyBrain : MonoBehaviour
             }
         }
         battlingCardData.total_dodgeInstances_Activated.AddRange(_skill.dodgeInstances_Activated);
-
-        //get damage done by single skill activs
-        _skill.skillDamageDone_byAttackInstancesActivated = 0;
-        _skill.skillDamageDone_byAttackInstancesActivated = (_skill.skillData.Damage * _skill.attackInstances_Activated);
 
         //set total damage done by all skill activs
         battlingCardData.total_DamageDone_afterRoll = battlingCardData.total_PrecisionDamage_afterRoll + battlingCardData.total_NormalDamage_afterRoll;
@@ -410,7 +414,7 @@ public class EnemyBrain : MonoBehaviour
         skillsByPriority.Add(Second_Skill);
         skillsByPriority.Add(Third_Skill);
 
-        List<Dice> diceToLock = new List<Dice>();
+        //List<Dice> diceToLock = new List<Dice>();
 
         foreach (Skill s in skillsByPriority)
         {
@@ -480,6 +484,28 @@ public class EnemyBrain : MonoBehaviour
                 }
             }
         }
+
+
+
+    }
+    List<Dice> diceToLock = new List<Dice>();
+    public void SetDiceToLock()
+    {
+        for (int i=0; i < diceRolled.Length; i++)
+        {
+            for (int j = 0; j < diceToLock.Count; j++)
+            {
+                if (diceRolled[i].Result == diceToLock[j].Result)
+                {
+                    if (diceToLock[j].IsLocked == false)
+                    {
+                        diceToLock[j].LockDice(true);
+                        diceRolled[i].LockDice(true);
+                        return;
+                    }
+                }    
+            }
+        }
     }
 
     public void TurnLoop()
@@ -521,7 +547,7 @@ public class EnemyBrain : MonoBehaviour
         GetChanceOfEachDiceCombinationFromRoll();
 
 
-        // GetDamageAndEffectsFromEachActivationSet(/*battlingCardData.ActivationsSetsDataList*/);
+        //GetDamageAndEffectsFromEachActivationSet(/*battlingCardData.ActivationsSetsDataList*/);
 
         // CheckMaxDamageBetweenSets(battlingCardData.ActivationsSetsDataList);
 
@@ -575,6 +601,7 @@ public class EnemyBrain : MonoBehaviour
 
         foreach (ActivationSetsData setData in battlingCardData.ActivationsSetsDataList)
         {
+            setData.skill_activation_set = new int[3];
             int[] skillsActivationsSets = new int[3];
 
             foreach (Skill skill in CurrentCard_Skills)
@@ -598,7 +625,7 @@ public class EnemyBrain : MonoBehaviour
             }
 
             setData.skill_activation_set = skillsActivationsSets;
-            battlingCardData.skillsActivationsSets_ofDiceCombinationSets.Add(skillsActivationsSets);
+            battlingCardData.skillsActivationsSets_ofDiceCombinationSets.Add(setData.skill_activation_set);
         }
     }
 
@@ -633,14 +660,14 @@ public class EnemyBrain : MonoBehaviour
         }
 
         battlingCardData.ActivationsSetsDataList.Sort((y, x) => x.set_probability_afterRoll.CompareTo(y.set_probability_afterRoll));
-        battlingCardData.setProbabilitiesAfterRoll_List.Sort();
+        battlingCardData.setProbabilitiesAfterRoll_List.Reverse();
         //List<float> MaxChanceOfActivationSet = new List<float>();
         for (int h = 0; h <=5; h++)
         {
             Debug.Log("Top 5 Sets with max probabilities after roll " +
                 "- Set Num(" + battlingCardData.ActivationsSetsDataList[h].activationSetNumber  + ") = " +
-                "- skills (" + battlingCardData.ActivationsSetsDataList[h].skill_activation_set + ") " +
-                "- dice (" + battlingCardData.ActivationsSetsDataList[h].diceCombinationSet_byManaType + ") " +
+                "- skills (" + battlingCardData.ActivationsSetsDataList[h].skill_activation_set[0] + battlingCardData.ActivationsSetsDataList[h].skill_activation_set[1] + battlingCardData.ActivationsSetsDataList[h].skill_activation_set[2] +") " +
+                "- dice (" + battlingCardData.ActivationsSetsDataList[h].diceCombinationSet_byManaType[0] + battlingCardData.ActivationsSetsDataList[h].diceCombinationSet_byManaType[1] + battlingCardData.ActivationsSetsDataList[h].diceCombinationSet_byManaType[2] + ") " +
                 "- probabilities after roll = " + battlingCardData.ActivationsSetsDataList[h].set_probability_afterRoll);
         }
 
