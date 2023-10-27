@@ -5,7 +5,9 @@ using System.Collections.Generic;
 //using System.Diagnostics;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.Profiling.Memory.Experimental;
 using UnityEngine.XR;
 
 public class EnemyBrain : MonoBehaviour
@@ -103,6 +105,8 @@ public class EnemyBrain : MonoBehaviour
     [Serializable()]
     public class ActivationSetsData
     {
+        public int activationSetNumber;
+
         public ActivationSetsData(int[] _diceComboSet)
         {
             diceCombinationSet_byManaType = _diceComboSet;
@@ -116,7 +120,6 @@ public class EnemyBrain : MonoBehaviour
 
             total_damage = _damage;
         }
-
         //[0] = first skill activations, [1] = second skill activations, [2] = third skill activations
         public int[] skill_activation_set;
 
@@ -379,8 +382,8 @@ public class EnemyBrain : MonoBehaviour
                                  $"- defences = {battlingCardData.total_defenceInstances_Activated}" +
                                  $"- dodge istances = {battlingCardData.total_dodgeInstances_Activated.Count}" +
                                  $"- precise istances = {battlingCardData.total_preciseIstances_Activated[0]}" +
-                                 $"                       {battlingCardData.total_preciseIstances_Activated[1]}" +
-                                 $"                      {battlingCardData.total_preciseIstances_Activated[2]}");
+                                 $"{battlingCardData.total_preciseIstances_Activated[1]}" +
+                                 $"{battlingCardData.total_preciseIstances_Activated[2]}");
     
     }
 
@@ -510,12 +513,13 @@ public class EnemyBrain : MonoBehaviour
 
         // //CALCULATE POSSIBLE COMBINATIONS FOR LOCK
         // //get all possible diceCombination(by mana type)
-        // DiceCombinationsCalculator();
+        DiceCombinationsCalculator();
+
+        GetSkillActivationsSetsFromEachDiceCombination(/*battlingCardData.ActivationsSetsDataList*/);
 
         // //get all chances to do each diceCombination (by type)
-        // GetChanceOfEachDiceCombinationFromRoll();
+        GetChanceOfEachDiceCombinationFromRoll();
 
-        // GetSkillActivationsSetsFromEachDiceCombination(/*battlingCardData.ActivationsSetsDataList*/);
 
         // GetDamageAndEffectsFromEachActivationSet(/*battlingCardData.ActivationsSetsDataList*/);
 
@@ -554,51 +558,11 @@ public class EnemyBrain : MonoBehaviour
                 ActivationSetsData newSet = new ActivationSetsData(set);
                 battlingCardData.ActivationsSetsDataList.Add(newSet);
               
-                Debug.Log("Set probabilities after roll = " + set[0] + set[1] + set[2]);
+                //Debug.Log("Set probabilities after roll = " + set[0] + set[1] + set[2]);
             }
 
             j = 0;
 
-        }
-    }
-
-    public void GetChanceOfEachDiceCombinationFromRoll(/*ActivationsSetsDataList _activationDataSets*/)
-    {
-
-        //_activationDataSets = battlingCardData.ActivationsSetsDataList;
-        battlingCardData.setProbabilitiesAfterRoll_List = new List<float>();
-        battlingCardData.total_dodgeInstances_Activated = new List<int>();
-        int debug = 0;
-
-        foreach (ActivationSetsData setData in battlingCardData.ActivationsSetsDataList)
-        {
-            float _redDiceNeeded = setData.diceCombinationSet_byManaType[0] - diceRoll_RedMana;
-
-            float _yellowDiceNeeded = setData.diceCombinationSet_byManaType[1] - diceRoll_YellowMana;
-
-            float _blueDiceNeeded = setData.diceCombinationSet_byManaType[2] - diceRoll_BlueMana;
-
-            float _probability_set_after_roll = (Mathf.Pow((1 / 2f), _redDiceNeeded > 0 ? _redDiceNeeded : 0))
-                                                    * (Mathf.Pow((1 / 3f), _yellowDiceNeeded > 0 ? _yellowDiceNeeded : 0))
-                                                    * (Mathf.Pow((1 / 6f), _blueDiceNeeded > 0 ? _blueDiceNeeded : 0));
-
-            setData.set_probability_afterRoll = _probability_set_after_roll;
-            battlingCardData.setProbabilitiesAfterRoll_List.Add(_probability_set_after_roll);
-
-            debug++;
-            Debug.Log("Set (" + debug + ") " +
-                    "- skills (" + setData.skill_activation_set + ") " +
-                    "- dice (" + setData.diceCombinationSet_byManaType +") " +
-                    "- probabilities after roll = " + setData.set_probability_afterRoll);
-
-        }
-
-        battlingCardData.setProbabilitiesAfterRoll_List.Sort();
-        //List<float> MaxChanceOfActivationSet = new List<float>();
-
-        for (int d = 5; d >= 1; d--)
-        {
-            Debug.Log("max 5 probabilities after roll " + battlingCardData.setProbabilitiesAfterRoll_List[battlingCardData.setProbabilitiesAfterRoll_List.Count-d]);
         }
     }
 
@@ -636,6 +600,63 @@ public class EnemyBrain : MonoBehaviour
             setData.skill_activation_set = skillsActivationsSets;
             battlingCardData.skillsActivationsSets_ofDiceCombinationSets.Add(skillsActivationsSets);
         }
+    }
+
+    public void GetChanceOfEachDiceCombinationFromRoll(/*ActivationsSetsDataList _activationDataSets*/)
+    {
+        //_activationDataSets = battlingCardData.ActivationsSetsDataList;
+        battlingCardData.setProbabilitiesAfterRoll_List = new List<float>();
+        battlingCardData.total_dodgeInstances_Activated = new List<int>();
+        int debug = 0;
+
+        foreach (ActivationSetsData setData in battlingCardData.ActivationsSetsDataList)
+        {
+            debug++;
+            setData.activationSetNumber = debug;
+
+            float _redDiceNeeded = setData.diceCombinationSet_byManaType[0] - diceRoll_RedMana;
+            float _yellowDiceNeeded = setData.diceCombinationSet_byManaType[1] - diceRoll_YellowMana;
+            float _blueDiceNeeded = setData.diceCombinationSet_byManaType[2] - diceRoll_BlueMana;
+
+            float _probability_set_after_roll = (Mathf.Pow((1 / 2f), _redDiceNeeded > 0 ? _redDiceNeeded : 0))
+                                                    * (Mathf.Pow((1 / 3f), _yellowDiceNeeded > 0 ? _yellowDiceNeeded : 0))
+                                                    * (Mathf.Pow((1 / 6f), _blueDiceNeeded > 0 ? _blueDiceNeeded : 0));
+
+            setData.set_probability_afterRoll = _probability_set_after_roll;
+            battlingCardData.setProbabilitiesAfterRoll_List.Add(_probability_set_after_roll);
+
+            Debug.Log("Set (" + debug + ") " +
+                    "- skills (" + setData.skill_activation_set[0]+ setData.skill_activation_set[1] + setData.skill_activation_set[2] +") " +
+                    "- dice (" + setData.diceCombinationSet_byManaType[0] + setData.diceCombinationSet_byManaType[1] + setData.diceCombinationSet_byManaType[2]+") " +
+                    "- probabilities after roll = " + setData.set_probability_afterRoll);
+
+        }
+
+        battlingCardData.ActivationsSetsDataList.Sort((y, x) => x.set_probability_afterRoll.CompareTo(y.set_probability_afterRoll));
+        battlingCardData.setProbabilitiesAfterRoll_List.Sort();
+        //List<float> MaxChanceOfActivationSet = new List<float>();
+        for (int h = 0; h <=5; h++)
+        {
+            Debug.Log("Top 5 Sets with max probabilities after roll " +
+                "- Set Num(" + battlingCardData.ActivationsSetsDataList[h].activationSetNumber  + ") = " +
+                "- skills (" + battlingCardData.ActivationsSetsDataList[h].skill_activation_set + ") " +
+                "- dice (" + battlingCardData.ActivationsSetsDataList[h].diceCombinationSet_byManaType + ") " +
+                "- probabilities after roll = " + battlingCardData.ActivationsSetsDataList[h].set_probability_afterRoll);
+        }
+
+        //for (int d = 5; d >= 1; d--)
+        //{
+        //    //get 5 activation sets with max probability after roll
+        //    Debug.Log("Top 5 Sets with max probabilities after roll = " + battlingCardData.setProbabilitiesAfterRoll_List[battlingCardData.setProbabilitiesAfterRoll_List.Count-d]);
+        //}
+    }
+
+    public void GetSetsWithMaxProbability()
+    {
+
+
+
+
     }
 
     public void GetDamageAndEffectsFromEachActivationSet(/*ActivationsSetsDataList _activationDataSets*/)
@@ -699,12 +720,10 @@ public class EnemyBrain : MonoBehaviour
 
             debug++;
             Debug.Log("ACTIVATIONSETS EFFECTS " + debug 
-            + " - damage = " + setData.total_damage.ToString()
-            + " - defences = " + setData.defence_instances.ToString()
-            + " - dodge istances = " + setData.dodge_instances_values.ToString()
-            + " - precise istances = " + setData.precise_instances[0].ToString()
-            + setData.precise_instances[1].ToString()
-            + setData.precise_instances[2].ToString());
+            + " - damage = " + setData.total_damage
+            + " - defences = " + setData.defence_instances
+            + " - dodge istances = " + setData.dodge_instances_values
+            + " - precise istances = " + setData.precise_instances[0]+ setData.precise_instances[1]+ setData.precise_instances[2]);
         }
     }
 
