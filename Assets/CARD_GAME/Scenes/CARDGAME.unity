@@ -1128,7 +1128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 987f1729a4805b045a714b914a1832c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
+  card: {fileID: 1959397636}
 --- !u!114 &175473113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7939,7 +7939,9 @@ MonoBehaviour:
     battlingCard: {fileID: 0}
     currentCardSkills: []
     NumberOfSkillsActivatedSet_afterFirstRoll: 
-    total_damageDone_afterRoll: 0
+    total_DamageDone_afterRoll: 0
+    total_PrecisionDamage_afterRoll: 0
+    total_NormalDamage_afterRoll: 0
     total_defenceInstances_Activated: 0
     total_preciseIstances_Activated: 
     total_dodgeInstances_Activated: 
@@ -7950,7 +7952,7 @@ MonoBehaviour:
   First_Skill:
     skillData: {fileID: 0}
     skill_ManaCost_list: 
-    total_manaCost: 0
+    skill_totalManaCost: 0
     skill_RedManaCost: 0
     skill_YellowManaCost: 0
     skill_BlueManaCost: 0
@@ -7958,15 +7960,16 @@ MonoBehaviour:
     skill_maximum_activations: 0
     activations_onRoll_byManaType: 
     NumberOfSkillActivations: 0
-    damageDone_byActivations: 0
+    attackInstances_Activated: 0
     defenceInstances_Activated: 0
     isAttackPrecise: 0
     preciseIstances_Activated: 0
     dodgeInstances_Activated: 
+    skillDamageDone_byAttackInstancesActivated: 0
   Second_Skill:
     skillData: {fileID: 0}
     skill_ManaCost_list: 
-    total_manaCost: 0
+    skill_totalManaCost: 0
     skill_RedManaCost: 0
     skill_YellowManaCost: 0
     skill_BlueManaCost: 0
@@ -7974,15 +7977,16 @@ MonoBehaviour:
     skill_maximum_activations: 0
     activations_onRoll_byManaType: 
     NumberOfSkillActivations: 0
-    damageDone_byActivations: 0
+    attackInstances_Activated: 0
     defenceInstances_Activated: 0
     isAttackPrecise: 0
     preciseIstances_Activated: 0
     dodgeInstances_Activated: 
+    skillDamageDone_byAttackInstancesActivated: 0
   Third_Skill:
     skillData: {fileID: 0}
     skill_ManaCost_list: 
-    total_manaCost: 0
+    skill_totalManaCost: 0
     skill_RedManaCost: 0
     skill_YellowManaCost: 0
     skill_BlueManaCost: 0
@@ -7990,11 +7994,12 @@ MonoBehaviour:
     skill_maximum_activations: 0
     activations_onRoll_byManaType: 
     NumberOfSkillActivations: 0
-    damageDone_byActivations: 0
+    attackInstances_Activated: 0
     defenceInstances_Activated: 0
     isAttackPrecise: 0
     preciseIstances_Activated: 0
     dodgeInstances_Activated: 
+    skillDamageDone_byAttackInstancesActivated: 0
   CurrentCard_Skills: []
   TotalDamageAfterFirstRoll: 0
 --- !u!1 &877841389
@@ -18654,6 +18659,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3342329311094680650, guid: 5ec5b754c2c6fc04198f9b98b6b01c6a, type: 3}
   m_PrefabInstance: {fileID: 455388060}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1959397636 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3342329311094680645, guid: 5ec5b754c2c6fc04198f9b98b6b01c6a, type: 3}
+  m_PrefabInstance: {fileID: 455388060}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d75862f77155a42865f6e4c89a2ca2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1964520825
 GameObject:
   m_ObjectHideFlags: 0
