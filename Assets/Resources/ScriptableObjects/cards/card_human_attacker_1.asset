@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ea55edae51cfb4a8824f3b8d141c61, type: 3}
   m_Name: card_human_attacker_1
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: dcea51d6065d64246aeec467afeff684, type: 3}
+  sprite: {fileID: 21300000, guid: a64ed88ca8771374c90cd9b7f4fb9bdc, type: 3}
   spriteLarge: {fileID: 0}
   cardName: card_umano_1
   cardDescription: Default Description

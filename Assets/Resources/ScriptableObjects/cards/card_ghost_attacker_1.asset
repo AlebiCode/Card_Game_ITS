@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ea55edae51cfb4a8824f3b8d141c61, type: 3}
   m_Name: card_ghost_attacker_1
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 731ab8462b0a1c7468f36a261988b13b, type: 3}
+  sprite: {fileID: 21300000, guid: 5ab3abaea8ce2044fb7a96548091e26c, type: 3}
   spriteLarge: {fileID: 0}
   cardName: card_spirito_1
   cardDescription: Default Description
