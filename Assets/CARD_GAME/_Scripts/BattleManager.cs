@@ -290,7 +290,7 @@ public class BattleManager : MonoBehaviour
         }
         */
 
-        EnemyAI.TurnLoop();
+        EnemyAI.AI_Loop();
         RerollDices_enemy();
     }
 
