@@ -373,8 +373,7 @@ public class BattleManager : MonoBehaviour
         {
             if (defenderFightData.parryIteration == 0)
             {
-                int randomChance = Random.Range(1, 101);
-                if (randomChance > defenderFightData.dodgePercent)
+                if (skillToCalc.Precise || Random.Range(1, 101) > defenderFightData.dodgePercent)
                 {
                     defenderFightData.damageTaken += skillToCalc.Damage;
                     //Hit
