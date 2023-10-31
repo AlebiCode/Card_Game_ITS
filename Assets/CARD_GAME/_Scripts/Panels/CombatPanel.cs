@@ -24,11 +24,13 @@ public class CombatPanel : MonoBehaviour
         if (dice.IsLocked)
         {
             dice.LockDice(false);
-            return;
+            dice.particle?.DeactivateAnimation(VFX_TYPE.SELECT);
         }
-
-        dice.LockDice(true);
-        dice.particle.ActivateAnimation(VFX_TYPE.SELECT);
+        else
+        {
+            dice.LockDice(true);
+            dice.particle?.ActivateAnimation(VFX_TYPE.SELECT);
+        }
     }
 
     public void LockAndRolls()

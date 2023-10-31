@@ -247,7 +247,7 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         UpdateWinnerScore();
-        tablePanel.gameObject.SetActive(true);
+        tablePanel.RenterPanel();
         combatPanel.gameObject.SetActive(false);
         TablePanel.instance.CombatPanelToTablePanelAnimation();
     }

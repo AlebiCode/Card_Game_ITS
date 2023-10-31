@@ -723,7 +723,6 @@ GameObject:
   m_Component:
   - component: {fileID: 45992675}
   - component: {fileID: 45992677}
-  - component: {fileID: 45992676}
   - component: {fileID: 45992678}
   m_Layer: 5
   m_Name: Combat Panel
@@ -755,36 +754,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000061014667, y: 0}
   m_SizeDelta: {x: 1919.9, y: 1080.1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &45992676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45992674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &45992677
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2262,6 +2231,7 @@ RectTransform:
   - {fileID: 821773816}
   - {fileID: 1617909795}
   - {fileID: 1741304911}
+  - {fileID: 1741545061}
   m_Father: {fileID: 866517796}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2296,6 +2266,7 @@ MonoBehaviour:
   - {fileID: 428714480}
   cardsMovement: 300
   cardsMoveDuration: 1
+  protectionPanel: {fileID: 1741545058}
 --- !u!114 &273348612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6559,6 +6530,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 684603733}
+  - {fileID: 2030357397}
   m_Father: {fileID: 1811111475}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
@@ -6673,7 +6645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24a6c103ef27204187a3ac3475d3f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 0}
+  particle: {fileID: 2030357396}
 --- !u!1 &780575978
 GameObject:
   m_ObjectHideFlags: 0
@@ -7928,80 +7900,91 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diceRolled: []
-  diceRolled_faces: 
+  diceRolledFaces: 
   diceRoll_RedMana: 0
   diceRoll_YellowMana: 0
   diceRoll_BlueMana: 0
   diceRoll_byManaColor: 
-  enemy_cards: []
-  selected_card: {fileID: 3342329311094680645, guid: 1f6f96939ddc61144acf7bd249998639, type: 3}
-  battlingCardData:
+  enemyCards: []
+  selectedCardData:
     battlingCard: {fileID: 0}
-    currentCardSkills: []
-    NumberOfSkillsActivatedSet_afterFirstRoll: 
-    total_DamageDone_afterRoll: 0
-    total_PrecisionDamage_afterRoll: 0
-    total_NormalDamage_afterRoll: 0
-    total_defenceInstances_Activated: 0
-    total_preciseIstances_Activated: 
-    total_dodgeInstances_Activated: 
-    ActivationsSetsDataList: []
+    cardSkills: []
+    skillsActivatedSet_onRoll: 
+    totalDamageDone_onRoll: 0
+    totalPrecisionDamage_onRoll: 0
+    totalNormalDamage_onRoll: 0
+    totalDefenceInstances_Activated: 0
+    totalPreciseInstances_Activated: 
+    totalDodgeInstances_Activated: 
+    ActivationsSetsData_List: []
     setProbabilitiesAfterRoll_List: []
     damageByEachSetOfActivations_List: []
     defencesByEachSetOfActivations_List: []
-  First_Skill:
+  selectedCardSkills: []
+  firstSkill:
     skillData: {fileID: 0}
-    skill_ManaCost_list: 
+    skill_manaCostList: 
     skill_totalManaCost: 0
     skill_RedManaCost: 0
     skill_YellowManaCost: 0
     skill_BlueManaCost: 0
-    skill_ManaCost_byManaType: 
-    skill_maximum_activations: 0
-    activations_onRoll_byManaType: 
-    NumberOfSkillActivations: 0
-    attackInstances_Activated: 0
-    defenceInstances_Activated: 0
+    skillManaCost_byManaType: 
+    skill_maximumActivations: 0
+    singleSkillActivationsDone_byManaType: 
+    singleSkillActivationsDone: 0
+    skill_damage_byAttackInstancesActivated: 0
+    skill_attackInstancesActivated: 0
+    skill_defenceInstancesActivated: 0
     isAttackPrecise: 0
-    preciseIstances_Activated: 0
-    dodgeInstances_Activated: 
-    skillDamageDone_byAttackInstancesActivated: 0
-  Second_Skill:
+    skill_preciseInstancesActivated: 0
+    skill_dodgeInstancesActivated: 
+  secondSkill:
     skillData: {fileID: 0}
-    skill_ManaCost_list: 
+    skill_manaCostList: 
     skill_totalManaCost: 0
     skill_RedManaCost: 0
     skill_YellowManaCost: 0
     skill_BlueManaCost: 0
-    skill_ManaCost_byManaType: 
-    skill_maximum_activations: 0
-    activations_onRoll_byManaType: 
-    NumberOfSkillActivations: 0
-    attackInstances_Activated: 0
-    defenceInstances_Activated: 0
+    skillManaCost_byManaType: 
+    skill_maximumActivations: 0
+    singleSkillActivationsDone_byManaType: 
+    singleSkillActivationsDone: 0
+    skill_damage_byAttackInstancesActivated: 0
+    skill_attackInstancesActivated: 0
+    skill_defenceInstancesActivated: 0
     isAttackPrecise: 0
-    preciseIstances_Activated: 0
-    dodgeInstances_Activated: 
-    skillDamageDone_byAttackInstancesActivated: 0
-  Third_Skill:
+    skill_preciseInstancesActivated: 0
+    skill_dodgeInstancesActivated: 
+  thirdSkill:
     skillData: {fileID: 0}
-    skill_ManaCost_list: 
+    skill_manaCostList: 
     skill_totalManaCost: 0
     skill_RedManaCost: 0
     skill_YellowManaCost: 0
     skill_BlueManaCost: 0
-    skill_ManaCost_byManaType: 
-    skill_maximum_activations: 0
-    activations_onRoll_byManaType: 
-    NumberOfSkillActivations: 0
-    attackInstances_Activated: 0
-    defenceInstances_Activated: 0
+    skillManaCost_byManaType: 
+    skill_maximumActivations: 0
+    singleSkillActivationsDone_byManaType: 
+    singleSkillActivationsDone: 0
+    skill_damage_byAttackInstancesActivated: 0
+    skill_attackInstancesActivated: 0
+    skill_defenceInstancesActivated: 0
     isAttackPrecise: 0
-    preciseIstances_Activated: 0
-    dodgeInstances_Activated: 
-    skillDamageDone_byAttackInstancesActivated: 0
-  CurrentCard_Skills: []
-  TotalDamageAfterFirstRoll: 0
+    skill_preciseInstancesActivated: 0
+    skill_dodgeInstancesActivated: 
+  activatedSet_afterFirstRoll:
+    activationSetNumber: 0
+    skillSet_activationsArray: 
+    skillSetDiceCombination_byManaType: 
+    skillSet_probabilityPreRoll: 0
+    skillSet_probabilityAfterRoll: 0
+    skillSet_totalDamage: 0
+    skillSet_precisionDamage: 0
+    skillSet_normalDamage: 0
+    skillSet_damageMultipliedByChance: 0
+    skillSet_defenceInstances: 0
+    skillSet_preciseInstances: 
+    skillSet_dodgeInstances: 
 --- !u!1 &877841389
 GameObject:
   m_ObjectHideFlags: 0
@@ -15759,6 +15742,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1671180090}
   m_CullTransparentMesh: 1
+--- !u!198 &1699954029 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2866178417032040337, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+  m_PrefabInstance: {fileID: 1862410353}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1699954031 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5221550794132786483, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+  m_PrefabInstance: {fileID: 1862410353}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1705843500 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3342329311094680650, guid: 5ec5b754c2c6fc04198f9b98b6b01c6a, type: 3}
@@ -16594,6 +16587,82 @@ MonoBehaviour:
   scaleDown: {x: 0.9, y: 0.9}
   scaleTime: 10
   delayBetweenAnimation: 10.1
+--- !u!1 &1741545058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1741545061}
+  - component: {fileID: 1741545060}
+  - component: {fileID: 1741545059}
+  m_Layer: 5
+  m_Name: ProtectionPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1741545059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741545058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.16470589}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1741545060
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741545058}
+  m_CullTransparentMesh: 1
+--- !u!224 &1741545061
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741545058}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 273348610}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1751136087
 GameObject:
   m_ObjectHideFlags: 0
@@ -17317,6 +17386,67 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1862410353
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2030357397}
+    m_Modifications:
+    - target: {fileID: 5221550794132786482, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+      propertyPath: m_Name
+      value: Card Selection VFX (Blue)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221550794132786482, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221550794132786483, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221550794132786483, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221550794132786483, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221550794132786483, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221550794132786483, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221550794132786483, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221550794132786483, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221550794132786483, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221550794132786483, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221550794132786483, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221550794132786483, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d71fcf6206170b442be5161fca2051c0, type: 3}
 --- !u!1001 &1929904394
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18705,6 +18835,60 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 110, y: -160}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2030357395
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2030357397}
+  - component: {fileID: 2030357396}
+  m_Layer: 5
+  m_Name: ParticleSystemList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2030357396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030357395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2d37037e973d64d9a0a5c8368eaa8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectionEffect: {fileID: 1699954029}
+  attackEffect: {fileID: 0}
+  defenseEffect: {fileID: 0}
+  dodgeEffect: {fileID: 0}
+--- !u!224 &2030357397
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030357395}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1699954031}
+  m_Father: {fileID: 747936458}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2042303398
