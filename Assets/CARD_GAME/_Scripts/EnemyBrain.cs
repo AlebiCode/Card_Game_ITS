@@ -121,7 +121,7 @@ public class EnemyBrain : MonoBehaviour
             skillSetDiceCombination_byManaType = _diceComboSet;
             skillSet_totalDamage = _damage;
         }
-        //CAMBIO IN LISTT
+
         //[0] = first skill activations, [1] = second skill activations, [2] = third skill activations
         public int[] skillSet_activationsArray= new int[3];
 
@@ -285,11 +285,6 @@ public class EnemyBrain : MonoBehaviour
 
         _skill.skill_maximumActivations = (int) (6 / (_skill.skill_totalManaCost));
 
-        /*Debug.Log("<Mana cost by type (RYB)> = (");
-        foreach (var d in _skill.skillManaCost_byManaType)
-            Debug.Log(d);
-        Debug.Log(")");*/
-
     }
 
     public int GetSingleSkillActivationsFromDiceManaCombo(Skill _skill, int[] _manaCombination )
@@ -313,9 +308,7 @@ public class EnemyBrain : MonoBehaviour
 
         return activations;
     }
-    //OK
 
-    //NOT OK
     public void GetDamageAndEffectsActivatedForSingleSkillAfterRoll(Skill _skill)
     {
 
@@ -352,8 +345,6 @@ public class EnemyBrain : MonoBehaviour
             }
         }
         selectedCardData.totalDodgeInstances_Activated.AddRange(_skill.skill_dodgeInstancesActivated);
-
-        //set total damage done by all skill activs
     }
 
     public void GetRolledActivationsAndDamageFromEachSkill()
@@ -372,6 +363,7 @@ public class EnemyBrain : MonoBehaviour
 
         }
 
+        //set total damage done by all skill activs
         selectedCardData.totalDamageDone_onRoll = selectedCardData.totalPrecisionDamage_onRoll + selectedCardData.totalNormalDamage_onRoll;
 
         Debug.Log($"EB - ROLLED EFFECTS - damage =  {selectedCardData.totalDamageDone_onRoll}" +
@@ -382,11 +374,9 @@ public class EnemyBrain : MonoBehaviour
                                  $"{selectedCardData.totalPreciseInstances_Activated[2]}");
     
     }
-    //NOT OK
     #endregion
 
     #region < check dice to lock >
-    //OK
     private int GetLockedDicesByColor(Dice.diceFace color)
     {
         int d = 0;
@@ -571,10 +561,10 @@ public class EnemyBrain : MonoBehaviour
         //get all chances to do each diceCombination (by type)
         GetChanceOfEachDiceCombinationFromRoll();
 
-        //GetDamageAndEffectsFromEachActivationSet();
+        GetDamageAndEffectsFromEachActivationSet();
         //CheckMaxDamageBetweenSets(selectedCardData.ActivationsSetsData_List);
 
-        MaximizeSingleSkillCalculations();
+        //MaximizeSingleSkillCalculations();
 
         // // Qui ha deciso quali rerollare
         string debugText = "";
@@ -689,6 +679,7 @@ public class EnemyBrain : MonoBehaviour
 
         selectedCardData.ActivationsSetsData_List.Sort((y, x) => x.skillSet_probabilityAfterRoll.CompareTo(y.skillSet_probabilityAfterRoll));
         selectedCardData.setProbabilitiesAfterRoll_List.Reverse();
+
         //List<float> MaxChanceOfActivationSet = new List<float>();
         debugText += "\nTop 5 Sets with max probabilities after roll \n";
         for (int h = 0; h <=5; h++)
@@ -702,11 +693,6 @@ public class EnemyBrain : MonoBehaviour
 
         Debug.Log("EB - " + debugText);
 
-        //for (int d = 5; d >= 1; d--)
-        //{
-        //    //get 5 activation sets with max probability after roll
-        //    Debug.Log("Top 5 Sets with max probabilities after roll = " + selectedCardData.setProbabilitiesAfterRoll_List[selectedCardData.setProbabilitiesAfterRoll_List.Count-d]);
-        //}
     }
 
     public void GetSetsWithMaxProbability()
@@ -723,7 +709,7 @@ public class EnemyBrain : MonoBehaviour
         selectedCardData.preciseIstancesByEachSetOfActivation_List = new List<int[]>();
         selectedCardData.skillsDodgeIstancesValuesByEachSetOfActivation_List = new List<int[]>();
 
-        //int debug = 0;
+        string debugText = "";
 
         foreach (TargetSkillsSetsData setData in selectedCardData.ActivationsSetsData_List)
         {
@@ -781,13 +767,18 @@ public class EnemyBrain : MonoBehaviour
             selectedCardData.preciseIstancesByEachSetOfActivation_List.Add(skillsPreciseIstances);
             selectedCardData.skillsDodgeIstancesValuesByEachSetOfActivation_List.Add(skillsDodge.ToArray());
 
-            //debug++;
-            Debug.Log("ACTIVATIONSETS EFFECTS " + setData.activationSetNumber 
+            debugText += "\nACTIVATION SETS EFFECTS: \n";
+
+            debugText += 
+            " SetNum " + setData.activationSetNumber 
             + " - damage = " + setData.skillSet_totalDamage
             + " - defences = " + setData.skillSet_defenceInstances
             + " - dodge istances = " + setData.skillSet_dodgeInstances
-            + " - precise istances = " + setData.skillSet_preciseInstances[0]+ setData.skillSet_preciseInstances[1]+ setData.skillSet_preciseInstances[2]);
+            + " - precise istances = " + setData.skillSet_preciseInstances[0]+ setData.skillSet_preciseInstances[1]+ setData.skillSet_preciseInstances[2];
+
         }
+
+        Debug.Log("EB - " + debugText);
     }
 
     public void CheckMaxDamageBetweenSets(List<TargetSkillsSetsData> _damageSets)
