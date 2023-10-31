@@ -145,7 +145,7 @@ public class BattleManager : MonoBehaviour
         onPlayerCardDamaged?.Invoke(playerFightData.damageTaken);
 
         yield return EnterCombatAnimations();
-        yield return RollDices(1.5f, true);
+        yield return RollDices(1.5f, false);
 
         combatPanel.SetInputsActive(true);
         lockAndRollButton.SetActive(true);
@@ -290,16 +290,7 @@ public class BattleManager : MonoBehaviour
         }
         Debug.Log("Enemy used skills:" + skillsUsed + "\n"
             + "Enemy <Parry Instances: " + enemyFightData.parryIteration + "><Dodge Chance: " + enemyFightData.dodgePercent + "><Attacks: " + attackInstances + ">");
-
-        /*foreach (SkillData skill in allySkills)
-            for (int i = 0; i < skill.AtkInstances; i++)
-                attackInstances += "(" + skill.Damage + ")";
-
-        attackInstances = "";
-        foreach (SkillData skill in enemySkills)
-            for (int i = 0; i < skill.AtkInstances; i++)
-                attackInstances += "(" + skill.Damage + ")";
-    */}
+    }
 
     #region Skill check, calculation and execution
 
