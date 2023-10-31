@@ -767,18 +767,17 @@ public class EnemyBrain : MonoBehaviour
             selectedCardData.preciseIstancesByEachSetOfActivation_List.Add(skillsPreciseIstances);
             selectedCardData.skillsDodgeIstancesValuesByEachSetOfActivation_List.Add(skillsDodge.ToArray());
 
-            debugText += "\nACTIVATION SETS EFFECTS: \n";
-
             debugText += 
             " SetNum " + setData.activationSetNumber 
             + " - damage = " + setData.skillSet_totalDamage
             + " - defences = " + setData.skillSet_defenceInstances
             + " - dodge istances = " + setData.skillSet_dodgeInstances
-            + " - precise istances = " + setData.skillSet_preciseInstances[0]+ setData.skillSet_preciseInstances[1]+ setData.skillSet_preciseInstances[2];
+            + " - precise istances = " + setData.skillSet_preciseInstances[0]+ setData.skillSet_preciseInstances[1]+ setData.skillSet_preciseInstances[2]
+            + "\n";
 
         }
 
-        Debug.Log("EB - " + debugText);
+        Debug.Log("\nEB - ACTIVATION SETS EFFECTS:\n" + debugText);
     }
 
     public void CheckMaxDamageBetweenSets(List<TargetSkillsSetsData> _damageSets)
