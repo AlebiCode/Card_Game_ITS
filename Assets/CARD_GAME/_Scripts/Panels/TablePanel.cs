@@ -25,6 +25,7 @@ public class TablePanel : MonoBehaviour
     [SerializeField] private GameObject[] enemyCardsList;
     [SerializeField] private float cardsMovement;
     [SerializeField] private float cardsMoveDuration;
+    [SerializeField] private GameObject protectionPanel;
     
     private Vector3 myCardsInitialPosition;
     private Vector3 enemyCardsInitialPosition;
@@ -40,12 +41,13 @@ public class TablePanel : MonoBehaviour
         enemyCardsInitialPosition = enemyCards.transform.position;
     }
 
-    public void OnEnable()
+    public void RenterPanel()
     {
         // Se la carta era già selezionata la deseleziono
-        if (!selectedCard)
+        if (selectedCard)
         {
             DeselectCard(selectedCard);
+            protectionPanel.SetActive(false);
             SyncReadyButton();
             return;
         }
@@ -117,6 +119,7 @@ public class TablePanel : MonoBehaviour
             c.transform.DORotate(new Vector3(0, 0, 180), cardsMoveDuration / 2);
         }
 
+        protectionPanel.SetActive(true);
         StartCoroutine(StartMatch(cardsMoveDuration));
     }
 
