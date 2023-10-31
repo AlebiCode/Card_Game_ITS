@@ -214,7 +214,7 @@ public class EnemyBrain : MonoBehaviour
             switch (die.Result)
             {
                 case Dice.diceFace.notRolled:
-                    Debug.Log("face not rolled :(");
+                    Debug.Log("face not rolled :'(");
                     break;
 
                 case Dice.diceFace.red:
@@ -233,10 +233,10 @@ public class EnemyBrain : MonoBehaviour
         
         diceRoll_byManaColor = new int[3] { diceRoll_RedMana , diceRoll_YellowMana , diceRoll_BlueMana };
 
-        Debug.Log("<Rolled dice faces (RYB)> = (");
+        /*Debug.Log("<Rolled dice faces (RYB)> = (");
         foreach (var d in diceRoll_byManaColor)
             Debug.Log(d);
-        Debug.Log(")");
+        Debug.Log(")");*/
 
     }
 
@@ -285,10 +285,10 @@ public class EnemyBrain : MonoBehaviour
 
         _skill.skill_maximumActivations = (int) (6 / (_skill.skill_totalManaCost));
 
-        Debug.Log("<Mana cost by type (RYB)> = (");
+        /*Debug.Log("<Mana cost by type (RYB)> = (");
         foreach (var d in _skill.skillManaCost_byManaType)
             Debug.Log(d);
-        Debug.Log(")");
+        Debug.Log(")");*/
 
     }
 
@@ -374,7 +374,7 @@ public class EnemyBrain : MonoBehaviour
 
         selectedCardData.totalDamageDone_onRoll = selectedCardData.totalPrecisionDamage_onRoll + selectedCardData.totalNormalDamage_onRoll;
 
-        Debug.Log($"ROLLED EFFECTS - damage =  {selectedCardData.totalDamageDone_onRoll}" +
+        Debug.Log($"EB - ROLLED EFFECTS - damage =  {selectedCardData.totalDamageDone_onRoll}" +
                                  $"- defences = {selectedCardData.totalDefenceInstances_Activated}" +
                                  $"- dodge istances count = {selectedCardData.totalDodgeInstances_Activated.Count}" +
                                  $"- precise istances = {selectedCardData.totalPreciseInstances_Activated[0]}" +
@@ -577,11 +577,13 @@ public class EnemyBrain : MonoBehaviour
         MaximizeSingleSkillCalculations();
 
         // // Qui ha deciso quali rerollare
+        string debugText = "";
         for (int x = 0; x < diceRolled.Length; x++)
         {
             Dice d = diceRolled[x];
-            Debug.Log($"Dice {x} - {d.Result} - {d.IsLocked}");
+            debugText += $"Dice {x} - {d.Result} - {d.IsLocked}\n";
         }
+        Debug.Log("EB - " + debugText);
 
     }
     #endregion
@@ -664,6 +666,7 @@ public class EnemyBrain : MonoBehaviour
         selectedCardData.setProbabilitiesAfterRoll_List = new List<float>();
         selectedCardData.totalDodgeInstances_Activated = new List<int>();
 
+        string debugText = "";
         foreach (TargetSkillsSetsData setData in selectedCardData.ActivationsSetsData_List)
         {
             float _redDiceNeeded = setData.skillSetDiceCombination_byManaType[0] - diceRoll_RedMana;
@@ -677,24 +680,27 @@ public class EnemyBrain : MonoBehaviour
             setData.skillSet_probabilityAfterRoll = _probability_set_after_roll;
             selectedCardData.setProbabilitiesAfterRoll_List.Add(_probability_set_after_roll);
 
-            Debug.Log("Set (" + setData.activationSetNumber + ") " +
+            debugText += ("Set (" + setData.activationSetNumber + ") " +
                     "- skills (" + setData.skillSet_activationsArray[0]+ setData.skillSet_activationsArray[1] + setData.skillSet_activationsArray[2] +") " +
                     "- dice (" + setData.skillSetDiceCombination_byManaType[0] + setData.skillSetDiceCombination_byManaType[1] + setData.skillSetDiceCombination_byManaType[2]+") " +
-                    "- probabilities after roll = " + setData.skillSet_probabilityAfterRoll);
+                    "- probabilities after roll = " + setData.skillSet_probabilityAfterRoll) + "\n";
 
         }
 
         selectedCardData.ActivationsSetsData_List.Sort((y, x) => x.skillSet_probabilityAfterRoll.CompareTo(y.skillSet_probabilityAfterRoll));
         selectedCardData.setProbabilitiesAfterRoll_List.Reverse();
         //List<float> MaxChanceOfActivationSet = new List<float>();
+        debugText += "\nTop 5 Sets with max probabilities after roll \n";
         for (int h = 0; h <=5; h++)
         {
-            Debug.Log("Top 5 Sets with max probabilities after roll " +
+            debugText +=
                 "- Set Num(" + selectedCardData.ActivationsSetsData_List[h].activationSetNumber  + ") = " +
                 "- skills (" + selectedCardData.ActivationsSetsData_List[h].skillSet_activationsArray[0] + selectedCardData.ActivationsSetsData_List[h].skillSet_activationsArray[1] + selectedCardData.ActivationsSetsData_List[h].skillSet_activationsArray[2] +") " +
                 "- dice (" + selectedCardData.ActivationsSetsData_List[h].skillSetDiceCombination_byManaType[0] + selectedCardData.ActivationsSetsData_List[h].skillSetDiceCombination_byManaType[1] + selectedCardData.ActivationsSetsData_List[h].skillSetDiceCombination_byManaType[2] + ") " +
-                "- probabilities after roll = " + selectedCardData.ActivationsSetsData_List[h].skillSet_probabilityAfterRoll);
+                "- probabilities after roll = " + selectedCardData.ActivationsSetsData_List[h].skillSet_probabilityAfterRoll + "\n";
         }
+
+        Debug.Log("EB - " + debugText);
 
         //for (int d = 5; d >= 1; d--)
         //{
@@ -788,14 +794,15 @@ public class EnemyBrain : MonoBehaviour
     {
         List<float> CheckMaxDamage = new List<float>();
 
+        string debugText = "";
         foreach (var damageSet in _damageSets)
         {
-            Debug.Log("damage by set = " + damageSet.skillSet_totalDamage.ToString() + " - " + damageSet.skillSet_probabilityAfterRoll.ToString());
+            debugText += ("damage by set = " + damageSet.skillSet_totalDamage.ToString() + " - " + damageSet.skillSet_probabilityAfterRoll.ToString() + "\n");
             CheckMaxDamage.Add(damageSet.skillSet_totalDamage);
         }
 
         int MaxDamage = (int)(CheckMaxDamage.Max());
-        Debug.Log("damage max between maxed sets = " + MaxDamage);
+        Debug.Log("EB - " + debugText + "damage max between maxed sets = " + MaxDamage);
     }
 
     #endregion
@@ -876,6 +883,7 @@ public class EnemyBrain : MonoBehaviour
         //
         List<float> maximizedSkills_activationsChances_List = new List<float>();
 
+        string debugText = "";
         for (int i=0; i< selectedCardSkills.Length; i++)
         {
             float maximizedSkill_activationChance = GetMaximizedSingleSkillTargetActivationsChance(selectedCardSkills[i], selectedCardSkills[i].skill_maximumActivations);
@@ -902,11 +910,10 @@ public class EnemyBrain : MonoBehaviour
 
             singleSkillMaximized_TargetSkillSets.Add(targetMaxSet_afterFirstRoll);
 
-            Debug.Log("skill_"+(i+1)+ "_maxed chance = " + maximizedSkill_activationChance);
-            Debug.Log("skill_" + (i + 1) + "_maxed damage = " + damageTotalChanceFormula + " -- "+ damageTotalChanceFormulax);
+            debugText += "skill_" + (i + 1) + "_maxed chance = " + maximizedSkill_activationChance + "_maxed damage = " + damageTotalChanceFormula + " -- " + damageTotalChanceFormulax + "\n";
         }
 
-        Debug.Log("damage with this roll = " + selectedCardData.totalDamageDone_onRoll);
+        Debug.Log("EB - " + debugText + "damage with this roll = " + selectedCardData.totalDamageDone_onRoll);
 
         //CHECK MAX DAMAGE BETWEEN ROLLED AND MAXIMIZED ACTIVATIONS FOR EACH SKILL
         //
