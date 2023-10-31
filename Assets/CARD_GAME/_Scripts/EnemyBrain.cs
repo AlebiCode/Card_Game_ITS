@@ -366,7 +366,8 @@ public class EnemyBrain : MonoBehaviour
         //set total damage done by all skill activs
         selectedCardData.totalDamageDone_onRoll = selectedCardData.totalPrecisionDamage_onRoll + selectedCardData.totalNormalDamage_onRoll;
 
-        Debug.Log($"EB - ROLLED EFFECTS - damage =  {selectedCardData.totalDamageDone_onRoll}" +
+        Debug.Log($"EB - ROLLED EFFECTS:\n" +
+                                 $"- damage =  {selectedCardData.totalDamageDone_onRoll}" +
                                  $"- defences = {selectedCardData.totalDefenceInstances_Activated}" +
                                  $"- dodge istances count = {selectedCardData.totalDodgeInstances_Activated.Count}" +
                                  $"- precise istances = {selectedCardData.totalPreciseInstances_Activated[0]}" +
@@ -673,7 +674,7 @@ public class EnemyBrain : MonoBehaviour
             selectedCardData.setProbabilitiesAfterRoll_List.Add(_probability_set_after_roll);
 
             debugSetText += 
-                "Set (" + setData.activationSetNumber + ") " +
+                "- Set (" + setData.activationSetNumber + ") " +
                 "- skills (" + setData.skillSet_activationsArray[0]+ setData.skillSet_activationsArray[1] + setData.skillSet_activationsArray[2] +") " +
                 "- dice (" + setData.skillSetDiceCombination_byManaType[0] + setData.skillSetDiceCombination_byManaType[1] + setData.skillSetDiceCombination_byManaType[2]+") " +
                 "- probabilities after roll = " + setData.skillSet_probabilityAfterRoll + "\n";
@@ -688,7 +689,7 @@ public class EnemyBrain : MonoBehaviour
         for (int h = 0; h <=5; h++)
         {
             debugChanceText +=
-                "- Set Num(" + selectedCardData.ActivationsSetsData_List[h].activationSetNumber  + ") = " +
+                "- Set (" + selectedCardData.ActivationsSetsData_List[h].activationSetNumber  + ") " +
                 "- skills (" + selectedCardData.ActivationsSetsData_List[h].skillSet_activationsArray[0] + selectedCardData.ActivationsSetsData_List[h].skillSet_activationsArray[1] + selectedCardData.ActivationsSetsData_List[h].skillSet_activationsArray[2] +") " +
                 "- dice (" + selectedCardData.ActivationsSetsData_List[h].skillSetDiceCombination_byManaType[0] + selectedCardData.ActivationsSetsData_List[h].skillSetDiceCombination_byManaType[1] + selectedCardData.ActivationsSetsData_List[h].skillSetDiceCombination_byManaType[2] + ") " +
                 "- probabilities after roll = " + selectedCardData.ActivationsSetsData_List[h].skillSet_probabilityAfterRoll + "\n";
