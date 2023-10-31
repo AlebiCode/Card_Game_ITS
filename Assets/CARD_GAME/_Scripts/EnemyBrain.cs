@@ -656,7 +656,9 @@ public class EnemyBrain : MonoBehaviour
         selectedCardData.setProbabilitiesAfterRoll_List = new List<float>();
         selectedCardData.totalDodgeInstances_Activated = new List<int>();
 
-        string debugText = "";
+        string debugSetText = "";
+        string debugChanceText = "";
+
         foreach (TargetSkillsSetsData setData in selectedCardData.ActivationsSetsData_List)
         {
             float _redDiceNeeded = setData.skillSetDiceCombination_byManaType[0] - diceRoll_RedMana;
@@ -670,10 +672,11 @@ public class EnemyBrain : MonoBehaviour
             setData.skillSet_probabilityAfterRoll = _probability_set_after_roll;
             selectedCardData.setProbabilitiesAfterRoll_List.Add(_probability_set_after_roll);
 
-            debugText += ("Set (" + setData.activationSetNumber + ") " +
-                    "- skills (" + setData.skillSet_activationsArray[0]+ setData.skillSet_activationsArray[1] + setData.skillSet_activationsArray[2] +") " +
-                    "- dice (" + setData.skillSetDiceCombination_byManaType[0] + setData.skillSetDiceCombination_byManaType[1] + setData.skillSetDiceCombination_byManaType[2]+") " +
-                    "- probabilities after roll = " + setData.skillSet_probabilityAfterRoll) + "\n";
+            debugSetText += 
+                "Set (" + setData.activationSetNumber + ") " +
+                "- skills (" + setData.skillSet_activationsArray[0]+ setData.skillSet_activationsArray[1] + setData.skillSet_activationsArray[2] +") " +
+                "- dice (" + setData.skillSetDiceCombination_byManaType[0] + setData.skillSetDiceCombination_byManaType[1] + setData.skillSetDiceCombination_byManaType[2]+") " +
+                "- probabilities after roll = " + setData.skillSet_probabilityAfterRoll + "\n";
 
         }
 
@@ -681,17 +684,19 @@ public class EnemyBrain : MonoBehaviour
         selectedCardData.setProbabilitiesAfterRoll_List.Reverse();
 
         //List<float> MaxChanceOfActivationSet = new List<float>();
-        debugText += "\nTop 5 Sets with max probabilities after roll \n";
+
         for (int h = 0; h <=5; h++)
         {
-            debugText +=
+            debugChanceText +=
                 "- Set Num(" + selectedCardData.ActivationsSetsData_List[h].activationSetNumber  + ") = " +
                 "- skills (" + selectedCardData.ActivationsSetsData_List[h].skillSet_activationsArray[0] + selectedCardData.ActivationsSetsData_List[h].skillSet_activationsArray[1] + selectedCardData.ActivationsSetsData_List[h].skillSet_activationsArray[2] +") " +
                 "- dice (" + selectedCardData.ActivationsSetsData_List[h].skillSetDiceCombination_byManaType[0] + selectedCardData.ActivationsSetsData_List[h].skillSetDiceCombination_byManaType[1] + selectedCardData.ActivationsSetsData_List[h].skillSetDiceCombination_byManaType[2] + ") " +
                 "- probabilities after roll = " + selectedCardData.ActivationsSetsData_List[h].skillSet_probabilityAfterRoll + "\n";
         }
 
-        Debug.Log("EB - " + debugText);
+        Debug.Log("\nEB - Activations Sets Data:\n" + debugSetText);
+        Debug.Log("\nEB - Top 5 Sets with max probabilities after roll:\n" + debugChanceText);
+
 
     }
 
