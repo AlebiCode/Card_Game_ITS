@@ -18,6 +18,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private GameObject lockAndRollButton;
     [SerializeField] private TablePanel tablePanel;
     [SerializeField] private CombatPanel combatPanel;
+    [SerializeField] private EndPanel endPanel;
     [SerializeField] private Card[] deckCarteNemiche = new Card[3];
     [SerializeField] private Card[] deckCarteAmiche = new Card[3];
     [SerializeField] private Card allyCombatCard;
@@ -432,7 +433,11 @@ public class BattleManager : MonoBehaviour
     private IEnumerator EndBattle(bool hasPlayerWon)
     {
         Debug.Log("Partita Conclusa. " + (hasPlayerWon ? "Player won." : "Player lost."));
-        yield return new WaitForSeconds(2);
+        this.GetComponent<AudioSource>().Stop();
+        endPanel.gameObject.SetActive(true);
+        EndPanel.instance.ShowWinText(hasPlayerWon);
+        yield return new WaitForSeconds(4);
+        EndPanel.instance.ResetEndPanel();
         ResetScore();
         SceneManager.LoadScene(0);
     }
