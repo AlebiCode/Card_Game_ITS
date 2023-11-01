@@ -46,6 +46,8 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
         cardDescription.text = cardData.CardDescription;
         for (int i = 0; i < 3; i++)
         {
+            skills[i].SkillName.text = cardData.Skills[i].GetSkillText();
+
             int j = 0;
             while (j < 3)
             {
