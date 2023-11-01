@@ -8,6 +8,7 @@ public class SkillData : ScriptableObject
     private const string ATTACK_NAME = "Colpo";
     private const string PARRY_NAME = "Parata";
     private const string DODGE_NAME = "Schivata";
+    private const string PRECISE_NAME = "Preciso"; 
 
     [SerializeField] private string skillName;
     [SerializeField] private List<Dice.diceFace> skill_colorCost = new List<Dice.diceFace>();
@@ -54,8 +55,9 @@ public class SkillData : ScriptableObject
             
             if (skillText != "")
                 skillText = ", " + skillText;
-
-            skillText = ATTACK_NAME + " " + Damage + " x" + AtkInstances + skillText;
+            
+            string attackText = precise ? ATTACK_NAME + " " + PRECISE_NAME : ATTACK_NAME;
+            skillText = attackText + " "  + Damage + " x" + AtkInstances + skillText;
         }
 
         return skillText;
