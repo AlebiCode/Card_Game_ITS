@@ -15766,9 +15766,9 @@ MonoBehaviour:
   genericUiConfirm: {fileID: 8300000, guid: 0d2c10b52d383b849acd90ba72432aad, type: 3}
   genericUiConfirm2: {fileID: 8300000, guid: 1043b2695c889b846bf82943e3055afa, type: 3}
   diceLocked: {fileID: 8300000, guid: d0efca57412a38f429e96e4654fe4849, type: 3}
-  attackBlocked: {fileID: 8300000, guid: 0d1c30f1b9b37da4b9e7610a93e649e9, type: 3}
-  attackDodged: {fileID: 8300000, guid: 0d1c30f1b9b37da4b9e7610a93e649e9, type: 3}
-  attackHit: {fileID: 8300000, guid: d9e9acd4bc0e4cc42ad67e42dfc48175, type: 3}
+  attackBlocked: {fileID: 8300000, guid: af947997712a2ed44983f583d60d9f2a, type: 3}
+  attackDodged: {fileID: 8300000, guid: 7d42b1a00b161d041b978cd0051566cc, type: 3}
+  attackHit: {fileID: 8300000, guid: 0db5f9c75c6d28340a5b1b0b2a6fc633, type: 3}
 --- !u!4 &1235567077
 Transform:
   m_ObjectHideFlags: 0
