@@ -16,6 +16,7 @@ public class DeckCreator : MonoBehaviour
     //[SerializeField] private GameObject cardPrefab;
     [SerializeField] private RectTransform cardsParent;
     [SerializeField] private GameObject startMatchButton;
+    [SerializeField] private GameObject cardSelectionText;
     [SerializeField] private float cardSelectAnimSpeed = 1;
 
     [SerializeField] private List<Card> selectedCards = new List<Card>();
@@ -101,7 +102,9 @@ public class DeckCreator : MonoBehaviour
     }
     private void UpdateButton()
     {
+        cardSelectionText.SetActive(!SelectionCompleted);
         startMatchButton.SetActive(SelectionCompleted);
+        
     }
 
     public void LoadCombatCardData()

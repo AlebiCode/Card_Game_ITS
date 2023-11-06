@@ -232,18 +232,21 @@ public class BattleManager : MonoBehaviour
             StopCoroutine(fightCoroutine);
         fightCoroutine = StartCoroutine(FightCoroutine());
     }
-    private IEnumerator FightCoroutine()
-    {
+    private IEnumerator FightCoroutine() {
+
         Debug.Log("------Fight------");
         List<SkillData> allySkills = SkillChecker(allyCombatCard, allyDices);
         List<SkillData> enemySkills = SkillChecker(enemyCombatCard, enemyDices);
-        ExecuteSkillsDefences(allySkills, true);
-        ExecuteSkillsDefences(enemySkills, false);
-
+        Debug.Log("Execute Player Defense");
+        yield return StartCoroutine(ExecuteSkillsDefences(allySkills, true));
+        Debug.Log("Player Defense Executed");
+        Debug.Log("Execute Enemy Defense");
+        yield return StartCoroutine(ExecuteSkillsDefences(enemySkills, false));
+        Debug.Log("Enemy Defense Executed");
         MoveDebugger(allySkills, enemySkills);
 
-        ExecuteSkillsAttacks(allySkills, true);
-        ExecuteSkillsAttacks(enemySkills, false);
+        yield return StartCoroutine(ExecuteSkillsAttacks(allySkills, true));
+        yield return StartCoroutine(ExecuteSkillsAttacks(enemySkills, false));
         Debug.Log("Player <Damage Taken: " + playerFightData.damageTaken + "><Attacks Blocked: " + playerFightData.successfullBlocks + "><Attacks Dodged: " + playerFightData.successfullDodges + ">");
         Debug.Log("Enemy <Damage Taken: " + enemyFightData.damageTaken + "><Attacks Blocked: " + enemyFightData.successfullBlocks + "><Attacks Dodged: " + enemyFightData.successfullDodges + ">");
         yield return new WaitForSeconds(3);
@@ -339,24 +342,30 @@ public class BattleManager : MonoBehaviour
             }
         }
     }
-    private void ExecuteSkillsDefences(List<SkillData> skillsToExec, bool isAlly)
+    private IEnumerator ExecuteSkillsDefences(List<SkillData> skillsToExec, bool isAlly)
     {
         foreach (SkillData skill in skillsToExec)
         {
+            yield return new WaitForSeconds(0.5f);
+
             if (isAlly)
                 CalculateSkillDefence(skill, ref playerFightData);
             else
                 CalculateSkillDefence(skill, ref enemyFightData);
+           
         }
     }
-    private void ExecuteSkillsAttacks(List<SkillData> skillsToExec, bool isAlly)
+    private IEnumerator ExecuteSkillsAttacks(List<SkillData> skillsToExec, bool isAlly)
     {
         foreach (SkillData skill in skillsToExec)
         {
+            yield return new WaitForSeconds(0.5f);
+
             if (isAlly)
                 CalculateSkillAttack(skill, ref enemyFightData, isAlly);
             else
                 CalculateSkillAttack(skill, ref playerFightData, isAlly);
+            
         }
     }
 
@@ -375,25 +384,34 @@ public class BattleManager : MonoBehaviour
                 if (skillToCalc.Precise || Random.Range(1, 101) > defenderFightData.dodgePercent)
                 {
                     defenderFightData.damageTaken += skillToCalc.Damage;
-                    //Hit
-                    if (isAlly)
+
+                    if (isAlly) {
+                        PlayVFX(enemyCombatCard, VFX_TYPE.ATTACK); //attack means get damaged
                         onEnemyCardDamaged?.Invoke(defenderFightData.damageTaken);
-                    else
+                    }
+                    else {
+                        PlayVFX(allyCombatCard, VFX_TYPE.ATTACK); //attack means get damaged
                         onPlayerCardDamaged?.Invoke(defenderFightData.damageTaken);
+                    }
                 }
                 else
                 {
-                    //Dodged
+                    PlayVFX((isAlly ? enemyCombatCard : allyCombatCard), VFX_TYPE.DODGE);
                     defenderFightData.successfullDodges++;
+                    
                 }
             }
             else
             {
-                //Blocked
+                PlayVFX((isAlly ? enemyCombatCard : allyCombatCard), VFX_TYPE.DEFENSE);
                 defenderFightData.successfullBlocks++;
                 defenderFightData.parryIteration--;
             }
         }
+    }
+
+    void PlayVFX(Card card, VFX_TYPE type) {
+        card.particleSystemList.ActivateAnimation(type);
     }
 
     #endregion
@@ -425,6 +443,10 @@ public class BattleManager : MonoBehaviour
                 return;
             }
         }
+
+        if (currentRound == 3)
+            return;
+
         currentRound++;
         tablePanel.RenterPanel();
         combatPanel.gameObject.SetActive(false);

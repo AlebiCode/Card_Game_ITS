@@ -101,6 +101,7 @@ public class TablePanel : MonoBehaviour
     void SyncReadyButton()
     {
         readyButton.SetActive(selectedCard);
+        pickYourCardText.SetActive(!selectedCard);
     }
 
     private void OnDisable()
