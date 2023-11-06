@@ -9,20 +9,20 @@ public class Dice : MonoBehaviour
 {
     public enum diceFace { notRolled, red, blue, yellow }
 
+    [SerializeField] private Image mainImage;
+    [SerializeField] private Image ghostImage;
     public ParticleSystemActivator particle;
 
-    private Image image;
     private diceFace result = diceFace.notRolled;
     private bool locked = false;
 
     public diceFace Result => result;
     public bool IsLocked => locked;
 
-    private void Awake()
+    private void Start()
     {
-        image = GetComponent<Image>();
+        mainImage.sprite = DiceResources.RollSets[DiceResources.GetSetIndex].endingSprite;
     }
-
     public void RollDice()
     {
         int roll = Random.Range(0,6);
@@ -59,27 +59,37 @@ public class Dice : MonoBehaviour
     }
     public void ResetColor()
     {
-        image.color = Color.white;
+        mainImage.color = Color.white;
     }
 
-    public void StartRollAnimation(float rotationSpeed, float fadeDuration)
+    public void StartRollAnimation(float fadeDuration)
     {
         StopAllCoroutines();
-        StartCoroutine(RollAnimation(rotationSpeed, fadeDuration));
+        StartCoroutine(RollAnimation(fadeDuration));
     }
     public void StopRollAnimation(float duration)
     {
         StopAllCoroutines();
-        image.DOColor(FaceToRGB(result), duration);
-        transform.DORotate(Vector3.zero, duration);
+        mainImage.DOColor(FaceToRGB(result), duration);
+        mainImage.sprite = DiceResources.RollSets[DiceResources.GetSetIndex].endingSprite;
+        ghostImage.gameObject.SetActive(false);
+        //transform.DORotate(Vector3.zero, duration);
     }
-    private IEnumerator RollAnimation(float rotationSpeed, float fadeDuration)
+    private IEnumerator RollAnimation(float fadeDuration)
     {
-        image.DOColor(Color.white, fadeDuration);
+        ghostImage.gameObject.SetActive(true);
+        mainImage.DOColor(Color.white, fadeDuration);
+        int rollSet = DiceResources.GetSetIndex;
+        int face = 0;
         while (true)
         {
-            transform.Rotate(new Vector3(0, 0, rotationSpeed * Time.deltaTime));
-            yield return null;
+            ghostImage.sprite = mainImage.sprite;
+            mainImage.sprite = DiceResources.RollSets[rollSet].rollSprites[face++];
+            ghostImage.color = new Color(mainImage.color.r, mainImage.color.g, mainImage.color.b, 0.4f);
+            if (face >= DiceResources.RollSets[rollSet].rollSprites.Length)
+                face = 0;
+            //transform.Rotate(new Vector3(0, 0, rotationSpeed * Time.deltaTime));
+            yield return new WaitForSeconds(DiceResources.RollInterval);
         }
     }
 

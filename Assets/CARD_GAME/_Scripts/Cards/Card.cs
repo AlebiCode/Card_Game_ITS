@@ -79,8 +79,8 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
         float offsetTime = 0.5f;
         AudioClip entranceClip = cardData.CardAudioProfile.GetRandomEntranceClip();
         AudioClip lineClip = cardData.CardAudioProfile.GetRandomLinesClip();
-        AudioManager.PlayCardAudio(entranceClip);
-        AudioManager.PlayCardAudio(lineClip, offsetTime);
+        AudioManager.PlayAudio(entranceClip, 1);
+        AudioManager.PlayAudio(lineClip, 2, offsetTime);
         return Mathf.Max(0, entranceClip.length + offsetTime, lineClip.length);
     }
 

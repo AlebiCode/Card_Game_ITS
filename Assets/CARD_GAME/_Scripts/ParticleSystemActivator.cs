@@ -13,10 +13,10 @@ public class ParticleSystemActivator : MonoBehaviour {
         // Make sure the Particle System is not active at the beginning.
         //Affinché l'effetto particellare si veda normale setto la sua scala a 0.1f di default, in caso non venga fatto
         //particleSystem.gameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        selectionEffect?.Stop();
-        attackEffect?.Stop();
-        defenseEffect?.Stop();
-        dodgeEffect?.Stop();
+        //selectionEffect?.Stop();
+        //attackEffect?.Stop();
+        //defenseEffect?.Stop();
+        //dodgeEffect?.Stop();
     }
 
 

@@ -9,8 +9,10 @@ public class AudioManager : MonoBehaviour
     public AudioMixer mainMixer;
 
     [Header("Audio Sources")]
-    [SerializeField] private List<AudioSource> cardAudio;
-    [SerializeField] private List<AudioSource> uiAudio;
+    [SerializeField] private GameObject[] audiosourceParents;
+    private List<AudioSource>[] sourceGroups;
+    //[SerializeField] private List<AudioSource> cardAudio;
+    //[SerializeField] private List<AudioSource> uiAudio;
     //[SerializeField] private List<AudioSource> combatAudio;
     [SerializeField] private AudioSource diceRollLoop;
 
@@ -27,47 +29,48 @@ public class AudioManager : MonoBehaviour
     {
         instance = this;
     }
-
-    public static void PlayCardAudio(AudioClip audioClip, float delay = 0)
+    private void Start()
     {
-        AudioSource audioSource = instance.cardAudio[0];
-        instance.cardAudio.RemoveAt(0);
+        sourceGroups = new List<AudioSource>[audiosourceParents.Length];
+        for (int i = 0; i < audiosourceParents.Length; i++)
+        {
+            sourceGroups[i] = new List<AudioSource>(audiosourceParents[i].GetComponentsInChildren<AudioSource>());
+        }
+    }
+
+    public static void PlayAudio(AudioClip audioClip, int sourceGroup, float delay = 0)
+    {
+        AudioSource audioSource = instance.sourceGroups[sourceGroup][0];
+        instance.sourceGroups[sourceGroup].RemoveAt(0);
         audioSource.clip = audioClip;
         audioSource.PlayDelayed(delay);
-        instance.cardAudio.Add(audioSource);
+        instance.sourceGroups[sourceGroup].Add(audioSource);
     }
+
     public static void PlayCombatAttackBlocked()
     {
-        PlayCardAudio(instance.attackBlocked);
+        PlayAudio(instance.attackBlocked, 0);
     }
     public static void PlayCombatAttackDodged()
     {
-        PlayCardAudio(instance.attackDodged);
+        PlayAudio(instance.attackDodged, 0);
     }
     public static void PlayCombatAttackHit()
     {
-        PlayCardAudio(instance.attackHit);
+        PlayAudio(instance.attackHit, 0);
     }
 
-    public static void PlayUiAudio(AudioClip audioClip)
-    {
-        AudioSource audioSource = instance.uiAudio[0];
-        instance.uiAudio.RemoveAt(0);
-        audioSource.clip = audioClip;
-        audioSource.Play();
-        instance.uiAudio.Add(audioSource);
-    }
     public static void PlayUiSelectAudio()
     {
-        PlayUiAudio(instance.genericUiSelect);
+        PlayAudio(instance.genericUiSelect, 4);
     }
     public static void PlayUiConfirmAudio()
     {
-        PlayUiAudio(instance.genericUiConfirm);
+        PlayAudio(instance.genericUiConfirm, 4);
     }
     public static void PlayUiConfirmAudio2()
     {
-        PlayUiAudio(instance.genericUiConfirm2);
+        PlayAudio(instance.genericUiConfirm2, 4);
     }
 
     public static void StartDiceRollLoop()
@@ -81,7 +84,7 @@ public class AudioManager : MonoBehaviour
     }
     public static void PlayUiDiceLocked()
     {
-        PlayUiAudio(instance.diceLocked);
+        PlayAudio(instance.diceLocked, 4);
     }
 
     public void SetVolume(float volume)

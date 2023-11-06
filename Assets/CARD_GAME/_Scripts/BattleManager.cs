@@ -177,11 +177,11 @@ public class BattleManager : MonoBehaviour
         {
             if (!allyDices[i].IsLocked)
             {
-                allyDices[i].StartRollAnimation(1000, 1);
+                allyDices[i].StartRollAnimation(1);
             }
             if (!enemyDices[i].IsLocked)
             {
-                enemyDices[i].StartRollAnimation(1000, 1);
+                enemyDices[i].StartRollAnimation(1);
             }
         }
 
@@ -202,10 +202,10 @@ public class BattleManager : MonoBehaviour
             }
             if (lockAfterRoll)
             {
-                yield return new WaitForSeconds(0.1f);
                 allyDices[i].LockDice(true);
                 enemyDices[i].LockDice(true);
             }
+            yield return new WaitForSeconds(0.1f);
         }
     }
     private IEnumerator RerollAndFight()
