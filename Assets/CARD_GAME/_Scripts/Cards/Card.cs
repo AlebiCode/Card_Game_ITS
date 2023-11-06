@@ -81,7 +81,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
         AudioClip lineClip = cardData.CardAudioProfile.GetRandomLinesClip();
         AudioManager.PlayAudio(entranceClip, 1);
         AudioManager.PlayAudio(lineClip, 2, offsetTime);
-        return Mathf.Max(0, entranceClip.length + offsetTime, lineClip.length);
+        return Mathf.Max(0, entranceClip.length, lineClip.length + offsetTime);
     }
 
     public void OnPointerClick(PointerEventData eventData)

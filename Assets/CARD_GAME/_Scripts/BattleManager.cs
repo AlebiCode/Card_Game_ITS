@@ -434,8 +434,8 @@ public class BattleManager : MonoBehaviour
 
     private void ResetScore()
     {
-        EnemyScore = 0;
-        PlayerScore = 0;
+        enemyScore = 0;
+        playerScore = 0;
     }
 
     private void UpdateWinnerScore()
