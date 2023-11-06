@@ -49,7 +49,12 @@ public class TablePanel : MonoBehaviour
             DeselectCard(selectedCard);
             protectionPanel.SetActive(false);
             SyncReadyButton();
-            return;
+        }
+
+        BattleManager.instance.SelectEnemyCard();
+        //secondo round sceglie prima la CPU
+        if (BattleManager.instance.CurrentRound == 2) {
+            BattleManager.instance.EnemySelectedCard.particleSystemList.ActivateAnimation(VFX_TYPE.SELECT);
         }
     }
 

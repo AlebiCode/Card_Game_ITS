@@ -36,6 +36,7 @@ public class BattleManager : MonoBehaviour
     private Coroutine fightCoroutine;
     private Coroutine enemyDiceSelectionCoroutine;
 
+    private int currentRound = 1;
     private int playerScore;
     private int enemyScore;
     private FightData playerFightData;
@@ -53,6 +54,8 @@ public class BattleManager : MonoBehaviour
     public UnityEvent<int> onEnemyScoreChanged = new();
     public UnityEvent<int> onPlayerCardDamaged = new();
     public UnityEvent<int> onEnemyCardDamaged = new();
+
+    public int CurrentRound => currentRound;
 
     public int PlayerScore
     {
@@ -118,8 +121,6 @@ public class BattleManager : MonoBehaviour
             enemyDices[i].LockDice(false);
             enemyDices[i].ResetColor();
         }
-        
-        enemySelectedCardIndex = ChooseEnemyCardIndex();
         //enemySelectedCardIndex = Random.Range(0, 3);
 
         enemyCombatCard.LoadData(deckCarteNemiche[enemySelectedCardIndex].CardData);
@@ -248,9 +249,8 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         UpdateWinnerScore();
-        tablePanel.RenterPanel();
-        combatPanel.gameObject.SetActive(false);
-        TablePanel.instance.CombatPanelToTablePanelAnimation();
+        Debug.Log("Score: " + playerScore + "-" + enemyScore + "\n------Fight Over------");
+
     }
     private IEnumerator EnemyDiceSelectionCoroutine()
     {
@@ -413,6 +413,7 @@ public class BattleManager : MonoBehaviour
             if (playerScore >= pointsNeededToWin)
             {
                 StartCoroutine(EndBattle(true));
+                return;
             }
         }
         else if (playerFightData.damageTaken > enemyFightData.damageTaken)
@@ -421,13 +422,15 @@ public class BattleManager : MonoBehaviour
             if (enemyScore >= pointsNeededToWin)
             {
                 StartCoroutine(EndBattle(false));
+                return;
             }
         }
-        else
-        {
-            //in parità, vince il player ^^^^^^^^^^^^^
-        }
-        Debug.Log("Score: " + playerScore + "-" + enemyScore + "\n------Fight Over------");
+        currentRound++;
+        tablePanel.RenterPanel();
+        combatPanel.gameObject.SetActive(false);
+        TablePanel.instance.CombatPanelToTablePanelAnimation();
+
+        
     }
 
     private IEnumerator EndBattle(bool hasPlayerWon)
@@ -490,4 +493,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    internal void SelectEnemyCard() {
+        enemySelectedCardIndex = ChooseEnemyCardIndex();
+    }
 }
