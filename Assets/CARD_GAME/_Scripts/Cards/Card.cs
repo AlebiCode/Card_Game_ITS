@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
     [SerializeField] private CardData cardData;
-
+    [SerializeField] private CardBuffsManager buffManager;
     [SerializeField] private Image image;
     [SerializeField] private TMP_Text cardName;
     [SerializeField] private TMP_Text cardDescription;
@@ -26,6 +26,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     public Image Image => image;
     public CardData CardData => cardData;
     public RectTransform RectTransform => rectTransform;
+    public CardBuffsManager BuffsManager => buffManager;
 
     public void LoadData(CardData cardData)
     {

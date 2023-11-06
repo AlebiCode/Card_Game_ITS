@@ -349,9 +349,9 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
 
             if (isAlly)
-                CalculateSkillDefence(skill, ref playerFightData);
+                CalculateSkillDefence(skill, ref playerFightData,isAlly);
             else
-                CalculateSkillDefence(skill, ref enemyFightData);
+                CalculateSkillDefence(skill, ref enemyFightData,isAlly);
            
         }
     }
@@ -373,10 +373,14 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    private void CalculateSkillDefence(SkillData skillToCalc, ref FightData fightData)
+    private void CalculateSkillDefence(SkillData skillToCalc, ref FightData fightData, bool isAlly)
     {
         fightData.parryIteration += skillToCalc.DefInstances;
         fightData.dodgePercent += skillToCalc.Dodge;
+
+        UpdateParryCount((isAlly ? allyCombatCard : enemyCombatCard), fightData.parryIteration);
+        UpdateDodgeChance((isAlly ? allyCombatCard : enemyCombatCard), fightData.dodgePercent);
+
     }
 
     private void CalculateSkillAttack(SkillData skillToCalc, ref FightData defenderFightData, bool isAlly)
@@ -385,7 +389,7 @@ public class BattleManager : MonoBehaviour
             if (defenderFightData.parryIteration == 0)
             {
                 if (skillToCalc.Precise || Random.Range(1, 101) > defenderFightData.dodgePercent)
-                {
+                {//hit
                     defenderFightData.damageTaken += skillToCalc.Damage;
                     AudioManager.PlayCombatAttackHit();
                     if (isAlly) {
@@ -398,7 +402,7 @@ public class BattleManager : MonoBehaviour
                     }
                 }
                 else
-                {
+                {//dodge
                     AudioManager.PlayCombatAttackDodged();
                     PlayVFX((isAlly ? enemyCombatCard : allyCombatCard), VFX_TYPE.DODGE);
                     defenderFightData.successfullDodges++;
@@ -406,13 +410,22 @@ public class BattleManager : MonoBehaviour
                 }
             }
             else
-            {
+            {//block
                 AudioManager.PlayCombatAttackBlocked();
                 PlayVFX((isAlly ? enemyCombatCard : allyCombatCard), VFX_TYPE.DEFENSE);
                 defenderFightData.successfullBlocks++;
                 defenderFightData.parryIteration--;
+                UpdateParryCount((isAlly?enemyCombatCard:allyCombatCard),defenderFightData.parryIteration);
             }
         
+    }
+
+    void UpdateParryCount(Card card, int parryCount) {
+        card.BuffsManager.UpdateParryCount(parryCount);
+    }
+
+    void UpdateDodgeChance(Card card, int dodgeChance) {
+        card.BuffsManager.UpdateDodgeChance(dodgeChance);
     }
 
     void PlayVFX(Card card, VFX_TYPE type) {
