@@ -24,6 +24,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip attackBlocked;
     [SerializeField] private AudioClip attackDodged;
     [SerializeField] private AudioClip attackHit;
+    [SerializeField] private AudioClip scoreUpdateWin;
+    [SerializeField] private AudioClip scoreUpdateLose;
 
     private void Awake()
     {
@@ -71,6 +73,10 @@ public class AudioManager : MonoBehaviour
     public static void PlayUiConfirmAudio2()
     {
         PlayAudio(instance.genericUiConfirm2, 4);
+    }
+    public static void PlayUiScoreUpdate(bool playerHasWon)
+    {
+        PlayAudio(playerHasWon ? instance.scoreUpdateWin : instance.scoreUpdateLose, 4);
     }
 
     public static void StartDiceRollLoop()

@@ -5050,7 +5050,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3342329311094680650, guid: 5ec5b754c2c6fc04198f9b98b6b01c6a, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3342329311094680650, guid: 5ec5b754c2c6fc04198f9b98b6b01c6a, type: 3}
       propertyPath: m_AnchorMax.x
@@ -10856,6 +10856,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1235567076}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayUiScoreUpdate
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onEnemyScoreChanged:
     m_PersistentCalls:
       m_Calls:
@@ -10863,6 +10875,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: TextUpdater, Assembly-CSharp
         m_MethodName: UpdateValue
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1235567076}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayUiScoreUpdate
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -15647,6 +15671,8 @@ MonoBehaviour:
   attackBlocked: {fileID: 8300000, guid: af947997712a2ed44983f583d60d9f2a, type: 3}
   attackDodged: {fileID: 8300000, guid: 7d42b1a00b161d041b978cd0051566cc, type: 3}
   attackHit: {fileID: 8300000, guid: 0db5f9c75c6d28340a5b1b0b2a6fc633, type: 3}
+  scoreUpdateWin: {fileID: 8300000, guid: 10da1a5c7bc0ca64b8cada37ccb75251, type: 3}
+  scoreUpdateLose: {fileID: 8300000, guid: 3cf4b93f7116c4b489fecb64fd2a46f1, type: 3}
 --- !u!4 &1235567077
 Transform:
   m_ObjectHideFlags: 0

@@ -212,8 +212,6 @@ public class BattleManager : MonoBehaviour
     {
         yield return RollDices(2, true);
 
-        yield return new WaitForSeconds(2);
-
         StartFight();
     }
     private void StartFightCheck()
