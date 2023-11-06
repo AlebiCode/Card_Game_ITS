@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5221550792980075809}
   - component: {fileID: 5221550792980075808}
   m_Layer: 6
-  m_Name: Card Border Glow (2)
+  m_Name: Glow_Left_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4882,7 +4882,7 @@ GameObject:
   - component: {fileID: 5221550793177979560}
   - component: {fileID: 5221550793177979563}
   m_Layer: 6
-  m_Name: Card Border Glow (4_2)
+  m_Name: Glow_Down_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4895,14 +4895,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5221550793177979565}
-  m_LocalRotation: {x: -0, y: 0.70796746, z: -0, w: 0.7062452}
-  m_LocalPosition: {x: 6.67, y: -1.9, z: 11.68}
+  m_LocalRotation: {x: 0.7062424, y: 0, z: -0.70797014, w: 0}
+  m_LocalPosition: {x: 6.67, y: 0, z: 11.68}
   m_LocalScale: {x: 5.3, y: 4.509651, z: 4.1842093}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5221550794132786483}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 90.14, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 90.14, z: 0}
 --- !u!198 &5221550793177979560
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5537,9 +5537,9 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 0
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 180, y: 90, z: 0}
-    m_Scale: {x: 0.35, y: 0.46, z: 0.38}
+    m_Position: {x: -0.0000001801384, y: 0.443217, z: -0.00000008293646}
+    m_Rotation: {x: -0.00000500902, y: 269.74405, z: 180}
+    m_Scale: {x: 0.35, y: 0.45999998, z: 0.38}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -9752,7 +9752,7 @@ GameObject:
   - component: {fileID: 5221550793276153317}
   - component: {fileID: 5221550793276153316}
   m_Layer: 6
-  m_Name: Card Border Glow (1_2)
+  m_Name: Glow_Horizontal_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10407,9 +10407,9 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 0
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 0, y: 90, z: 0}
-    m_Scale: {x: 0.35, y: 0.46, z: 0.38}
+    m_Position: {x: -0.0000003090448, y: -0.3409478, z: -1.5840206e-10}
+    m_Rotation: {x: -0, y: 90.63319, z: 0}
+    m_Scale: {x: 0.35, y: 0.45999998, z: 0.38}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -14564,7 +14564,7 @@ GameObject:
   - component: {fileID: 5221550793831177154}
   - component: {fileID: 5221550793831177157}
   m_Layer: 6
-  m_Name: Card Border Glow (2_2)
+  m_Name: Glow_Right_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19434,7 +19434,7 @@ GameObject:
   - component: {fileID: 5221550793860331769}
   - component: {fileID: 5221550793860331768}
   m_Layer: 6
-  m_Name: Card Border Glow (3_2)
+  m_Name: Glow_Right_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24304,7 +24304,7 @@ GameObject:
   - component: {fileID: 5221550793876864691}
   - component: {fileID: 5221550793876864690}
   m_Layer: 6
-  m_Name: Card Border Glow (4)
+  m_Name: Glow_Up_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24318,7 +24318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5221550793876864692}
   m_LocalRotation: {x: -0, y: 0.70796746, z: -0, w: 0.7062452}
-  m_LocalPosition: {x: 6.67, y: 2.01, z: 11.68}
+  m_LocalPosition: {x: 6.67, y: 0, z: 11.68}
   m_LocalScale: {x: 5.3, y: 4.509651, z: 4.1842093}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -24959,9 +24959,9 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 0
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 180, y: 90, z: 0}
-    m_Scale: {x: 0.35, y: 0.46, z: 0.38}
+    m_Position: {x: -0.0000004890661, y: 0.44337994, z: -0.000000042934538}
+    m_Rotation: {x: -0.0000050090207, y: 270.62488, z: 180}
+    m_Scale: {x: 0.35, y: 0.45999998, z: 0.38}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -34052,7 +34052,7 @@ GameObject:
   - component: {fileID: 5221550794688280444}
   - component: {fileID: 5221550794688280447}
   m_Layer: 6
-  m_Name: Card Border Glow
+  m_Name: Glow_Contorno
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38931,7 +38931,7 @@ GameObject:
   - component: {fileID: 5221550795003848849}
   - component: {fileID: 5221550795003848848}
   m_Layer: 6
-  m_Name: Card Border Glow (3)
+  m_Name: Glow_Left_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
