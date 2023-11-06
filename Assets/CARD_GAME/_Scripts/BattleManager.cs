@@ -359,12 +359,16 @@ public class BattleManager : MonoBehaviour
     {
         foreach (SkillData skill in skillsToExec)
         {
-            yield return new WaitForSeconds(0.5f);
+           
+            for (int i = 0; i < skill.AtkInstances; i++) {
 
-            if (isAlly)
-                CalculateSkillAttack(skill, ref enemyFightData, isAlly);
-            else
-                CalculateSkillAttack(skill, ref playerFightData, isAlly);
+                yield return new WaitForSeconds(0.5f);
+
+                if (isAlly)
+                    CalculateSkillAttack(skill, ref enemyFightData, isAlly);
+                else
+                    CalculateSkillAttack(skill, ref playerFightData, isAlly);
+            }
             
         }
     }
@@ -377,14 +381,13 @@ public class BattleManager : MonoBehaviour
 
     private void CalculateSkillAttack(SkillData skillToCalc, ref FightData defenderFightData, bool isAlly)
     {
-        for (int i = 0; i < skillToCalc.AtkInstances; i++)
-        {
+        
             if (defenderFightData.parryIteration == 0)
             {
                 if (skillToCalc.Precise || Random.Range(1, 101) > defenderFightData.dodgePercent)
                 {
                     defenderFightData.damageTaken += skillToCalc.Damage;
-
+                    AudioManager.PlayCombatAttackHit();
                     if (isAlly) {
                         PlayVFX(enemyCombatCard, VFX_TYPE.ATTACK); //attack means get damaged
                         onEnemyCardDamaged?.Invoke(defenderFightData.damageTaken);
@@ -396,6 +399,7 @@ public class BattleManager : MonoBehaviour
                 }
                 else
                 {
+                    AudioManager.PlayCombatAttackDodged();
                     PlayVFX((isAlly ? enemyCombatCard : allyCombatCard), VFX_TYPE.DODGE);
                     defenderFightData.successfullDodges++;
                     
@@ -403,11 +407,12 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
+                AudioManager.PlayCombatAttackBlocked();
                 PlayVFX((isAlly ? enemyCombatCard : allyCombatCard), VFX_TYPE.DEFENSE);
                 defenderFightData.successfullBlocks++;
                 defenderFightData.parryIteration--;
             }
-        }
+        
     }
 
     void PlayVFX(Card card, VFX_TYPE type) {

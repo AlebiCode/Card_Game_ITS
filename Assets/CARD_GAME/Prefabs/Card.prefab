@@ -2371,6 +2371,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5438307630709295067, guid: 020ade2a8f9386d4e970986233b90f5a, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5854643546379812926, guid: 020ade2a8f9386d4e970986233b90f5a, type: 3}
       propertyPath: m_Name
       value: vfx_scudogrigio
@@ -2508,6 +2512,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2673493315820095048, guid: ea6b2b4b74717d24a99324850a5c2609, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3431793969946601703, guid: ea6b2b4b74717d24a99324850a5c2609, type: 3}
       propertyPath: m_Name
       value: Hit_humans
@@ -2577,6 +2585,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2118665595827079548, guid: 399b730606b5b864289d8f8f4dbc533f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599109597098303525, guid: 399b730606b5b864289d8f8f4dbc533f, type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3056382723869560027, guid: 399b730606b5b864289d8f8f4dbc533f, type: 3}
