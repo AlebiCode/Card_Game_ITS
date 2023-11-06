@@ -9,6 +9,6 @@ public class TitlePanel : MonoBehaviour
     public void PlayAudioClip()
     {
         if (audioClip)
-            AudioManager.PlayUiAudio(audioClip);
+            AudioManager.PlayAudio(audioClip, 4);
     }
 }

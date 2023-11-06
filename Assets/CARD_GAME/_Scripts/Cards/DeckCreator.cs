@@ -77,7 +77,7 @@ public class DeckCreator : MonoBehaviour
         {
             easterEggCard.gameObject.SetActive(true);
             easterEggCard.LoadGraphics();
-            AudioManager.PlayUiAudio(easterAudioClip);
+            AudioManager.PlayAudio(easterAudioClip, 4);
         }
         if (easterEggClicks == 20)
         {
