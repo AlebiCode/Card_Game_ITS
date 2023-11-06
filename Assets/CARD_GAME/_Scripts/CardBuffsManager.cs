@@ -32,7 +32,7 @@ public class CardBuffsManager : MonoBehaviour
     }
 
     public void UpdateDodgeChance(int dodgeChance) {
-        if(!dodgeGameObject.activeInHierarchy)
+        if(!dodgeGameObject.activeInHierarchy && dodgeChance>0)
             dodgeGameObject.SetActive(true);
 
 
