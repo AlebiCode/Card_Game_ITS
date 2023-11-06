@@ -22531,12 +22531,8 @@ MonoBehaviour:
   victoryText: {fileID: 1284564018}
   gameOverText: {fileID: 47102426}
   winnerAudio:
-  - {fileID: 8300000, guid: 34c886e160dbce24597031a622f46cb4, type: 3}
-  - {fileID: 8300000, guid: 69dab92f8a9da1f48b8ff64ed652f5f2, type: 3}
   - {fileID: 8300000, guid: c5da2f55b748c264f83f76c47f5ff955, type: 3}
-  - {fileID: 8300000, guid: 306a9b4e53217684185ef4a9cb16a968, type: 3}
   gameOverAudio:
-  - {fileID: 8300000, guid: c589a6e5c3d8575419be1326d91a9cf6, type: 3}
   - {fileID: 8300000, guid: 11f54a55780b06044ad16d70f8b6eba2, type: 3}
   audioSource: {fileID: 1812937437}
 --- !u!114 &1812937435
@@ -22586,7 +22582,7 @@ AudioSource:
   m_GameObject: {fileID: 1812937431}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1559025837347642188, guid: b166a0cafcb7fca4b9fa9b99f1782001, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
