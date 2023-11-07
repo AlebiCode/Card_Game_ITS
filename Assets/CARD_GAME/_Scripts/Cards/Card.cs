@@ -29,9 +29,14 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     public RectTransform RectTransform => rectTransform;
     public CardBuffsManager BuffsManager => buffManager;
 
+    public void Awake() {
+        
+    }
+
     public void LoadData(CardData cardData)
     {
         this.cardData = cardData;
+        particleSystemList.attackEffect = gameObject.GetComponent<Card>().CardData.AttackVFX;
         LoadGraphics();
     }
     public void LoadData(CardData cardData, bool lmbIneractable, bool rmbInteractable)
