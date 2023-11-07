@@ -10,11 +10,6 @@ public class ParticleSystemActivator : MonoBehaviour {
     public ParticleSystem specialAttack;
     private bool isSelected = false;
 
-    private void Awake() {
-        if(gameObject.GetComponent<Card>()) {
-            
-            //specialAttack= gameObject.GetComponent<Card>().CardData.SpecialVFX;
-        }
 
         // Make sure the Particle System is not active at the beginning.
         //Affinché l'effetto particellare si veda normale setto la sua scala a 0.1f di default, in caso non venga fatto
@@ -23,7 +18,7 @@ public class ParticleSystemActivator : MonoBehaviour {
         //attackEffect?.Stop();
         //defenseEffect?.Stop();
         //dodgeEffect?.Stop();
-    }
+
 
 
     public void ActivateAnimation(VFX_TYPE vfx) {
@@ -102,4 +97,12 @@ public class ParticleSystemActivator : MonoBehaviour {
     ATTACK = 1,
     DEFENSE = 2,
     DODGE = 3
+}
+
+public enum RACES {
+    HUMAN=0,
+    DRUID=1,
+    WIZARD=2,
+    ROBOT=3,
+    GHOST=4
 }

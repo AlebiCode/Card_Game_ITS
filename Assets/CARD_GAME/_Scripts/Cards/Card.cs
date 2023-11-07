@@ -36,7 +36,6 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     public void LoadData(CardData cardData)
     {
         this.cardData = cardData;
-        particleSystemList.attackEffect = gameObject.GetComponent<Card>().CardData.AttackVFX;
         LoadGraphics();
     }
     public void LoadData(CardData cardData, bool lmbIneractable, bool rmbInteractable)
