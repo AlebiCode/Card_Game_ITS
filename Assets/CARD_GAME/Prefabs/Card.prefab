@@ -69,7 +69,7 @@ MonoBehaviour:
   m_text: Mossa
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 00aafd9ac70071246b92067bb6703d72, type: 2}
-  m_sharedMaterial: {fileID: 5254269396572193993, guid: 00aafd9ac70071246b92067bb6703d72, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 97301c24dc2263b449528b3c5eac8c7d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1031,7 +1031,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3342329310717560229
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1083,21 +1083,21 @@ MonoBehaviour:
   m_text: NAME
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 00aafd9ac70071246b92067bb6703d72, type: 2}
-  m_sharedMaterial: {fileID: 5254269396572193993, guid: 00aafd9ac70071246b92067bb6703d72, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 1f72a30b506bf614f9f2578df3cc60e8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 1
+  m_colorMode: 2
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0.754717, g: 0.7304934, b: 0.38732645, a: 1}
+    topRight: {r: 0.754717, g: 0.7304934, b: 0.38732645, a: 1}
+    bottomLeft: {r: 0.16037738, g: 0.14604649, b: 0.029352076, a: 1}
+    bottomRight: {r: 0.16037738, g: 0.14604649, b: 0.029352076, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -1107,13 +1107,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.65
-  m_fontSizeBase: 10
+  m_fontSize: 16.5
+  m_fontSizeBase: 16.5
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 6
-  m_fontSizeMax: 48
-  m_fontStyle: 0
+  m_fontSizeMax: 38.78
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2502,7 +2502,7 @@ MonoBehaviour:
   m_text: Mossa
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 00aafd9ac70071246b92067bb6703d72, type: 2}
-  m_sharedMaterial: {fileID: 5254269396572193993, guid: 00aafd9ac70071246b92067bb6703d72, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 97301c24dc2263b449528b3c5eac8c7d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2873,7 +2873,7 @@ MonoBehaviour:
   m_text: Mossa
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 00aafd9ac70071246b92067bb6703d72, type: 2}
-  m_sharedMaterial: {fileID: 5254269396572193993, guid: 00aafd9ac70071246b92067bb6703d72, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 97301c24dc2263b449528b3c5eac8c7d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
