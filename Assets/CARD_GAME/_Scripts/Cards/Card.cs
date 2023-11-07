@@ -11,6 +11,7 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     [SerializeField] private CardData cardData;
     [SerializeField] private CardBuffsManager buffManager;
     [SerializeField] private Image image;
+    [SerializeField] private Image imageBackGround;
     [SerializeField] private TMP_Text cardName;
     [SerializeField] private TMP_Text cardDescription;
     [SerializeField] private RectTransform rectTransform;
@@ -40,9 +41,18 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
         LoadData(cardData);
     }
 
+    private void Update()
+    {
+        imageBackGround.color = cardData.BackGroundColor;
+    }
+
     public void LoadGraphics()
     {
         image.sprite = cardData.Sprite;
+        RectTransform imageRect = image.GetComponent<RectTransform>();
+        imageRect.sizeDelta = cardData.FramedSize;
+        imageRect.anchoredPosition = cardData.FramedPosition;
+        imageBackGround.color = cardData.BackGroundColor;
         cardName.text = cardData.CardName;
         cardDescription.text = cardData.CardDescription;
         for (int i = 0; i < 3; i++)

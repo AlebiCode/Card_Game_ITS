@@ -171,19 +171,24 @@ public class BattleManager : MonoBehaviour
     }
     private IEnumerator RollDices(float rollingTime, bool lockAfterRoll = false)
     {
-        AudioManager.StartDiceRollLoop();
-
+        bool noDiceRolled = true;
         for (int i = 0; i < allyDices.Length; i++)
         {
             if (!allyDices[i].IsLocked)
             {
                 allyDices[i].StartRollAnimation(1);
+                noDiceRolled = false;
             }
             if (!enemyDices[i].IsLocked)
             {
                 enemyDices[i].StartRollAnimation(1);
+                noDiceRolled = false;
             }
         }
+        if(noDiceRolled)
+            yield break;
+
+        AudioManager.StartDiceRollLoop();
 
         yield return new WaitForSeconds(rollingTime);
 

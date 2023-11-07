@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: z_IVN
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: fb5a51d1331cd1649947c797867edc64, type: 3}
+  framedPosition: {x: 3.5631, y: -21}
+  framedSize: {x: 271.272, y: 269.2143}
   spriteLarge: {fileID: 0}
   cardName: Lord Ivan
   cardDescription: Time to go all out

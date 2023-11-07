@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ea55edae51cfb4a8824f3b8d141c61, type: 3}
   m_Name: card_human_defender_1
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: f86f66971bda5ce45b54ae2a2b11ff2b, type: 3}
-  spriteLarge: {fileID: 0}
+  sprite: {fileID: 21300000, guid: a64ed88ca8771374c90cd9b7f4fb9bdc, type: 3}
+  framedPosition: {x: -8.904074, y: -82.37607}
+  framedSize: {x: 311.5342, y: 440.623}
+  backGround: {r: 0.7830189, g: 0.62028337, b: 0.3501424, a: 1}
   cardName: card_umano_2
   cardDescription: Default Description
   cardAudioProfile: {fileID: 11400000, guid: b01107fcdd14e0b499144d5d56a2773d, type: 2}
