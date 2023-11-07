@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ea55edae51cfb4a8824f3b8d141c61, type: 3}
   m_Name: card_ghost_defender_1
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 5ab3abaea8ce2044fb7a96548091e26c, type: 3}
+  sprite: {fileID: 21300000, guid: d63647da546656b41bc2e6b8975baed3, type: 3}
   framedPosition: {x: 0, y: 0}
   framedSize: {x: 210, y: 210}
   backGround: {r: 0.5596363, g: 0.48538622, b: 0.6320754, a: 1}
@@ -23,5 +23,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 198754d4e08b42240bdab305844d030f, type: 2}
   - {fileID: 11400000, guid: 5a3afb8d85c35c94692fa182806d72bb, type: 2}
   - {fileID: 11400000, guid: 66413005204b6214db5296fbd2c32582, type: 2}
-  attackVFX: {fileID: 5030404810369641799, guid: 0a7fc2fcc4fd47b4285c4095b24fd7c4, type: 3}
-  specialVFX: {fileID: 0}
+  race: 4

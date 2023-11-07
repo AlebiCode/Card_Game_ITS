@@ -198,17 +198,16 @@ public class BattleManager : MonoBehaviour
             if (!allyDices[i].IsLocked)
             {
                 allyDices[i].RollDice();
-                allyDices[i].StopRollAnimation(1);
+                allyDices[i].StopRollAnimation();
+                if(lockAfterRoll)
+                    allyDices[i].LockDice(true);
             }
             if (!enemyDices[i].IsLocked)
             {
                 enemyDices[i].RollDice();
-                enemyDices[i].StopRollAnimation(1);
-            }
-            if (lockAfterRoll)
-            {
-                allyDices[i].LockDice(true);
-                enemyDices[i].LockDice(true);
+                enemyDices[i].StopRollAnimation();
+                if (lockAfterRoll)
+                    enemyDices[i].LockDice(true);
             }
             yield return new WaitForSeconds(0.1f);
         }

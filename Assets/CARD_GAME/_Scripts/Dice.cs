@@ -67,10 +67,10 @@ public class Dice : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(RollAnimation(fadeDuration));
     }
-    public void StopRollAnimation(float duration)
+    public void StopRollAnimation()
     {
         StopAllCoroutines();
-        mainImage.DOColor(FaceToRGB(result), duration);
+        mainImage.DOColor(FaceToRGB(result), 1);
         mainImage.sprite = DiceResources.RollSets[DiceResources.GetSetIndex].endingSprite;
         ghostImage.gameObject.SetActive(false);
         //transform.DORotate(Vector3.zero, duration);
