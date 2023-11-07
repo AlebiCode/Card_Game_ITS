@@ -235,10 +235,10 @@ public class EnemyBrain : MonoBehaviour
         
         diceRoll_byManaColor = new int[3] { diceRoll_RedMana , diceRoll_YellowMana , diceRoll_BlueMana };
 
-        /*Debug.Log("<Rolled dice faces (RYB)> = (");
+        string debugText = "";
         foreach (var d in diceRoll_byManaColor)
-            Debug.Log(d);
-        Debug.Log(")");*/
+            debugText += d.ToString() + " ";
+        Debug.Log("<Rolled dice faces (RYB)> = ( "+ debugText + ")");
 
     }
 
@@ -356,13 +356,11 @@ public class EnemyBrain : MonoBehaviour
         selectedCardData.skillsActivatedSet_onRoll = new int[3] {0,0,0};
 
         for (int i = 0; i < selectedCardSkills.Length; i++)
-        //foreach (Skill skill in selectedCardSkills)
         {
             //add to battlingCard list of skill activated set --> confront with other sets probabilities
-            selectedCardData.skillsActivatedSet_onRoll[i]=(GetSingleSkillActivationsFromDiceManaCombo(selectedCardSkills[i], diceRoll_byManaColor));
+            selectedCardData.skillsActivatedSet_onRoll[i] = GetSingleSkillActivationsFromDiceManaCombo(selectedCardSkills[i], diceRoll_byManaColor);
 
             GetDamageAndEffectsActivatedForSingleSkillAfterRoll(selectedCardSkills[i]);
-
         }
 
         //set total damage done by all skill activs
@@ -553,6 +551,7 @@ public class EnemyBrain : MonoBehaviour
         // SE LA MOSSA CON PRIORITA' E'VICINA AD UN'ALTRA ATTIVAZIONE ALLORA LOCKA I DADI NECESSARI
         // (distanza massima: 1 mana rosso, 1 mana giallo)
 
+        //WIP
         //get all possible diceCombination to lock(by mana type)
         GetDiceCombinationsAndTargetSkillSets();
 
