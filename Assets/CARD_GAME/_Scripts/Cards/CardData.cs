@@ -15,6 +15,9 @@ public class CardData : ScriptableObject
     [SerializeField] private string cardDescription = "Default Description";
     [SerializeField] private CardAudioProfile cardAudioProfile;
     [SerializeField] private SkillData[] skills = new SkillData[3];
+    [SerializeField] private ParticleSystem attackVFX; 
+    [SerializeField] private ParticleSystem specialVFX;
+
 
     public Sprite Sprite => sprite;
     public Vector2 FramedPosition => framedPosition;
@@ -25,5 +28,7 @@ public class CardData : ScriptableObject
     public string CardDescription => cardDescription;
     public SkillData[] Skills => skills;
     public CardAudioProfile CardAudioProfile => cardAudioProfile;
+    public ParticleSystem AttackVFX => attackVFX;
+    public ParticleSystem SpecialVFX => specialVFX;
 
 }

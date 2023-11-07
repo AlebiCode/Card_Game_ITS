@@ -5,6 +5,8 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    private const float PITCH_MAX_VARIATION = 0.05f;
+
     public static AudioManager instance;
     public AudioMixer mainMixer;
 
@@ -40,11 +42,12 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public static void PlayAudio(AudioClip audioClip, int sourceGroup, float delay = 0)
+    public static void PlayAudio(AudioClip audioClip, int sourceGroup, float delay = 0, bool pitchVariation = false)
     {
         AudioSource audioSource = instance.sourceGroups[sourceGroup][0];
         instance.sourceGroups[sourceGroup].RemoveAt(0);
         audioSource.clip = audioClip;
+        audioSource.pitch = pitchVariation ? 1 + Random.Range(-PITCH_MAX_VARIATION, PITCH_MAX_VARIATION) : 1;
         audioSource.PlayDelayed(delay);
         instance.sourceGroups[sourceGroup].Add(audioSource);
     }
@@ -64,15 +67,15 @@ public class AudioManager : MonoBehaviour
 
     public static void PlayUiSelectAudio()
     {
-        PlayAudio(instance.genericUiSelect, 4);
+        PlayAudio(instance.genericUiSelect, 4, pitchVariation: true);
     }
     public static void PlayUiConfirmAudio()
     {
-        PlayAudio(instance.genericUiConfirm, 4);
+        PlayAudio(instance.genericUiConfirm, 4, pitchVariation: true);
     }
     public static void PlayUiConfirmAudio2()
     {
-        PlayAudio(instance.genericUiConfirm2, 4);
+        PlayAudio(instance.genericUiConfirm2, 4, pitchVariation: true);
     }
     public static void PlayUiScoreUpdate(bool playerHasWon)
     {
@@ -90,7 +93,7 @@ public class AudioManager : MonoBehaviour
     }
     public static void PlayUiDiceLocked()
     {
-        PlayAudio(instance.diceLocked, 4);
+        PlayAudio(instance.diceLocked, 4, pitchVariation: true);
     }
 
     public void SetVolume(float volume)
