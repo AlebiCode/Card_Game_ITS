@@ -7,9 +7,15 @@ public class ParticleSystemActivator : MonoBehaviour {
     public ParticleSystem attackEffect;
     public ParticleSystem defenseEffect;
     public ParticleSystem dodgeEffect;
+    public ParticleSystem specialAttack;
     private bool isSelected = false;
 
-    private void Start() {
+    private void Awake() {
+        if(gameObject.GetComponent<Card>()) {
+            
+            //specialAttack= gameObject.GetComponent<Card>().CardData.SpecialVFX;
+        }
+
         // Make sure the Particle System is not active at the beginning.
         //Affinché l'effetto particellare si veda normale setto la sua scala a 0.1f di default, in caso non venga fatto
         //particleSystem.gameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);

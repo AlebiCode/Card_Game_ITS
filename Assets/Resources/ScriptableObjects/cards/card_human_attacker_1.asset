@@ -23,3 +23,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 88d94c70b2f79724f86cfb376559b772, type: 2}
   - {fileID: 11400000, guid: 95bfe7708f4d63d4cb4103d6cf43c94e, type: 2}
   - {fileID: 11400000, guid: 8c97a07f3309c4a4e8167861b8cb48a5, type: 2}
+  attackVFX: {fileID: 2673493315820095048, guid: ea6b2b4b74717d24a99324850a5c2609, type: 3}
+  specialVFX: {fileID: 0}
