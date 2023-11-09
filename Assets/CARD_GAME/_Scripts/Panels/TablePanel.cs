@@ -54,7 +54,7 @@ public class TablePanel : MonoBehaviour
         BattleManager.instance.SelectEnemyCard();
         //secondo round sceglie prima la CPU
         if (BattleManager.instance.CurrentRound == 2) {
-            BattleManager.instance.EnemySelectedCard.particleSystemList.ActivateAnimation(VFX_TYPE.SELECT);
+            BattleManager.instance.EnemySelectedCard.particleSystemList.StartSelectionAnim(true);
         }
     }
 
@@ -83,7 +83,7 @@ public class TablePanel : MonoBehaviour
     {
         selectedCard = card;
         //selectedCard.Image.GetComponent<Image>().color = Color.yellow;
-        selectedCard.particleSystemList.ActivateAnimation(VFX_TYPE.SELECT);
+        selectedCard.particleSystemList.StartSelectionAnim(false);
         selectedCard.tag = "SelectedCard";
 
         SyncReadyButton();
@@ -91,7 +91,7 @@ public class TablePanel : MonoBehaviour
 
     void DeselectCard(Card card)
     {
-        selectedCard.particleSystemList.DeactivateAnimation(VFX_TYPE.SELECT);
+        selectedCard.particleSystemList.StopSelectionAnim();
         //selectedCard.Image.GetComponent<Image>().color = Color.white;
         selectedCard.tag = "Untagged";
         selectedCard = null;

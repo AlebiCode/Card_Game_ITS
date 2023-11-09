@@ -3,11 +3,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ParticleSystemActivator : MonoBehaviour {
-    public ParticleSystem selectionEffect;
-    public ParticleSystem attackEffect;
-    public ParticleSystem defenseEffect;
-    public ParticleSystem dodgeEffect;
-    public ParticleSystem specialAttack;
+    public ParticleSystem selectionEffectPlayer;
+    public ParticleSystem selectionEffectEnemy;
+    // public ParticleSystem attackEffect;
+    // public ParticleSystem defenseEffect;
+    // public ParticleSystem dodgeEffect;
+    // public ParticleSystem specialAttack;
     private bool isSelected = false;
 
 
@@ -19,70 +20,33 @@ public class ParticleSystemActivator : MonoBehaviour {
         //defenseEffect?.Stop();
         //dodgeEffect?.Stop();
 
-
-
-    public void ActivateAnimation(VFX_TYPE vfx) {
-        if (!isSelected) {
-            switch (vfx) {
-                case VFX_TYPE.SELECT:
-                    StartAnimation(selectionEffect);
-                    break;
-                case VFX_TYPE.ATTACK:
-                    StartAnimation(attackEffect);
-                    break;
-                case VFX_TYPE.DEFENSE:
-                    StartAnimation(defenseEffect);
-                    break;
-                case VFX_TYPE.DODGE:
-                    StartAnimation(dodgeEffect);
-                    break;
-                default:
-                    Debug.LogWarning("Start Animation");
-                    break;
-            }
+    public void StartSelectionAnim(bool isEnemy) {
+        if (isEnemy) {
+            SelectionEffectActivation(selectionEffectEnemy);
+        } else {
+            SelectionEffectActivation(selectionEffectPlayer);
         }
-    }
-            public void DeactivateAnimation(VFX_TYPE vfx) {
-            if (isSelected) {
-                switch (vfx) {
-                case VFX_TYPE.SELECT:
-                    StopAnimation(selectionEffect);
-                    break;
-
-                case VFX_TYPE.ATTACK:
-                    StopAnimation(attackEffect);
-                    break;
-                case VFX_TYPE.DEFENSE:
-                    StopAnimation(defenseEffect);
-                    break;
-                case VFX_TYPE.DODGE:
-                    StopAnimation(dodgeEffect);
-                    break;
-                default:
-                    Debug.LogWarning("Start Animation");
-                    break;
-            }
-        }
+        
     }
 
-            private void StartAnimation(ParticleSystem particleSystem) {
-                if (particleSystem != null) {
-            particleSystem.gameObject.SetActive(true);
-            particleSystem.Play();
-                        if (particleSystem.loop)
-                            isSelected = true;
-                } else {
-                    Debug.LogError("Couldn't locate Particle Effect for " + gameObject.name);
-                }
+    private void SelectionEffectActivation(ParticleSystem selection) {
+        if (selection != null) {
+            selection.gameObject.SetActive(true);
+            selection.Play();
+            isSelected = true;
+        } else {
+            Debug.LogError("Couldn't locate Selection Particle Effect for " + gameObject.name);
+        }
 
-            }
+    }
 
-    private void StopAnimation(ParticleSystem particleSystem) {
-        ParticleSystem[] psList;
-        if (particleSystem != null) {
-            if (isSelected && particleSystem.isPlaying) {
-                particleSystem.gameObject.SetActive(false);
-                particleSystem.Stop();
+
+    public void StopSelectionAnim() {
+        //ParticleSystem[] psList;
+        if (selectionEffectPlayer != null) {
+            if (isSelected && selectionEffectPlayer.isPlaying) {
+                selectionEffectPlayer.gameObject.SetActive(false);
+                selectionEffectPlayer.Stop();
                 isSelected = false;
             }
         } else {
@@ -90,19 +54,5 @@ public class ParticleSystemActivator : MonoBehaviour {
         }
 
     }
-
-}
-    public enum VFX_TYPE {
-    SELECT = 0,
-    ATTACK = 1,
-    DEFENSE = 2,
-    DODGE = 3
 }
 
-public enum RACES {
-    HUMAN=0,
-    DRUID=1,
-    WIZARD=2,
-    ROBOT=3,
-    GHOST=4
-}

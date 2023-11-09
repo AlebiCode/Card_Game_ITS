@@ -88,14 +88,14 @@ public class DeckCreator : MonoBehaviour
 
     private void SelectCard(Card card)
     {
-        card.particleSystemList.ActivateAnimation(VFX_TYPE.SELECT);
+        card.particleSystemList.StartSelectionAnim(false);
         selectedCards.Add(card);
         card.StopAllCoroutines();
         card.StartCoroutine(ScaleCard(card.RectTransform, standardSmallCardSize * 1.05f));
     }
     private void DeselectCard(Card card)
     {
-        card.particleSystemList.DeactivateAnimation(VFX_TYPE.SELECT);
+        card.particleSystemList.StopSelectionAnim();
         selectedCards.Remove(card);
         card.StopAllCoroutines();
         card.StartCoroutine(ScaleCard(card.RectTransform, standardSmallCardSize));

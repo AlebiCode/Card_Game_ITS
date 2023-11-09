@@ -431,7 +431,8 @@ public class BattleManager : MonoBehaviour
     }
 
     void PlayVFX(Card card, VFX_TYPE type) {
-        card.particleSystemList.ActivateAnimation(type);
+        Debug.Log("Activating effect " + type + " fo " + card.name + " of race " + card.CardData.Race);
+        card.particleSystemList.ActivateAnimation(type, card.CardData.Race);
     }
 
     #endregion
