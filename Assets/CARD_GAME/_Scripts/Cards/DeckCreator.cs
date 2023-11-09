@@ -21,7 +21,7 @@ public class DeckCreator : MonoBehaviour
 
     [SerializeField] private List<Card> selectedCards = new List<Card>();
 
-    private Vector2 standardSmallCardSize;
+    private Vector3 standardSmallCardSize;
 
     [SerializeField] private Card easterEggCard;
     [SerializeField] private Sprite easterSprite;
@@ -48,7 +48,7 @@ public class DeckCreator : MonoBehaviour
                 card.LoadData(cardDatas[i]);
                 //card.OnClick.AddListener(OnCardClick);
                 card.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-                standardSmallCardSize = card.RectTransform.sizeDelta;
+                standardSmallCardSize = card.transform.localScale;
             }
             else
             {
@@ -91,7 +91,7 @@ public class DeckCreator : MonoBehaviour
         card.particleSystemList.StartSelectionAnim(false);
         selectedCards.Add(card);
         card.StopAllCoroutines();
-        card.StartCoroutine(ScaleCard(card.RectTransform, standardSmallCardSize * 1.05f));
+        card.StartCoroutine(ScaleCard(card.transform, standardSmallCardSize * 1.05f));
     }
     private void DeselectCard(Card card)
     {
@@ -121,11 +121,11 @@ public class DeckCreator : MonoBehaviour
         return enemies[Random.Range(0, enemies.Length)];
     }
 
-    private IEnumerator ScaleCard(RectTransform targetTransform, Vector2 targetSize)
+    private IEnumerator ScaleCard(Transform transform, Vector3 targetSize)
     {
-        while (targetTransform.sizeDelta.magnitude != targetSize.magnitude)
+        while (transform.localScale != targetSize)
         {
-            targetTransform.sizeDelta = Vector2.MoveTowards(targetTransform.sizeDelta, targetSize, cardSelectAnimSpeed * Time.deltaTime);
+            transform.localScale = Vector3.MoveTowards(transform.localScale, targetSize, cardSelectAnimSpeed * Time.deltaTime);
             yield return null;
         }
     }
