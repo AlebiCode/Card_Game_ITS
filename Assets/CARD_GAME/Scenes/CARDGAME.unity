@@ -8699,6 +8699,7 @@ GameObject:
   - component: {fileID: 693156497}
   - component: {fileID: 693156496}
   - component: {fileID: 693156495}
+  - component: {fileID: 693156498}
   m_Layer: 5
   m_Name: RightButton
   m_TagString: Untagged
@@ -8724,7 +8725,7 @@ RectTransform:
   m_AnchorMin: {x: 0.9156668, y: 0.5}
   m_AnchorMax: {x: 0.9156668, y: 0.5}
   m_AnchoredPosition: {x: 0.5, y: 0}
-  m_SizeDelta: {x: 99, y: 100}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &693156495
 MonoBehaviour:
@@ -8802,8 +8803,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: a15a2c3f350ad204c9f7522fb1a5b0c2, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -8820,6 +8821,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 693156493}
   m_CullTransparentMesh: 1
+--- !u!114 &693156498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693156493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69f49c4a754604048a75eeca6501f650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleUp: {x: 1.05, y: 1.05}
+  scaleDown: {x: 0.95, y: 0.95}
+  scaleTime: 2
+  delayBetweenAnimation: 2.01
 --- !u!1 &706651969
 GameObject:
   m_ObjectHideFlags: 0
@@ -8851,7 +8868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6132076, g: 0.5509557, b: 0.25685295, a: 1}
+  m_Color: {r: 0.9529412, g: 0.92156863, b: 0.78039217, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19540,7 +19557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6132076, g: 0.5509557, b: 0.25685295, a: 1}
+  m_Color: {r: 0.9529412, g: 0.92156863, b: 0.78039217, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19637,7 +19654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6132076, g: 0.5509557, b: 0.25685295, a: 1}
+  m_Color: {r: 0.9529412, g: 0.92156863, b: 0.78039217, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19674,6 +19691,7 @@ GameObject:
   - component: {fileID: 1412101795}
   - component: {fileID: 1412101794}
   - component: {fileID: 1412101793}
+  - component: {fileID: 1412101796}
   m_Layer: 5
   m_Name: 'LeftButton '
   m_TagString: Untagged
@@ -19699,7 +19717,7 @@ RectTransform:
   m_AnchorMin: {x: 0.08, y: 0.5}
   m_AnchorMax: {x: 0.08, y: 0.5}
   m_AnchoredPosition: {x: 11, y: 0}
-  m_SizeDelta: {x: 102, y: 100}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1412101793
 MonoBehaviour:
@@ -19777,8 +19795,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 4b78cc109fdef504ea07487ad4335fa2, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -19795,6 +19813,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1412101791}
   m_CullTransparentMesh: 1
+--- !u!114 &1412101796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412101791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69f49c4a754604048a75eeca6501f650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleUp: {x: 1.05, y: 1.05}
+  scaleDown: {x: 0.95, y: 0.95}
+  scaleTime: 2
+  delayBetweenAnimation: 2.01
 --- !u!1 &1430758155
 GameObject:
   m_ObjectHideFlags: 0
@@ -25479,8 +25513,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: f332ed8a1e823f54aae83597e94f7689, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
