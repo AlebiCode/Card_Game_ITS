@@ -1047,10 +1047,10 @@ RectTransform:
   m_Father: {fileID: 3342329311094680650}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.90250003}
-  m_AnchorMax: {x: 1, y: 0.95500004}
-  m_AnchoredPosition: {x: 0.06970215, y: -0.3000183}
-  m_SizeDelta: {x: 0, y: -0.3262005}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.06970215, y: -27.567505}
+  m_SizeDelta: {x: 0, y: 25.807999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3342329310717560231
 CanvasRenderer:
@@ -1080,10 +1080,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: NAME
+  m_text: NAMEpaolo
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 00aafd9ac70071246b92067bb6703d72, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 1f72a30b506bf614f9f2578df3cc60e8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a0ac683d22f1a5a4487864fbed9c3692, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: cf4361561f8a12b43a400acc16cc152e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1094,10 +1094,10 @@ MonoBehaviour:
   m_enableVertexGradient: 1
   m_colorMode: 2
   m_fontColorGradient:
-    topLeft: {r: 0.754717, g: 0.7304934, b: 0.38732645, a: 1}
-    topRight: {r: 0.754717, g: 0.7304934, b: 0.38732645, a: 1}
-    bottomLeft: {r: 0.16037738, g: 0.14604649, b: 0.029352076, a: 1}
-    bottomRight: {r: 0.16037738, g: 0.14604649, b: 0.029352076, a: 1}
+    topLeft: {r: 0.5529412, g: 0.34901962, b: 0.28627452, a: 1}
+    topRight: {r: 0.5529412, g: 0.34901962, b: 0.28627452, a: 1}
+    bottomLeft: {r: 0.24705882, g: 0.21568628, b: 0.2, a: 1}
+    bottomRight: {r: 0.24705882, g: 0.21568628, b: 0.2, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -1107,12 +1107,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16.5
+  m_fontSize: 22.95
   m_fontSizeBase: 16.5
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 6
-  m_fontSizeMax: 38.78
+  m_fontSizeMax: 30
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -1143,7 +1143,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 4.21, z: 0, w: -1.4}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

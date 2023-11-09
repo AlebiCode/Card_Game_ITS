@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: TMP - Beardsons - Normal SDF
+  m_Name: Beardsons - Normal SDF
   m_EditorClassIdentifier: 
   hashCode: 710403738
   material: {fileID: 5254269396572193993}
