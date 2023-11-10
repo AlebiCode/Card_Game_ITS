@@ -65,7 +65,6 @@ public class AudioManager : MonoBehaviour
 
         audioSource.clip = audioClip;
         audioSource.volume = VolumeDiminisherOnRepeat(audioClip, sourceGroup);
-        Debug.Log("Volume " + audioSource.volume);
         audioSource.pitch = pitchVariation ? 1 + Random.Range(-PITCH_MAX_VARIATION, PITCH_MAX_VARIATION) : 1;
         audioSource.PlayDelayed(delay);
 
