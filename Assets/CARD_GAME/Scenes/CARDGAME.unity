@@ -16944,10 +16944,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f49c4a754604048a75eeca6501f650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleUp: {x: 1.2, y: 1.2}
-  scaleDown: {x: 0.9, y: 0.9}
-  scaleTime: 10
-  delayBetweenAnimation: 10.1
+  scaleUp: {x: 1.03, y: 1.03}
+  scaleDown: {x: 0.97, y: 0.97}
+  scaleTime: 0.5
+  delayBetweenAnimation: 0.5
 --- !u!1 &1101607718
 GameObject:
   m_ObjectHideFlags: 0
@@ -32062,15 +32062,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: '- PRESS TO START -'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
-  m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a0ac683d22f1a5a4487864fbed9c3692, type: 2}
+  m_sharedMaterial: {fileID: -4317229542541790361, guid: a0ac683d22f1a5a4487864fbed9c3692, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4291552487
+  m_fontColor: {r: 0.9056604, g: 0.8939755, b: 0.7980064, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

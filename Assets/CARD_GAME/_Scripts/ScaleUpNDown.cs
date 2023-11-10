@@ -20,9 +20,9 @@ public class ScaleUpNDown : MonoBehaviour
 
     private IEnumerator Scaling()
     {
-        this.transform.DOScale(scaleUp, scaleTime);
+        this.transform.DOScale(scaleUp, scaleTime).SetEase(Ease.Linear);
         yield return new WaitForSeconds(delayBetweenAnimation);
-        this.transform.DOScale(scaleDown, scaleTime);
+        this.transform.DOScale(scaleDown, scaleTime).SetEase(Ease.Linear);
         yield return new WaitForSeconds(delayBetweenAnimation);
         StartCoroutine(Scaling());
     }
