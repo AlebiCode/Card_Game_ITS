@@ -13,9 +13,8 @@ public class BattleManager : MonoBehaviour
 
     public static BattleManager instance;
 
-    [SerializeField] private EnemyBrain EnemyAI;
-
     [SerializeField] private GameObject lockAndRollButton;
+    [SerializeField] private GameObject battlePanel;
     [SerializeField] private TablePanel tablePanel;
     [SerializeField] private CombatPanel combatPanel;
     [SerializeField] private EndPanel endPanel;
@@ -123,7 +122,7 @@ public class BattleManager : MonoBehaviour
         }
         //enemySelectedCardIndex = Random.Range(0, 3);
 
-        enemyCombatCard.LoadData(deckCarteNemiche[enemySelectedCardIndex].CardData);
+        enemyCombatCard.LoadData(EnemySelectedCard.CardData);
         allyCombatCard.LoadData(tablePanel.selectedCard.CardData);
 
         StopAllCoroutines();
@@ -135,6 +134,7 @@ public class BattleManager : MonoBehaviour
         int randomIndex = Random.Range(0, enemySelectedCardIndexList.Count);
         int enemyCardIndex = enemySelectedCardIndexList[randomIndex];
         enemySelectedCardIndexList.RemoveAt(randomIndex);
+        Debug.Log("enemy card index -----> "+enemyCardIndex);
         return enemyCardIndex;
     }
 
@@ -261,18 +261,10 @@ public class BattleManager : MonoBehaviour
     {
         //ENEMY AI HERE
 
-        yield return new WaitForSeconds(1);
-
-        /*
-        for (int i = 0; i < Random.Range(2, 6); i++)
-        {
-            yield return new WaitForSeconds(1);
-            enemyDices[i].LockDice(true);
-        }
-        */
-
-        EnemyAI.AI_Loop();
+        EnemyBrain.Instance.AI_Loop();
+        yield return StartCoroutine(EnemyBrain.Instance.EnemyDiceLockingCoroutine(enemyDices));
         RerollDices_enemy();
+
     }
 
     private void MoveDebugger(List<SkillData> allySkills, List<SkillData> enemySkills)
@@ -465,26 +457,27 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        if (currentRound == 3)
-            return;
+        //if (currentRound == 3)
+        //    return;
 
         currentRound++;
         tablePanel.RenterPanel();
         combatPanel.gameObject.SetActive(false);
         TablePanel.instance.CombatPanelToTablePanelAnimation();
 
-        
     }
 
     private IEnumerator EndBattle(bool hasPlayerWon)
     {
         Debug.Log("Partita Conclusa. " + (hasPlayerWon ? "Player won." : "Player lost."));
         this.GetComponent<AudioSource>().Stop();
+        ResetScore();
         endPanel.gameObject.SetActive(true);
+        tablePanel.gameObject.SetActive(false);
+        combatPanel.gameObject.SetActive(false);
         EndPanel.instance.ShowWinText(hasPlayerWon);
         yield return new WaitForSeconds(4);
-        EndPanel.instance.ResetEndPanel();
-        ResetScore();
+        //EndPanel.instance.ResetEndPanel();
         SceneManager.LoadScene(0);
     }
 

@@ -39,11 +39,15 @@ public class TablePanel : MonoBehaviour
     {
         myCardsInitialPosition = myCards.transform.position;
         enemyCardsInitialPosition = enemyCards.transform.position;
+
+        //select enemy card entering table panel for the first time 
+        BattleManager.instance.SelectEnemyCard();
+
     }
 
     public void RenterPanel()
     {
-        // Se la carta era già selezionata la deseleziono
+        //Se la carta era già selezionata la deseleziono
         if (selectedCard)
         {
             DeselectCard(selectedCard);
@@ -51,7 +55,9 @@ public class TablePanel : MonoBehaviour
             SyncReadyButton();
         }
 
+        //select enemy card re-entering table panel subsequent times
         BattleManager.instance.SelectEnemyCard();
+
         //secondo round sceglie prima la CPU
         if (BattleManager.instance.CurrentRound == 2) {
             BattleManager.instance.EnemySelectedCard.particleSystemList.StartSelectionAnim(true);

@@ -1,12 +1,15 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static EnemyBrain;
+using Random = UnityEngine.Random;
 
 public class EnemyBrain : MonoBehaviour
 {
     public static EnemyBrain Instance { get; set; }
+    [SerializeField] private EnemyData thisEnemy;
+    [SerializeField] private EnemyPlaystyle thisPlaystyle;
 
     [Header("DICES ROLL OUTCOME")]
     [SerializeField] private Dice[] diceRolled;
@@ -191,7 +194,17 @@ public class EnemyBrain : MonoBehaviour
 
     public void GetDice()
     {
+
         diceRolled = BattleManager.instance.EnemyDices;
+        diceToCopy = new Dice[6];
+        int i = 0;
+        foreach(Dice die in diceRolled)
+        {
+            Dice next = new Dice();
+            diceToCopy[i] = next;
+            diceToCopy[i].SetResult(die.Result);
+            i++;
+        }    
     }
 
     public void GetRolledDiceFaces()
@@ -372,6 +385,9 @@ public class EnemyBrain : MonoBehaviour
     #endregion
 
     #region < check dice to lock >
+
+    Dice[] diceToCopy = new Dice[6];
+
     private int GetLockedDicesByColor(Dice.diceFace color)
     {
         int d = 0;
@@ -395,7 +411,7 @@ public class EnemyBrain : MonoBehaviour
         skillsByPriority.Add(secondSkill);
         skillsByPriority.Add(thirdSkill);
 
-        //List<Dice> diceToLock = new List<Dice>();
+        //List<Dice> diceToCopy = new List<Dice>();
 
         foreach (Skill s in skillsByPriority)
         {
@@ -434,13 +450,13 @@ public class EnemyBrain : MonoBehaviour
             {
                 if (redDiceLocked == maxY)
                     break;
-                for (int x = 0; x < diceRolled.Length; x++)
+                for (int x = 0; x < diceToCopy.Length; x++)
                 {
-                    if (diceRolled[x].Result == Dice.diceFace.red)
+                    if (diceToCopy[x].Result == Dice.diceFace.red)
                     {
-                        if (!diceRolled[x].IsLocked)
+                        if (!diceToCopy[x].IsLocked)
                         {
-                            diceRolled[x].LockDice(true);
+                            diceToCopy[x].LockDiceDebug(true);
                             redDiceLocked++;
                         }
                         if (redDiceLocked == maxY)
@@ -459,13 +475,13 @@ public class EnemyBrain : MonoBehaviour
             {
                 if (yellowDiceLocked == maxY)
                     break;
-                for (int x = 0; x < diceRolled.Length; x++)
+                for (int x = 0; x < diceToCopy.Length; x++)
                 {
-                    if (diceRolled[x].Result == Dice.diceFace.yellow)
+                    if (diceToCopy[x].Result == Dice.diceFace.yellow)
                     {
-                        if (!diceRolled[x].IsLocked)
+                        if (!diceToCopy[x].IsLocked)
                         {
-                            diceRolled[x].LockDice(true);
+                            diceToCopy[x].LockDiceDebug(true);
                             yellowDiceLocked++;
                         }
                         if (yellowDiceLocked == maxY)
@@ -483,13 +499,13 @@ public class EnemyBrain : MonoBehaviour
             {
                 if (blueDiceLocked == maxY)
                     break;
-                for (int x = 0; x < diceRolled.Length; x++)
+                for (int x = 0; x < diceToCopy.Length; x++)
                 {
-                    if (diceRolled[x].Result == Dice.diceFace.blue)
+                    if (diceToCopy[x].Result == Dice.diceFace.blue)
                     {
-                        if (!diceRolled[x].IsLocked)
+                        if (!diceToCopy[x].IsLocked)
                         {
-                            diceRolled[x].LockDice(true);
+                            diceToCopy[x].LockDiceDebug(true);
                             blueDiceLocked++;
                         }
                         if (blueDiceLocked == maxY)
@@ -499,29 +515,26 @@ public class EnemyBrain : MonoBehaviour
             }
         }
     }
-    //OK
 
-    List<Dice> diceToLock = new List<Dice>();
-
-    public void SetDiceToLock()
+    public IEnumerator EnemyDiceLockingCoroutine(Dice[] _diceRolled)
     {
-        for (int i=0; i < diceRolled.Length; i++)
+        for (int i = 0; i < diceToCopy.Length; i++)
         {
-            for (int j = 0; j < diceToLock.Count; j++)
+            for (int j = 0; j < _diceRolled.Length; j++)
             {
-                if (diceRolled[i].Result == diceToLock[j].Result)
+                if (diceToCopy[i].Result == _diceRolled[j].Result)
                 {
-                    if (diceToLock[j].IsLocked == false)
+                    if (diceToCopy[i].IsLocked == true && _diceRolled[j].IsLocked == false)
                     {
-                        diceToLock[j].LockDice(true);
-                        diceRolled[i].LockDice(true);
-                        return;
+                        yield return new WaitForSeconds(Random.Range(.2f, .6f));
+                        _diceRolled[i].LockDice(true);
+                        break;
                     }
-                }    
+                }
             }
         }
-    }
 
+    }
     #endregion
 
     #region < MAIN LOOP >
@@ -538,7 +551,6 @@ public class EnemyBrain : MonoBehaviour
 
         //CHECK TO LOCK
         CheckDiceToLock();
-
         //PER OGNI MOSSA
         // SE POSSO FARLA, LOCKO I DADI NECESSARI PER FARLA : PROBABILITÁ 100%
         // RIPETERE LA STESSA MOSSA É SEMPRE PREFERIBILE A FARNE DUE DIVERSE

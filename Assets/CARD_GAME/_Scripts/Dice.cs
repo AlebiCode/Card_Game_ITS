@@ -41,9 +41,17 @@ public class Dice : MonoBehaviour
         AudioManager.PlayUiDiceLocked();
 
         // Attiva/Disattiva grafica o fx di selezione
-        GetComponentInChildren<TMPro.TMP_Text>().text = locked ? "Locked" : "";
+            GetComponentInChildren<TMPro.TMP_Text>().text = locked ? "Locked" : "";
     }
+    public void LockDiceDebug(bool value)
+    {
+        locked = value;
 
+    }
+    public void SetResult(Dice.diceFace _result)
+    {
+        result = _result;
+    }
     public static Color FaceToRGB(diceFace diceFace)
     {
         switch (diceFace)
