@@ -194,9 +194,8 @@ public class EnemyBrain : MonoBehaviour
 
     public void GetDice()
     {
-
         diceRolled = BattleManager.instance.EnemyDices;
-        diceToCopy = new Dice[6];
+
         int i = 0;
         foreach(Dice die in diceRolled)
         {
@@ -204,7 +203,8 @@ public class EnemyBrain : MonoBehaviour
             diceToCopy[i] = next;
             diceToCopy[i].SetResult(die.Result);
             i++;
-        }    
+        }
+
     }
 
     public void GetRolledDiceFaces()
@@ -516,18 +516,19 @@ public class EnemyBrain : MonoBehaviour
         }
     }
 
+
     public IEnumerator EnemyDiceLockingCoroutine(Dice[] _diceRolled)
     {
-        for (int i = 0; i < diceToCopy.Length; i++)
+        for (int x = 0; x < diceToCopy.Length; x++)
         {
-            for (int j = 0; j < _diceRolled.Length; j++)
+            for (int y = 0; y < _diceRolled.Length; y++)
             {
-                if (diceToCopy[i].Result == _diceRolled[j].Result)
+                if (diceToCopy[x].Result == _diceRolled[y].Result)
                 {
-                    if (diceToCopy[i].IsLocked == true && _diceRolled[j].IsLocked == false)
+                    if (diceToCopy[x].IsLocked == true && _diceRolled[y].IsLocked == false)
                     {
                         yield return new WaitForSeconds(Random.Range(.2f, .6f));
-                        _diceRolled[i].LockDice(true);
+                        _diceRolled[y].LockDice(true);
                         break;
                     }
                 }
@@ -535,6 +536,7 @@ public class EnemyBrain : MonoBehaviour
         }
 
     }
+    
     #endregion
 
     #region < MAIN LOOP >
