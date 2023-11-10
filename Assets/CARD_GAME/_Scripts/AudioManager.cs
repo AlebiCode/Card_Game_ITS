@@ -6,17 +6,23 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     private const float PITCH_MAX_VARIATION = 0.05f;
+    private const float VOLUME_DIMINISH_ON_SOUND_REPEAT = 0.1f;
+    private const float TIME_TO_FORGET_SOUND = 1f;
+    private const int REPETITION_VOULME_DIMINISHER_MAX_LENGHT = 3;
 
     public static AudioManager instance;
     public AudioMixer mainMixer;
 
     [Header("Audio Sources")]
     [SerializeField] private GameObject[] audiosourceParents;
-    private List<AudioSource>[] sourceGroups;
+    [SerializeField] private AudioSource diceRollLoop;
+
+    private static List<AudioSource>[] sourceGroups;
+    private static List<AudioClip> lastPlayedClips = new List<AudioClip>();
+    private static float soundRepetitionTimer = 0;
     //[SerializeField] private List<AudioSource> cardAudio;
     //[SerializeField] private List<AudioSource> uiAudio;
     //[SerializeField] private List<AudioSource> combatAudio;
-    [SerializeField] private AudioSource diceRollLoop;
 
     [Header("Audio Clips")]
     [SerializeField] private AudioClip genericUiSelect;
@@ -41,28 +47,56 @@ public class AudioManager : MonoBehaviour
             sourceGroups[i] = new List<AudioSource>(audiosourceParents[i].GetComponentsInChildren<AudioSource>());
         }
     }
+    private void Update()
+    {
+        soundRepetitionTimer += Time.deltaTime;
+        if (soundRepetitionTimer >= TIME_TO_FORGET_SOUND && lastPlayedClips.Count > 0)
+        {
+            lastPlayedClips.RemoveAt(0);
+            soundRepetitionTimer = 0;
+        }
+    }
 
     public static void PlayAudio(AudioClip audioClip, int sourceGroup, float delay = 0, bool pitchVariation = false)
     {
-        AudioSource audioSource = instance.sourceGroups[sourceGroup][0];
-        instance.sourceGroups[sourceGroup].RemoveAt(0);
+        AudioSource audioSource = sourceGroups[sourceGroup][0];
+        sourceGroups[sourceGroup].RemoveAt(0);
+        sourceGroups[sourceGroup].Add(audioSource);
+
         audioSource.clip = audioClip;
+        audioSource.volume = VolumeDiminisherOnRepeat(audioClip, sourceGroup);
+        Debug.Log("Volume " + audioSource.volume);
         audioSource.pitch = pitchVariation ? 1 + Random.Range(-PITCH_MAX_VARIATION, PITCH_MAX_VARIATION) : 1;
         audioSource.PlayDelayed(delay);
-        instance.sourceGroups[sourceGroup].Add(audioSource);
+
+        lastPlayedClips.Add(audioClip);
+        if(lastPlayedClips.Count > REPETITION_VOULME_DIMINISHER_MAX_LENGHT)
+            lastPlayedClips.RemoveAt(0);
+        soundRepetitionTimer = 0;
+    }
+
+    private static float VolumeDiminisherOnRepeat(AudioClip currentClip, int sourceGroup)
+    {
+        int alreadyPlayed = 0;
+        for (int i = 0; i < lastPlayedClips.Count; i++)
+        {
+            if(lastPlayedClips[i] == currentClip)
+                alreadyPlayed++;
+        }
+        return 1 - (VOLUME_DIMINISH_ON_SOUND_REPEAT * alreadyPlayed);
     }
 
     public static void PlayCombatAttackBlocked()
     {
-        PlayAudio(instance.attackBlocked, 0);
+        PlayAudio(instance.attackBlocked, 0, pitchVariation: true);
     }
     public static void PlayCombatAttackDodged()
     {
-        PlayAudio(instance.attackDodged, 0);
+        PlayAudio(instance.attackDodged, 0, pitchVariation: true);
     }
     public static void PlayCombatAttackHit()
     {
-        PlayAudio(instance.attackHit, 0);
+        PlayAudio(instance.attackHit, 0, pitchVariation: true);
     }
 
     public static void PlayUiSelectAudio()
