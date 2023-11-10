@@ -16,10 +16,12 @@ MonoBehaviour:
   framedPosition: {x: 26, y: -74}
   framedSize: {x: 380, y: 380}
   backGround: {r: 0.47843137, g: 0.6039216, b: 0.24313726, a: 1}
-  cardName: Salomon
-  cardDescription: Governante assoluto delle creature elementali della foresta, si
-    erge a condottiero del suo popolo. Sovrano dalla impareggiabile saggezza, impiega
-    le sue trascendentali forze e le sue doti da stratega per un futuro prospero.
+  cardName: Sibylle
+  cardDescription: "Ninfa dall\u2019accecante splendore, nel cui corpo risuonano
+    i fruscii delle foglie carezzate dal vento. Il tomo di cui \xE8 in possesso le
+    consente di dominare magistralmente le forze assolute della natura che albergano
+    in lei. Con i liquidi contenuti nelle sue ampolle abbaglia e disorienta chi incrocia
+    il suo sguardo."
   cardAudioProfile: {fileID: 11400000, guid: a5c6cd66c931d2f48af9458bbeb56ff6, type: 2}
   skills:
   - {fileID: 11400000, guid: 26ee188fc35136840958c085a608a475, type: 2}
