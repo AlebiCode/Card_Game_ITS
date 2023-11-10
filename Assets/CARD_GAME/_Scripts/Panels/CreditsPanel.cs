@@ -16,7 +16,9 @@ public class CreditsPanel : MonoBehaviour
     [SerializeField] private List<TextMeshProUGUI> audioCredits;
     [SerializeField] private List<TextMeshProUGUI> vFXCredits;
     [SerializeField] private List<TextMeshProUGUI> designersCredits;
-    [SerializeField] private List<TextMeshProUGUI> producersCredits; 
+    [SerializeField] private List<TextMeshProUGUI> producersCredits;
+    [SerializeField] private List<TextMeshProUGUI> voiceActorsCredits;
+    [SerializeField] private List<TextMeshProUGUI> specialCredits;
     private List<List<TextMeshProUGUI>> credits = new List<List<TextMeshProUGUI>>();
     void Start()
     {
@@ -37,6 +39,8 @@ public class CreditsPanel : MonoBehaviour
         credits.Add(vFXCredits);
         credits.Add(designersCredits);
         credits.Add(producersCredits);
+        credits.Add(voiceActorsCredits);
+        credits.Add(specialCredits);
     }
 
     public void EndCredits() 
