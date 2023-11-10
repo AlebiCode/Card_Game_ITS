@@ -16,8 +16,11 @@ MonoBehaviour:
   framedPosition: {x: 0, y: -30}
   framedSize: {x: 500, y: 500}
   backGround: {r: 0.4580682, g: 0.30701318, b: 0.46226418, a: 1}
-  cardName: card_robot_2
-  cardDescription: Default Description
+  cardName: T-4nX
+  cardDescription: "Colosso d\u2019acciaio e ottone una volta difensore a servizio
+    della corte reale. Ora che la sua coscienza \xE8 stata destata dal torpore, pone 
+    le sue possenti braccia in favore della rivolta. Protegge i suoi commilitoni
+    fino alla totale usura."
   cardAudioProfile: {fileID: 11400000, guid: 744121f0349683543bb04b306d49067f, type: 2}
   skills:
   - {fileID: 11400000, guid: 8f265edddb505c147800a036c4dd1986, type: 2}

@@ -16,8 +16,11 @@ MonoBehaviour:
   framedPosition: {x: -8.9, y: -82.38}
   framedSize: {x: 311.53, y: 440.623}
   backGround: {r: 0.7830189, g: 0.62028337, b: 0.3501424, a: 1}
-  cardName: card_umano_1
-  cardDescription: Default Description
+  cardName: Evelyn
+  cardDescription: "Fanciulla dal cuore ardente, figlia d\u2019un celeberrimo scienziato
+    specialista delle armi. Nonostante la bassa statura infuoca il campo di battaglia
+    con destrezza, rapidit\xE0 e dirompenza. Si pu\xF2 sempre far affidamento su
+    di lei: centra sempre il bersaglio."
   cardAudioProfile: {fileID: 11400000, guid: db917b8087de1b144b8a16e6427f218e, type: 2}
   skills:
   - {fileID: 11400000, guid: 88d94c70b2f79724f86cfb376559b772, type: 2}

@@ -16,8 +16,11 @@ MonoBehaviour:
   framedPosition: {x: -0.000076294, y: -75}
   framedSize: {x: 248.76, y: 333.6383}
   backGround: {r: 0.46666667, g: 0.634626, b: 0.74509805, a: 1}
-  cardName: card_umanoide_1
-  cardDescription: Default Description
+  cardName: Walpurgis
+  cardDescription: "Ascetica strega dalle ali draconiche nelle quali riverbera l\u2019immensit\xE0
+    dell\u2019universo. Misteriosa, imperscrutabile, ma mossa dal sincero sentimento
+    di protezione, osserva i suoi compagni dall\u2019alto offrendo loro giaciglio
+    e oasi sicura."
   cardAudioProfile: {fileID: 11400000, guid: 28bfe71d3302d5044a59bc273c1685df, type: 2}
   skills:
   - {fileID: 11400000, guid: 72adfba925bfa074e88e70c124c72d56, type: 2}

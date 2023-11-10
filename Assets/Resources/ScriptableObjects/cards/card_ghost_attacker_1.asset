@@ -16,8 +16,11 @@ MonoBehaviour:
   framedPosition: {x: 0, y: 5}
   framedSize: {x: 275, y: 187.6}
   backGround: {r: 0.5596363, g: 0.48538622, b: 0.6320754, a: 1}
-  cardName: card_spirito_1
-  cardDescription: Default Description
+  cardName: Pixie in the Box
+  cardDescription: "Si dice siano nati in una notte di plenilunio, quando semplici
+    e inanimati oggetti sono stati esposti ai riflessi d\u2019un cristallo misterioso.
+    Vagano per le strade ricercando stolti umani da spaventare con qualche, a detta
+    loro, innocente scherzetto e si nutrono del loro gustoso sgomento."
   cardAudioProfile: {fileID: 11400000, guid: ce54f1c2b40f4be4891ef944ea3d2e26, type: 2}
   skills:
   - {fileID: 11400000, guid: 1df8760d24fa40844a02410763d9ed1f, type: 2}

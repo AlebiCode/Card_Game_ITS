@@ -16,8 +16,11 @@ MonoBehaviour:
   framedPosition: {x: 0, y: 0}
   framedSize: {x: 210, y: 210}
   backGround: {r: 0.5596363, g: 0.48538622, b: 0.6320754, a: 1}
-  cardName: card_spirito_2
-  cardDescription: Default Description
+  cardName: Plague Ripper
+  cardDescription: "Ignota e inquietante creatura che si fa spazio tra le ombre.
+    E\u2019 solita attirare le sue vittime celandosi sotto le mentite spoglie d\u2019un
+    medico, per poi sfoderare il suo reale e agghiacciante volto congiuntamente alla
+    sua sinistra scure e decapitare il malcapitato in un sol colpo."
   cardAudioProfile: {fileID: 11400000, guid: a41af80beb796b04d9d249cf8d7dd4ed, type: 2}
   skills:
   - {fileID: 11400000, guid: 198754d4e08b42240bdab305844d030f, type: 2}
