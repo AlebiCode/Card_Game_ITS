@@ -133,6 +133,8 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator StartMatch_Coroutine()
     {
+        allyCombatCard.BuffsManager.ResetStats();
+        enemyCombatCard.BuffsManager.ResetStats();
         playerFightData.damageTaken = 0;
         enemyFightData.damageTaken = 0;
         

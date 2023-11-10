@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,11 +14,11 @@ public class CardBuffsManager : MonoBehaviour
     private void Awake() {
         
 
-
-
         parryText.text = "";
         dodgeText.text = "";
     }
+
+
 
     public void UpdateParryCount(int parry) {
         if (!parryGameObject.activeInHierarchy)
@@ -32,6 +33,11 @@ public class CardBuffsManager : MonoBehaviour
     }
 
     public void UpdateDodgeChance(int dodgeChance) {
+        if (dodgeChance <= 0) {
+            dodgeGameObject.SetActive(false);
+            return;
+        }
+
         if(!dodgeGameObject.activeInHierarchy && dodgeChance>0)
             dodgeGameObject.SetActive(true);
 
@@ -39,5 +45,8 @@ public class CardBuffsManager : MonoBehaviour
         dodgeText.text = dodgeChance + "";
     }
 
-
+    public void ResetStats() {
+        UpdateDodgeChance(0);
+        UpdateParryCount(0);
+    }
 }
