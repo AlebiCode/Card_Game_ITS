@@ -113,7 +113,7 @@ public class DeckCreator : MonoBehaviour
         for (int i = 0; i < 3; i++)
             cardData[i] = selectedCards[i].CardData;
 
-        BattleManager.instance.LoadData(cardData, GetRandomEnemy());
+        Instances.BattleManager.LoadData(cardData, GetRandomEnemy());
     }
 
     private EnemyData GetRandomEnemy() {

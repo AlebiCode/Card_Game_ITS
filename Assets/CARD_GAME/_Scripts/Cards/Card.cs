@@ -45,10 +45,10 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
         LoadData(cardData);
     }
 
-    private void Update()
+    /*private void Update()
     {
         imageBackGround.color = cardData.BackGroundColor;
-    }
+    }*/
 
     public void LoadGraphics()
     {

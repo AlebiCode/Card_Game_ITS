@@ -194,7 +194,7 @@ public class EnemyBrain : MonoBehaviour
 
     public void GetDice()
     {
-        diceRolled = BattleManager.instance.EnemyDices;
+        diceRolled = Instances.BattleManager.EnemyDices;
 
         int i = 0;
         foreach(Dice die in diceRolled)
@@ -252,7 +252,7 @@ public class EnemyBrain : MonoBehaviour
     public void GetCardDataAndSkillsData()
     {
         //get skills from card and reset values of roll
-        selectedCardData = new CardSelected(BattleManager.instance.EnemySelectedCard);
+        selectedCardData = new CardSelected(Instances.BattleManager.EnemySelectedCard);
 
         firstSkill = new Skill(selectedCardData.battlingCard.CardData.Skills[0]);
         secondSkill = new Skill(selectedCardData.battlingCard.CardData.Skills[1]);

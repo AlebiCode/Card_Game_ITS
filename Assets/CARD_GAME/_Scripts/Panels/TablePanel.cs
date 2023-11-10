@@ -41,7 +41,7 @@ public class TablePanel : MonoBehaviour
         enemyCardsInitialPosition = enemyCards.transform.position;
 
         //select enemy card entering table panel for the first time 
-        BattleManager.instance.SelectEnemyCard();
+        Instances.BattleManager.SelectEnemyCard();
 
     }
 
@@ -56,11 +56,11 @@ public class TablePanel : MonoBehaviour
         }
 
         //select enemy card re-entering table panel subsequent times
-        BattleManager.instance.SelectEnemyCard();
+        Instances.BattleManager.SelectEnemyCard();
 
         //secondo round sceglie prima la CPU
-        if (BattleManager.instance.CurrentRound == 2) {
-            BattleManager.instance.EnemySelectedCard.particleSystemList.StartSelectionAnim(true);
+        if (Instances.BattleManager.CurrentRound == 2) {
+            Instances.BattleManager.EnemySelectedCard.particleSystemList.StartSelectionAnim(true);
         }
     }
 
@@ -161,10 +161,10 @@ public class TablePanel : MonoBehaviour
     {
         enemyCombatCard.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 400);
 
-        yield return ScaleAndMove(enemyCombatCard, 1.84f, 1.4f, BattleManager.instance.EnemySelectedCard.transform, enemyCombatCardTargetPosition.transform.position, 1.4f, cardsMoveDuration);
+        yield return ScaleAndMove(enemyCombatCard, 1.84f, 1.4f, Instances.BattleManager.EnemySelectedCard.transform, enemyCombatCardTargetPosition.transform.position, 1.4f, cardsMoveDuration);
     }
 
-    private IEnumerator StartMatch(float time) { yield return new WaitForSeconds(time); BattleManager.instance.StartMatch(); }
+    private IEnumerator StartMatch(float time) { yield return new WaitForSeconds(time); Instances.BattleManager.StartMatch(); }
 
     private IEnumerator ScaleAndMove(GameObject combatCard, float endScaleValue, float scaleTime, Transform selectedCard, Vector3 endPosition, float moveTime, float startTimeAnimation)
     {

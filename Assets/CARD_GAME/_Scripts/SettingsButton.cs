@@ -30,7 +30,6 @@ public class SettingsButton : MonoBehaviour
         Vector2 targetPos = isShowing ? new Vector2(-pausePanel.sizeDelta.x, 0) : Vector2.zero;
         while (pausePanel.anchoredPosition != targetPos)
         {
-            Debug.Log("Moving!");
             pausePanel.anchoredPosition = Vector2.Lerp(pausePanel.anchoredPosition, targetPos, speed * Time.deltaTime);
             yield return null;
         }

@@ -11,8 +11,6 @@ public class BattleManager : MonoBehaviour
 
     private const int pointsNeededToWin = 2;
 
-    public static BattleManager instance;
-
     [SerializeField] private GameObject lockAndRollButton;
     [SerializeField] private GameObject battlePanel;
     [SerializeField] private TablePanel tablePanel;
@@ -78,11 +76,6 @@ public class BattleManager : MonoBehaviour
     public Dice[] EnemyDices => enemyDices;
     public Dice[] AllyDices => allyDices;
     public Card EnemySelectedCard => deckCarteNemiche[enemySelectedCardIndex];
-
-    private void Awake()
-    {
-        instance = this;
-    }
 
     private void OnEnable()
     {

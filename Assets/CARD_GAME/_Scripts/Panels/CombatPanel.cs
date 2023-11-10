@@ -38,7 +38,7 @@ public class CombatPanel : MonoBehaviour
         if (!inputsActive)
             return;
         AudioManager.PlayUiConfirmAudio();
-        BattleManager.instance.RerollDices_Ally();
+        Instances.BattleManager.RerollDices_Ally();
     }
 
     private void OnDisable()
