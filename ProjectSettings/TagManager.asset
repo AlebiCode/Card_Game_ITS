@@ -45,3 +45,6 @@ TagManager:
   - name: UI_Particle
     uniqueID: 1564545999
     locked: 0
+  - name: Overlay Canvas
+    uniqueID: 896929519
+    locked: 0

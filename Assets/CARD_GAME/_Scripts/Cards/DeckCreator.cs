@@ -35,6 +35,11 @@ public class DeckCreator : MonoBehaviour
         SpawnAllCards();
     }
 
+    private void OnDisable()
+    {
+        startMatchButton.SetActive(false);
+    }
+
     private void SpawnAllCards()
     {
         CardData[] cardDatas = Resources.LoadAll<CardData>(cardsResourcesPath);
