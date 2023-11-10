@@ -5,10 +5,11 @@ using UnityEngine;
 public class CardParticleSys : ParticleSystemActivator
 {
     [Header("0=HUMANS, 1=DRUIDS, 2=WIZARDS, 3=ROBOTS, 4=GHOSTS")]
-     public ParticleSystem[] attackEffect= new ParticleSystem[5];
-     public ParticleSystem[] defenseEffect = new ParticleSystem[5];
-    public ParticleSystem[] dodgeEffect = new ParticleSystem[5];
-    public ParticleSystem[] specialAttack = new ParticleSystem[5];
+
+    [SerializeField] private ParticleSystem[] attackEffect = new ParticleSystem[5];
+    [SerializeField] private ParticleSystem[] defenseEffect = new ParticleSystem[5];
+    [SerializeField] private ParticleSystem[] dodgeEffect = new ParticleSystem[5];
+    [SerializeField] private ParticleSystem[] specialAttack = new ParticleSystem[5];
 
 
     public void ActivateAnimation(VFX_TYPE vfx, RACES race ) {
