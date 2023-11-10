@@ -16,8 +16,12 @@ MonoBehaviour:
   framedPosition: {x: 26, y: -74}
   framedSize: {x: 380, y: 380}
   backGround: {r: 0.47924528, g: 0.6037736, b: 0.24150942, a: 1}
-  cardName: card_druido_1
-  cardDescription: Default Description
+  cardName: Sibylle
+  cardDescription: "Ninfa dall\u2019accecante splendore, nel cui corpo risuonano
+    i fruscii delle foglie carezzate dal vento. Il tomo di cui \xE8 in possesso le
+    consente di dominare magistralmente le forze assolute della natura che albergano
+    in lei. Con i liquidi contenuti nelle sue ampolle abbaglia e disorienta chi incrocia
+    il suo sguardo."
   cardAudioProfile: {fileID: 11400000, guid: 1a16a9a800f211344bd556391461f5bb, type: 2}
   skills:
   - {fileID: 11400000, guid: bd166fe6c1b63a5438b406f59d541185, type: 2}

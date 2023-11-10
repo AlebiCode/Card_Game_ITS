@@ -16,8 +16,11 @@ MonoBehaviour:
   framedPosition: {x: -0.000076294, y: -69}
   framedSize: {x: 248.76, y: 333.6383}
   backGround: {r: 0.46666667, g: 0.634626, b: 0.74509805, a: 1}
-  cardName: card_umanoide_2
-  cardDescription: Default Description
+  cardName: "Lampyr\xEDs"
+  cardDescription: "Giovane e leggiadra studentessa che ha deciso di affinare le
+    arti magiche. Osserva il mondo con gli occhi di fata e attacca con incantata
+    alchimia per opera della perla posta sulla sommit\xE0 del suo fedele e fidato
+    scettro da cui non si separa mai."
   cardAudioProfile: {fileID: 11400000, guid: 797d1952902d41e43b481838584e5990, type: 2}
   skills:
   - {fileID: 11400000, guid: dcba1d3e92cee794ebbe724ccaeabb6f, type: 2}

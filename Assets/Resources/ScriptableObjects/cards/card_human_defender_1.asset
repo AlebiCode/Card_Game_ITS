@@ -16,8 +16,11 @@ MonoBehaviour:
   framedPosition: {x: 6.01, y: -87.89}
   framedSize: {x: 294.53, y: 416.57}
   backGround: {r: 0.7830189, g: 0.62028337, b: 0.3501424, a: 1}
-  cardName: card_umano_2
-  cardDescription: Default Description
+  cardName: Damian
+  cardDescription: "Giovane lord dal cuore limpido, custode d\u2019immensa sapienza
+    e maestria con le armi da fuoco a distanza. Anche se miope, grazie al suo miracoloso
+    monocolo, gode di impeccabile precisione che gli garantisce egregiamente di coprire
+    le spalle ai compagni dalle retrovie."
   cardAudioProfile: {fileID: 11400000, guid: b01107fcdd14e0b499144d5d56a2773d, type: 2}
   skills:
   - {fileID: 11400000, guid: 77752cfe44335b74baeca9cc0acfa9ff, type: 2}

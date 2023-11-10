@@ -16,8 +16,11 @@ MonoBehaviour:
   framedPosition: {x: 5, y: -58}
   framedSize: {x: 400, y: 400}
   backGround: {r: 0.4580682, g: 0.30701318, b: 0.46226418, a: 1}
-  cardName: card_robot_1
-  cardDescription: Default Description
+  cardName: 5h3lly
+  cardDescription: "Gentiluomo d\u2019acciaio e ottone una volta a servizio della
+    corte reale. Avanza assieme alla sua brigata senza tregua, in virt\xF9 della
+    sua instancabile resilienza. Abile nello scontro corpo a corpo, \xE8 portatore
+    di un ragguardevole codice d\u2019onore."
   cardAudioProfile: {fileID: 11400000, guid: a8e96c105c9b0754b8716345aa907493, type: 2}
   skills:
   - {fileID: 11400000, guid: 525c5513e69250f4ba1ccd89b18c5f0a, type: 2}
