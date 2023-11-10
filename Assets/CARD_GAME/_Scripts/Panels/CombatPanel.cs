@@ -24,12 +24,10 @@ public class CombatPanel : MonoBehaviour
         if (dice.IsLocked)
         {
             dice.LockDice(false);
-            dice.particle?.StopSelectionAnim();
         }
         else
         {
             dice.LockDice(true);
-            dice.particle?.StartSelectionAnim(false);
         }
     }
 

@@ -38,10 +38,16 @@ public class Dice : MonoBehaviour
     {
         locked = value;
 
-        AudioManager.PlayUiDiceLocked();
+        if (value)
+        {
+            particle.StartSelectionAnim(false);
+        }
+        else
+        {
+            particle.StopSelectionAnim();
+        }
 
-        // Attiva/Disattiva grafica o fx di selezione
-            GetComponentInChildren<TMPro.TMP_Text>().text = locked ? "Locked" : "";
+        AudioManager.PlayUiDiceLocked();
     }
     public void LockDiceDebug(bool value)
     {
