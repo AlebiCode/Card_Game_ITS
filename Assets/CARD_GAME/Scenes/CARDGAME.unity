@@ -800,7 +800,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.87000275, y: 0.69}
+  m_AnchoredPosition: {x: -0.87000275, y: 0.69000053}
   m_SizeDelta: {x: 34.51, y: -5.55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &9678509
@@ -18488,7 +18488,7 @@ MonoBehaviour:
   - {fileID: 1002905898}
   - {fileID: 1620285667}
   diceRollLoop: {fileID: 1823903025}
-  genericUiSelect: {fileID: 8300000, guid: e77b0c16c8367d0419f43e9227593756, type: 3}
+  genericUiSelect: {fileID: 8300000, guid: efa9874729c59c04f8530cf3b46d0696, type: 3}
   genericUiConfirm: {fileID: 8300000, guid: 0d2c10b52d383b849acd90ba72432aad, type: 3}
   genericUiConfirm2: {fileID: 8300000, guid: 1043b2695c889b846bf82943e3055afa, type: 3}
   diceLocked: {fileID: 8300000, guid: d0efca57412a38f429e96e4654fe4849, type: 3}
