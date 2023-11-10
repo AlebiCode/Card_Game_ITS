@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Mossa
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 00aafd9ac70071246b92067bb6703d72, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 97301c24dc2263b449528b3c5eac8c7d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a0ac683d22f1a5a4487864fbed9c3692, type: 2}
+  m_sharedMaterial: {fileID: -4317229542541790361, guid: a0ac683d22f1a5a4487864fbed9c3692, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -93,14 +93,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.9
+  m_fontSize: 20
   m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 10
-  m_fontSizeMax: 72
+  m_fontSizeMax: 20
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -402,7 +402,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 24.666666, y: 25.134003}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &230919174403985873
 CanvasRenderer:
@@ -898,7 +898,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 24.666666, y: 25.134003}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8843554284271732840
 CanvasRenderer:
@@ -1567,7 +1567,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 24.666666, y: 25.134003}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8765241494352007998
 CanvasRenderer:
@@ -1805,7 +1805,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 24.666666, y: 25.134003}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5841259691019598239
 CanvasRenderer:
@@ -1881,7 +1881,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 24.666666, y: 25.134003}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8187063419196951125
 CanvasRenderer:
@@ -1957,7 +1957,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 24.666666, y: 25.134003}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7189338820092242663
 CanvasRenderer:
@@ -2168,7 +2168,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 24.666666, y: 25.134003}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4702955573816443468
 CanvasRenderer:
@@ -2522,8 +2522,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Mossa
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 00aafd9ac70071246b92067bb6703d72, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 97301c24dc2263b449528b3c5eac8c7d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a0ac683d22f1a5a4487864fbed9c3692, type: 2}
+  m_sharedMaterial: {fileID: -4317229542541790361, guid: a0ac683d22f1a5a4487864fbed9c3692, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2547,14 +2547,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.9
+  m_fontSize: 20
   m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 10
-  m_fontSizeMax: 72
+  m_fontSizeMax: 20
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2785,7 +2785,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 24.666666, y: 25.134003}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1641705086881875588
 CanvasRenderer:
@@ -2893,8 +2893,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Mossa
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 00aafd9ac70071246b92067bb6703d72, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 97301c24dc2263b449528b3c5eac8c7d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a0ac683d22f1a5a4487864fbed9c3692, type: 2}
+  m_sharedMaterial: {fileID: -4317229542541790361, guid: a0ac683d22f1a5a4487864fbed9c3692, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2918,14 +2918,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.9
+  m_fontSize: 20
   m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 10
-  m_fontSizeMax: 72
+  m_fontSizeMax: 20
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2996,7 +2996,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 24.666666, y: 25.134003}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3926778612634885817
 CanvasRenderer:
