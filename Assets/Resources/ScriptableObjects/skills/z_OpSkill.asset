@@ -15,7 +15,7 @@ MonoBehaviour:
   skillName: All out
   skill_colorCost: 01000000
   damage: 999
-  atkInstances: 9
+  atkInstances: 1
   defInstances: 9
   dodge: 99
   precise: 1

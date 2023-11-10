@@ -8,6 +8,7 @@ public class EndPanel : MonoBehaviour
     public static EndPanel instance;
 
     [SerializeField] private GameObject victoryText;
+    [SerializeField] private ParticleSystem[] fireWorks;
     [SerializeField] private GameObject gameOverText;
     [SerializeField] private List<AudioClip> winnerAudio;
     [SerializeField] private List<AudioClip> gameOverAudio;
@@ -23,6 +24,10 @@ public class EndPanel : MonoBehaviour
         {
             victoryText.SetActive(true);
             audioSource.PlayOneShot(winnerAudio[Random.Range(0, winnerAudio.Count)]);
+            foreach (var ps in fireWorks)
+            {
+                ps.Play();
+            }
         }
             
         if (!hasPlayerWon)

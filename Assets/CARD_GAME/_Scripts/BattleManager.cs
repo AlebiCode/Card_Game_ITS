@@ -127,7 +127,6 @@ public class BattleManager : MonoBehaviour
         int randomIndex = Random.Range(0, enemySelectedCardIndexList.Count);
         int enemyCardIndex = enemySelectedCardIndexList[randomIndex];
         enemySelectedCardIndexList.RemoveAt(randomIndex);
-        Debug.Log("enemy card index -----> "+enemyCardIndex);
         return enemyCardIndex;
     }
 
