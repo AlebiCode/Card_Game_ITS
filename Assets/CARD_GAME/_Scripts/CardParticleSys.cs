@@ -71,17 +71,3 @@ public class CardParticleSys : ParticleSystemActivator
     }
 
 }
-public enum VFX_TYPE {
-    SELECT = 0,
-    ATTACK = 1,
-    DEFENSE = 2,
-    DODGE = 3
-}
-
-public enum RACES {
-    HUMAN = 0,
-    DRUID = 1,
-    WIZARD = 2,
-    ROBOT = 3,
-    GHOST = 4
-}

@@ -213,7 +213,7 @@ public class BattleManager : MonoBehaviour
 
         StartFight();
     }
-    private void StartFightCheck()
+    /*private void StartFightCheck()
     {
         for (int i = 0; i < allyDices.Length; i++)
         {
@@ -221,7 +221,7 @@ public class BattleManager : MonoBehaviour
                 return;
         }
         StartFight();
-    }
+    }*/
 
     private void StartFight()
     {
