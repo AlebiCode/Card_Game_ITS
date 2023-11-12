@@ -37,7 +37,7 @@ public class DeckCreator : MonoBehaviour
 
     private void OnDisable()
     {
-        startMatchButton.SetActive(false);
+        startMatchButton?.SetActive(false);
     }
 
     private void SpawnAllCards()

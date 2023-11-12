@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class TitlePanel : MonoBehaviour
 {
-    public AudioClip audioClip;
+    public AudioClip confirmAudioClip;
+    public AudioClip music;
+
+    private void OnEnable()
+    {
+        if(music)
+            AudioManager.PlayAudio(music, 3);
+    }
 
     public void PlayAudioClip()
     {
-        if (audioClip)
-            AudioManager.PlayAudio(audioClip, 4);
+        if (confirmAudioClip)
+            AudioManager.PlayAudio(confirmAudioClip, 4);
     }
 }

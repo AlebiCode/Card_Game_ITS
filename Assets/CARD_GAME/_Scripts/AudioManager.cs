@@ -20,9 +20,6 @@ public class AudioManager : MonoBehaviour
     private static List<AudioSource>[] sourceGroups;
     private static List<AudioClip> lastPlayedClips = new List<AudioClip>();
     private static float soundRepetitionTimer = 0;
-    //[SerializeField] private List<AudioSource> cardAudio;
-    //[SerializeField] private List<AudioSource> uiAudio;
-    //[SerializeField] private List<AudioSource> combatAudio;
 
     [Header("Audio Clips")]
     [SerializeField] private AudioClip genericUiSelect;
@@ -34,6 +31,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip attackHit;
     [SerializeField] private AudioClip scoreUpdateWin;
     [SerializeField] private AudioClip scoreUpdateLose;
+
 
     private void Awake()
     {
@@ -57,7 +55,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public static void PlayAudio(AudioClip audioClip, int sourceGroup, float delay = 0, bool pitchVariation = false)
+    public static AudioSource PlayAudio(AudioClip audioClip, int sourceGroup, float delay = 0, bool pitchVariation = false)
     {
         AudioSource audioSource = sourceGroups[sourceGroup][0];
         sourceGroups[sourceGroup].RemoveAt(0);
@@ -72,6 +70,8 @@ public class AudioManager : MonoBehaviour
         if(lastPlayedClips.Count > REPETITION_VOULME_DIMINISHER_MAX_LENGHT)
             lastPlayedClips.RemoveAt(0);
         soundRepetitionTimer = 0;
+
+        return audioSource;
     }
 
     private static float VolumeDiminisherOnRepeat(AudioClip currentClip, int sourceGroup)
