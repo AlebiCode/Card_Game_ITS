@@ -21,7 +21,7 @@ MonoBehaviour:
     dell\u2019universo. Misteriosa, imperscrutabile, ma mossa dal sincero sentimento
     di protezione, osserva i suoi compagni dall\u2019alto offrendo loro giaciglio
     e oasi sicura."
-  cardAudioProfile: {fileID: 11400000, guid: 28bfe71d3302d5044a59bc273c1685df, type: 2}
+  cardAudioProfile: {fileID: 11400000, guid: 797d1952902d41e43b481838584e5990, type: 2}
   skills:
   - {fileID: 11400000, guid: 72adfba925bfa074e88e70c124c72d56, type: 2}
   - {fileID: 11400000, guid: d69b67969bd0ebf47b09fc3055e39ca7, type: 2}

@@ -21,7 +21,7 @@ MonoBehaviour:
     arti magiche. Osserva il mondo con gli occhi di fata e attacca con incantata
     alchimia per opera della perla posta sulla sommit\xE0 del suo fedele e fidato
     scettro da cui non si separa mai."
-  cardAudioProfile: {fileID: 11400000, guid: 797d1952902d41e43b481838584e5990, type: 2}
+  cardAudioProfile: {fileID: 11400000, guid: 28bfe71d3302d5044a59bc273c1685df, type: 2}
   skills:
   - {fileID: 11400000, guid: dcba1d3e92cee794ebbe724ccaeabb6f, type: 2}
   - {fileID: 11400000, guid: 595de80abd847ea44942d03ed58a4991, type: 2}
