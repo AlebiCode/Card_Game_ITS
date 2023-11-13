@@ -407,7 +407,9 @@ public class EnemyBrain : MonoBehaviour
 
             for (int y = 0; y < maxY; y++)
             {
-                if (blueDiceLocked == maxY|| GetUnlockedDice() == diceToLeave)
+                if (blueDiceLocked == maxY/*|| GetUnlockedDice() == diceToLeave*/)
+                    break;
+                if (s != firstSkill && GetUnlockedDice() == diceToLeave)
                     break;
                 for (int x = 0; x < diceToCopy.Length; x++)
                 {
@@ -436,7 +438,9 @@ public class EnemyBrain : MonoBehaviour
 
             for (int y = 0; y < maxY; y++)
             {
-                if (yellowDiceLocked == maxY || GetUnlockedDice() == diceToLeave)
+                if (yellowDiceLocked == maxY/* || GetUnlockedDice() == diceToLeave*/)
+                    break;
+                if (s != firstSkill && GetUnlockedDice() == diceToLeave)
                     break;
                 for (int x = 0; x < diceToCopy.Length; x++)
                 {
@@ -465,7 +469,9 @@ public class EnemyBrain : MonoBehaviour
 
             for (int y = 0; y < maxY; y++)
             {
-                if (redDiceLocked == maxY || GetUnlockedDice() == diceToLeave)
+                if (redDiceLocked == maxY/* || GetUnlockedDice() == diceToLeave*/)
+                    break;
+                if (s != firstSkill && GetUnlockedDice() == diceToLeave)
                     break;
                 for (int x = 0; x < diceToCopy.Length; x++)
                 {
