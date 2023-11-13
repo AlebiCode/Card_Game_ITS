@@ -1,3 +1,4 @@
+using MyUtils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -132,5 +133,32 @@ public class AudioManager : MonoBehaviour
     public void SetVolume(float volume)
     {
         mainMixer.SetFloat("Volume", volume);
+    }
+    public static void StopSourceGroup(int sourceGroup)
+    {
+        foreach (var audioSource in sourceGroups[sourceGroup])
+        {
+            audioSource.Stop();
+        }
+    }
+    public static void StopSourceGroupVolumeDecreaseMethod(int sourceGroup)
+    {
+        Permanent.instance.StartCoroutine(StopSourceGroupVolumeDecreaseMethod_Coroutine(sourceGroup));
+    }
+    private static IEnumerator StopSourceGroupVolumeDecreaseMethod_Coroutine(int sourceGroup)
+    {
+        bool anyVolumeIsAboveZero = true;
+        while (anyVolumeIsAboveZero)
+        {
+            anyVolumeIsAboveZero = false;
+            foreach (var audioSource in sourceGroups[sourceGroup])
+            {
+                audioSource.volume = Mathf.MoveTowards(audioSource.volume, 0, 2 * Time.deltaTime);
+                anyVolumeIsAboveZero |= audioSource.volume > 0;
+            }
+            yield return null;
+        }
+
+        StopSourceGroup(sourceGroup);
     }
 }

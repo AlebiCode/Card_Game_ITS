@@ -9,7 +9,13 @@ public class TitlePanel : MonoBehaviour
 
     private void OnEnable()
     {
-        if(music)
+        StartCoroutine(AudioCoroutine());
+    }
+
+    private IEnumerator AudioCoroutine()
+    {
+        yield return null;
+        if (music)
             AudioManager.PlayAudio(music, 3);
     }
 

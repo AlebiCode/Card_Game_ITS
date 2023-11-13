@@ -658,8 +658,13 @@ public class EnemyBrain : MonoBehaviour
        
     public Effects GetDamageAndEffectsOfTargetSkillSets(List<TargetSkillsSetsData> _activationDataSets)
     {
-        Effects effects = new Effects();
-
+        Effects effects = new Effects()
+        {
+            skillSetTotalDamage = new List<int>(),
+            skillSetTotalDef = new List<int>(),
+            skillSetTotalPrec = new List<int[]>(),
+            skillSetTotalDodge = new List<int[]>()
+        };
         string debugText = "";
         foreach (TargetSkillsSetsData setData in _activationDataSets)
         {
