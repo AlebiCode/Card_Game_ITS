@@ -628,7 +628,6 @@ public class EnemyBrain : MonoBehaviour
         //get all chances to do each diceCombination(by type)
 
         List<float> probabilities = new List<float>();
-        string debugSetText = "";
 
         foreach (TargetSkillsSetsData setData in _activationDataSets)
         {
