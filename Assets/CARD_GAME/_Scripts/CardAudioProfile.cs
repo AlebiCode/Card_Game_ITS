@@ -7,6 +7,9 @@ public class CardAudioProfile : ScriptableObject
 {
     [SerializeField] private AudioClip[] entranceClips;
     [SerializeField] private AudioClip[] linesClips;
+    [SerializeField] private AudioClip descriptionClip;
+
+    public AudioClip DescriptionClip => descriptionClip;
 
     public AudioClip GetRandomEntranceClip()
     {

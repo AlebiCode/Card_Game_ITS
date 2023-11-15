@@ -56,7 +56,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public static AudioSource PlayAudio(AudioClip audioClip, int sourceGroup, float delay = 0, bool pitchVariation = false)
+    public static AudioSource PlayAudio(AudioClip audioClip, int sourceGroup, float delay = 0, bool loop = false, bool pitchVariation = false)
     {
         AudioSource audioSource = sourceGroups[sourceGroup][0];
         sourceGroups[sourceGroup].RemoveAt(0);
@@ -64,6 +64,7 @@ public class AudioManager : MonoBehaviour
 
         audioSource.clip = audioClip;
         audioSource.volume = VolumeDiminisherOnRepeat(audioClip, sourceGroup);
+        audioSource.loop = loop;
         audioSource.pitch = pitchVariation ? 1 + Random.Range(-PITCH_MAX_VARIATION, PITCH_MAX_VARIATION) : 1;
         audioSource.PlayDelayed(delay);
 
@@ -136,6 +137,7 @@ public class AudioManager : MonoBehaviour
     }
     public static void StopSourceGroup(int sourceGroup)
     {
+        instance.StopAllCoroutines();
         foreach (var audioSource in sourceGroups[sourceGroup])
         {
             audioSource.Stop();
@@ -143,7 +145,7 @@ public class AudioManager : MonoBehaviour
     }
     public static void StopSourceGroupVolumeDecreaseMethod(int sourceGroup)
     {
-        Permanent.instance.StartCoroutine(StopSourceGroupVolumeDecreaseMethod_Coroutine(sourceGroup));
+        instance.StartCoroutine(StopSourceGroupVolumeDecreaseMethod_Coroutine(sourceGroup));
     }
     private static IEnumerator StopSourceGroupVolumeDecreaseMethod_Coroutine(int sourceGroup)
     {

@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TutorialPanel : MonoBehaviour, IPointerClickHandler {
+public class TutorialPanel : MonoBehaviour {
 
     [SerializeField] private GameObject[] pagesContent;
     [SerializeField] private GameObject rightButton;
@@ -13,6 +13,7 @@ public class TutorialPanel : MonoBehaviour, IPointerClickHandler {
     private int currentPageIndex;
 
     private void OnEnable() {
+        pagesContent[currentPageIndex].SetActive(false);
         currentPageIndex = 0;
         pagesContent[currentPageIndex].SetActive(true);
         UpdateArrowButtons();
@@ -69,12 +70,4 @@ public class TutorialPanel : MonoBehaviour, IPointerClickHandler {
 
     }
 
-
-
-    public void OnPointerClick(PointerEventData eventData) {
-        gameObject.SetActive(false);
-    }
-
-    
-   
 }

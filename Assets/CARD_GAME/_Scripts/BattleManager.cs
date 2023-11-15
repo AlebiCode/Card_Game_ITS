@@ -20,6 +20,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Card[] deckCarteAmiche = new Card[3];
     [SerializeField] private Card allyCombatCard;
     [SerializeField] private Card enemyCombatCard;
+    [SerializeField] private AudioClip music;
 
     [SerializeField] private Vector3 diceAnimationOffset = Vector3.left * 1;
     [SerializeField] private Dice[] allyDices = new Dice[6];
@@ -77,9 +78,18 @@ public class BattleManager : MonoBehaviour
     public Dice[] AllyDices => allyDices;
     public Card EnemySelectedCard => deckCarteNemiche[enemySelectedCardIndex];
 
+
     private void OnEnable()
     {
+        Debug.Log("Enable");
         ResetScore();
+        StartCoroutine(AudioCoroutine());
+    }
+    private IEnumerator AudioCoroutine()
+    {
+        yield return null;
+        if (music)
+            AudioManager.PlayAudio(music, 3, loop: true);
     }
 
     public void LoadData(CardData[] carteProprie, EnemyData enemyData)
@@ -464,7 +474,6 @@ public class BattleManager : MonoBehaviour
     private IEnumerator EndBattle(bool hasPlayerWon)
     {
         Debug.Log("Partita Conclusa. " + (hasPlayerWon ? "Player won." : "Player lost."));
-        this.GetComponent<AudioSource>().Stop();
         ResetScore();
         endPanel.gameObject.SetActive(true);
         tablePanel.gameObject.SetActive(false);

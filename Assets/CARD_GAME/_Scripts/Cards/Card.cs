@@ -29,10 +29,6 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     public RectTransform RectTransform => rectTransform;
     public CardBuffsManager BuffsManager => buffManager;
 
-    public void Awake() {
-        
-    }
-
     public void LoadData(CardData cardData)
     {
         this.cardData = cardData;
@@ -44,11 +40,6 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
         this.rmbInteractable = rmbInteractable;
         LoadData(cardData);
     }
-
-    /*private void Update()
-    {
-        imageBackGround.color = cardData.BackGroundColor;
-    }*/
 
     public void LoadGraphics()
     {

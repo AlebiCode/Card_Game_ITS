@@ -16,7 +16,7 @@ public class TitlePanel : MonoBehaviour
     {
         yield return null;
         if (music)
-            AudioManager.PlayAudio(music, 3);
+            AudioManager.PlayAudio(music, 3, loop: true);
     }
 
     public void PlayAudioClip()

@@ -13,6 +13,7 @@ public class DeckCreator : MonoBehaviour
 
     [SerializeField] private string cardsResourcesPath;
     [SerializeField] private string enemyResourcesPath;
+    [SerializeField] private AudioClip music;
     //[SerializeField] private GameObject cardPrefab;
     [SerializeField] private RectTransform cardsParent;
     [SerializeField] private GameObject startMatchButton;
@@ -34,7 +35,16 @@ public class DeckCreator : MonoBehaviour
     {
         SpawnAllCards();
     }
-
+    private void OnEnable()
+    {
+        StartCoroutine(AudioCoroutine());
+    }
+    private IEnumerator AudioCoroutine()
+    {
+        yield return null;
+        if (music)
+            AudioManager.PlayAudio(music, 3, loop: true);
+    }
     private void OnDisable()
     {
         startMatchButton?.SetActive(false);

@@ -12,7 +12,7 @@ public class EndPanel : MonoBehaviour
     [SerializeField] private GameObject gameOverText;
     [SerializeField] private List<AudioClip> winnerAudio;
     [SerializeField] private List<AudioClip> gameOverAudio;
-    [SerializeField] private AudioSource audioSource;
+
     private void Awake()
     {
         instance = this;
@@ -23,7 +23,7 @@ public class EndPanel : MonoBehaviour
         if (hasPlayerWon)
         {
             victoryText.SetActive(true);
-            audioSource.PlayOneShot(winnerAudio[Random.Range(0, winnerAudio.Count)]);
+            AudioManager.PlayAudio(winnerAudio[Random.Range(0, winnerAudio.Count)], 3);
             foreach (var ps in fireWorks)
             {
                 ps.Play();
@@ -33,7 +33,8 @@ public class EndPanel : MonoBehaviour
         if (!hasPlayerWon)
         {
             gameOverText.SetActive(true);
-            audioSource.PlayOneShot(gameOverAudio[Random.Range(0, gameOverAudio.Count)]);
+            AudioManager.PlayAudio(gameOverAudio[Random.Range(0, gameOverAudio.Count)], 3);
+
         }
     }
     public void ResetEndPanel()

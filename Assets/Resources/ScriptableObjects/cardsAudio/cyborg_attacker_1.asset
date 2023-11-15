@@ -16,3 +16,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 56f0e9f167d217547ae7b85f6ee2bbe9, type: 3}
   linesClips:
   - {fileID: 8300000, guid: d572a0c7ee8df3744a55eb706ea3c089, type: 3}
+  descriptionClip: {fileID: 8300000, guid: 5931829f8957569438a6410ecc653c56, type: 3}
