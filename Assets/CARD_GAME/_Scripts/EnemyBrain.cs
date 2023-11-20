@@ -57,9 +57,6 @@ public class EnemyBrain : MonoBehaviour
         public List<int[]> targetSkillSetsDiceCombinationsByMana_List;
         public List<int[]> targetSkillSetsActivationsBySkill_List;
         public List<int> targetSkillSetsDamage_List;
-        //public List<int> targetSkillSetsDefences_List;
-        //public List<int[]> targetSkillSetsPreciseIstances_List;
-        //public List<int[]> targetSkillSetsDodgeIstancesValues_List;
     }
 
     [Header("SKILLS")]
@@ -138,8 +135,6 @@ public class EnemyBrain : MonoBehaviour
         public int[] skillSet_preciseInstances = new int[3]; 
         public List<int> skillSet_dodgeInstances = new List<int>();
 
-        //public float damage_toDo;
-        //public float damage_done_withActivs;
     }
 
     private void Awake()
@@ -400,7 +395,7 @@ public class EnemyBrain : MonoBehaviour
             }
 
             //blue mana check:
-            //eventual condition for Priority skill bonus max iterations for blue mana to lock on dice:
+            //condition to lock blue dice for Priority skill bonus max iteration:
             //maxYprioritySkill = s.singleSkillActivationsDone < maximumActivation ? s.skill_BlueManaCost * (numberOfActivations + 1)-1 : s.skill_BlueManaCost * numberOfActivations;
             maxYprioritySkill = s.singleSkillActivationsDone < maximumActivation ? s.skill_BlueManaCost * (numberOfActivations + 1) : s.skill_BlueManaCost * numberOfActivations;
             maxY = isPrioritySkill ? maxYprioritySkill : s.skill_BlueManaCost * numberOfActivations;
@@ -431,8 +426,8 @@ public class EnemyBrain : MonoBehaviour
             }
 
             //yellow mana check:
-            //add condition -> skip if already done for red mana cost
-            //condition for Priority skill bonus max iterations for yellow mana to lock on dice:
+            //add condition -> skip if already done for blue mana cost
+            //condition to lock yellow dice for Priority skill bonus max iteration:
             maxYprioritySkill = s.singleSkillActivationsDone < maximumActivation ? s.skill_YellowManaCost * (numberOfActivations + 1) : s.skill_YellowManaCost * numberOfActivations;
             maxY = isPrioritySkill ? maxYprioritySkill : s.skill_YellowManaCost * numberOfActivations;
 
@@ -462,7 +457,8 @@ public class EnemyBrain : MonoBehaviour
             }
 
             //red mana check:
-            //condition for Priority skill bonus max iterations for red mana to lock on dice:
+            //add condition -> skip if already done for yellow or blue mana cost
+            //condition to lock red dice for Priority skill bonus max iteration:
             maxYprioritySkill = s.singleSkillActivationsDone < maximumActivation ? s.skill_RedManaCost * (numberOfActivations + 1) : s.skill_RedManaCost * numberOfActivations;
 
             maxY = isPrioritySkill ? maxYprioritySkill : s.skill_RedManaCost * numberOfActivations;
@@ -547,14 +543,8 @@ public class EnemyBrain : MonoBehaviour
         //WIP
         //get all possible diceCombination to lock(by mana type)
         GetDiceCombinationsAndTargetSkillSets();
-
         GetTargetSkillSetsActivationsChancesDamageAndEffects();
-
         CheckMaxDamageBetweenSets(selectedCardData.TargetSkillSetsData_List);
-
-        //MaximizeSingleSkillCalculations();
-        //WIP
-
     }
     #endregion
 
@@ -642,8 +632,8 @@ public class EnemyBrain : MonoBehaviour
             float _blueDiceNeeded = setData.skillSetDiceCombination_byManaType[2] - diceRoll_BlueMana;
 
             float _probability_set_after_roll = (Mathf.Pow((1 / 2f), _redDiceNeeded > 0 ? _redDiceNeeded : 0))
-                                                    * (Mathf.Pow((1 / 3f), _yellowDiceNeeded > 0 ? _yellowDiceNeeded : 0))
-                                                    * (Mathf.Pow((1 / 6f), _blueDiceNeeded > 0 ? _blueDiceNeeded : 0));
+                                              * (Mathf.Pow((1 / 3f), _yellowDiceNeeded > 0 ? _yellowDiceNeeded : 0))
+                                              * (Mathf.Pow((1 / 6f), _blueDiceNeeded > 0 ? _blueDiceNeeded : 0));
 
             setData.skillSet_probabilityAfterRoll = _probability_set_after_roll;
             probabilities.Add(_probability_set_after_roll);
@@ -834,116 +824,6 @@ public class EnemyBrain : MonoBehaviour
 
     #endregion
 
-    #region < maximize single skill calculations - OLD >
-
-    private TargetSkillsSetsData activatedSet_afterFirstRoll;
-
-    public float GetMaximizedSingleSkillTargetActivationsChance(Skill _skill, int _targetActivations)
-    {
-        //targetActivations for single skill maximized sets
-
-        //DiceNeeded - DiceSpared =  skill_ManaCost_byType * targetActivations - diceRoll_byManaType;
-        //DiceNeeded = skill_ManaCost_byType * (targetActivations - singleSkillActivationsDone);
-        //DiceSpared = diceRoll_byManaType - singleSkillActivationsDone * skill_ManaCost_byType;
-
-        float redDiceNeeded = _skill.skill_RedManaCost * _targetActivations - diceRoll_RedMana;
-        float yellowDiceNeeded = _skill.skill_YellowManaCost * _targetActivations - diceRoll_YellowMana;
-        float blueDiceNeeded = _skill.skill_BlueManaCost * _targetActivations - diceRoll_BlueMana;
-
-        float probability_maxActivations_afterRoll = _skill.singleSkillActivationsDone < _targetActivations ?
-                                                    ((Mathf.Pow((1 / 2f), _skill.skill_RedManaCost * _targetActivations > diceRoll_RedMana ? (redDiceNeeded) : 0))
-                                                   * (Mathf.Pow((1 / 3f), _skill.skill_YellowManaCost * _targetActivations > diceRoll_YellowMana ? (yellowDiceNeeded) : 0))
-                                                   * (Mathf.Pow((1 / 6f), _skill.skill_BlueManaCost * _targetActivations > diceRoll_BlueMana ? (blueDiceNeeded) : 0))) : 0;
-
-        //probability of maximized single skill
-        return probability_maxActivations_afterRoll;
-    }
-
-    public void MaximizeSingleSkillCalculations()
-    { 
-        #region skill data pre-roll
-
-        //foreach(Skill skill in selectedCardSkills)
-
-        //probabilità che escano dadi per ripetere la skill max_activations volte a partire da nessun roll
-        float probability1_maxActivations = Mathf.Pow(((Mathf.Pow((1 / 2f), (firstSkill.skill_RedManaCost))) 
-                                                     * (Mathf.Pow((1 / 3f), (firstSkill.skill_YellowManaCost))) 
-                                                     * (Mathf.Pow((1 / 6f), (firstSkill.skill_BlueManaCost)))), firstSkill.skill_maximumActivations);
-
-        float probability2_maxActivations = Mathf.Pow(((Mathf.Pow((1 / 2f), (secondSkill.skill_RedManaCost)))
-                                                     * (Mathf.Pow((1 / 3f), (secondSkill.skill_YellowManaCost)))
-                                                     * (Mathf.Pow((1 / 6f), (secondSkill.skill_BlueManaCost)))), secondSkill.skill_maximumActivations);
-
-        float probability3_maxActivations = Mathf.Pow(((Mathf.Pow((1 / 2f), (thirdSkill.skill_RedManaCost)))
-                                                     * (Mathf.Pow((1 / 3f), (thirdSkill.skill_YellowManaCost)))
-                                                     * (Mathf.Pow((1 / 6f), (thirdSkill.skill_BlueManaCost)))), thirdSkill.skill_maximumActivations);
-
-        //skill base damage without activations from roll (damage * base_attack_instances)
-        float base_damage1 = firstSkill.skillData.AtkInstances * firstSkill.skillData.Damage;
-        float base_damage2 = secondSkill.skillData.AtkInstances * secondSkill.skillData.Damage;
-        float base_damage3 = thirdSkill.skillData.AtkInstances * thirdSkill.skillData.Damage;
-
-        #endregion
-
-        #region after roll calculations
-
-        //DANNO DOPO PRIMO ROLL
-        //skill base_damage multiplied by number of activations from first roll (activations * base_damage)
-        float damage1 = firstSkill.singleSkillActivationsDone * firstSkill.skillData.AtkInstances * firstSkill.skillData.Damage;
-        float damage2 = secondSkill.singleSkillActivationsDone * secondSkill.skillData.AtkInstances * secondSkill.skillData.Damage;
-        float damage3 = thirdSkill.singleSkillActivationsDone * thirdSkill.skillData.AtkInstances * thirdSkill.skillData.Damage;
-
-        //selectedCardData.totalDamageDone_onRoll = (int)(damage1 + damage2 + damage3);
-
-        //CREATE SETS LIST TO CHECK DAMAGE
-        List<TargetSkillsSetsData> singleSkillMaximized_TargetSkillSets = new List<TargetSkillsSetsData>();
-
-        //add to list to check max damage between combinations
-        activatedSet_afterFirstRoll = new TargetSkillsSetsData(new int[] { diceRoll_RedMana, diceRoll_YellowMana, diceRoll_BlueMana }, selectedCardData.totalDamageDone_onRoll);
-        activatedSet_afterFirstRoll.skillSet_activationsArray = new int[] { firstSkill.singleSkillActivationsDone, secondSkill.singleSkillActivationsDone, thirdSkill.singleSkillActivationsDone };
-        singleSkillMaximized_TargetSkillSets.Add(activatedSet_afterFirstRoll);
-
-        //maximize activations of single skill
-        string debugText = "";
-        for (int i=0; i< selectedCardSkills.Length; i++)
-        {
-            float maximizedSkill_activationChance = GetMaximizedSingleSkillTargetActivationsChance(selectedCardSkills[i], selectedCardSkills[i].skill_maximumActivations);
-
-            int baseDamage =  selectedCardSkills[i].skillData.AtkInstances * selectedCardSkills[i].skillData.Damage;
-
-            int doneDamage = baseDamage * selectedCardSkills[i].singleSkillActivationsDone;
-            int toRollDamage =  baseDamage *  (selectedCardSkills[i].skill_maximumActivations - selectedCardSkills[i].singleSkillActivationsDone);
-            float damageToRollByChance = toRollDamage * maximizedSkill_activationChance;
-
-            //peso del danno = danno iterazioni mancanti * chance + danno iterazioni fatte
-            //formula = (int)(baseDamage * (selectedCardSkills[i].singleSkillActivationsDone + maximizedSkill_activationChance * (selectedCardSkills[i].skill_maximumActivations - selectedCardSkills[i].singleSkillActivationsDone)));
-            int damageTotalChanceFormula = (int)(doneDamage + damageToRollByChance);
-
-            //create skill set with dice set array
-            //here I set skillSet_totalDamage as (damage) multiplied by (missing activations chance) + (damage done)
-            TargetSkillsSetsData targetMaxSet_afterFirstRoll = new TargetSkillsSetsData(new int[] { selectedCardSkills[i].skill_maximumActivations * selectedCardSkills[i].skill_RedManaCost, 
-                                                                                                    selectedCardSkills[i].skill_maximumActivations * selectedCardSkills[i].skill_YellowManaCost, 
-                                                                                                    selectedCardSkills[i].skill_maximumActivations * selectedCardSkills[i].skill_BlueManaCost }, damageTotalChanceFormula);
-            targetMaxSet_afterFirstRoll.skillSet_activationsArray[i] = (GetSingleSkillActivationsFromDiceManaCombo(selectedCardSkills[i], targetMaxSet_afterFirstRoll.skillSetDiceCombination_byManaType));
-            targetMaxSet_afterFirstRoll.skillSet_probabilityAfterRoll = maximizedSkill_activationChance;           
-            targetMaxSet_afterFirstRoll.skillSet_damageMultipliedByChance = damageToRollByChance;
-
-            singleSkillMaximized_TargetSkillSets.Add(targetMaxSet_afterFirstRoll);
-
-            debugText += "skill_" + (i + 1) + "_maxed chance = " + maximizedSkill_activationChance + "_maxed damage = " + damageTotalChanceFormula+ "\n";
-        }
-
-        Debug.Log("EB - " + debugText + "damage with this roll = " + selectedCardData.totalDamageDone_onRoll);
-
-        //CHECK MAX DAMAGE BETWEEN ROLLED AND MAXIMIZED ACTIVATIONS FOR EACH SKILL
-        //
-        CheckMaxDamageBetweenSets(singleSkillMaximized_TargetSkillSets);
-
-        #endregion
-    }
-
-    #endregion
-
     #region < test buttons >
 
     public void RollDiceButtonTest()
@@ -959,7 +839,6 @@ public class EnemyBrain : MonoBehaviour
 
         GetRolledActivationsAndDamageFromEachSkill();
 
-        MaximizeSingleSkillCalculations();
     }
 
     public void CalculateChanceButtonTest()
