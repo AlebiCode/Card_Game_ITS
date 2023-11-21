@@ -8,6 +8,7 @@ public class CreditsPanel : MonoBehaviour
 {
     [SerializeField] private GameObject creditsPanel;
     [SerializeField] private GameObject titlePanel;
+    [SerializeField] private AudioClip creditsMusic;
     [SerializeField] private float fadeTime;
     [SerializeField] private float intervalBetweenFadeInAndFadeOut;
     [SerializeField] private List<TextMeshProUGUI> programmersCredits;
@@ -32,6 +33,7 @@ public class CreditsPanel : MonoBehaviour
 
     private void InitCredits()
     {
+
         credits.Add(programmersCredits);
         credits.Add(uiCredits);
         credits.Add(dueDCredits);
@@ -59,7 +61,8 @@ public class CreditsPanel : MonoBehaviour
     }
 
     private IEnumerator StartCredits()
-    { 
+    {
+        AudioManager.PlayAudio(creditsMusic, 3);
         yield return new WaitForSeconds(0.5f);
         foreach (var creds in credits) 
         { 
