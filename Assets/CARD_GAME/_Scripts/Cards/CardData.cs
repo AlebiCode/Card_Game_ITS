@@ -6,8 +6,8 @@ using UnityEngine;
 public class CardData : ScriptableObject
 {
     [SerializeField] private Sprite sprite;
-    [SerializeField] private Vector2 framedPosition;
-    [SerializeField] private Vector2 framedSize;
+    [SerializeField] public Vector2 framedPosition;
+    [SerializeField] public Vector2 framedSize;
     [SerializeField] private Color backGround;
     //[SerializeField] private Sprite sprite;
     //[SerializeField] private Sprite spriteLarge;

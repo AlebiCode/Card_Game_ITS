@@ -4,12 +4,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InspectorPanel : MonoBehaviour, IPointerClickHandler
+public class InspectorPanel : MonoBehaviour
 {
     [SerializeField] private Card card;
     [SerializeField] private TMP_Text description;
 
-    public void OnPointerClick(PointerEventData eventData) {
+    public void ExitInspectionTable()
+    {
         AudioManager.StopSourceGroupVolumeDecreaseMethod(2);
         gameObject.SetActive(false);
     }

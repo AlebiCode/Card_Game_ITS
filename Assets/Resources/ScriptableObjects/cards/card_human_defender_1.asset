@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: card_human_defender_1
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: f86f66971bda5ce45b54ae2a2b11ff2b, type: 3}
-  framedPosition: {x: 6.01, y: -87.89}
-  framedSize: {x: 294.53, y: 416.57}
+  framedPosition: {x: 0, y: -61.2}
+  framedSize: {x: 197.56, y: 274.25}
   backGround: {r: 0.7830189, g: 0.62028337, b: 0.3501424, a: 1}
   cardName: Damian
   cardDescription: "Giovane lord dal cuore limpido, custode d\u2019immensa sapienza

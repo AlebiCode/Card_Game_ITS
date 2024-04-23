@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: card_human_attacker_1
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: a64ed88ca8771374c90cd9b7f4fb9bdc, type: 3}
-  framedPosition: {x: -8.9, y: -82.38}
-  framedSize: {x: 311.53, y: 440.623}
+  framedPosition: {x: -4.212, y: -38.5}
+  framedSize: {x: 183.33, y: 240.95}
   backGround: {r: 0.7830189, g: 0.62028337, b: 0.3501424, a: 1}
   cardName: Evelyn
   cardDescription: "Fanciulla dal cuore ardente, figlia d\u2019un celeberrimo scienziato

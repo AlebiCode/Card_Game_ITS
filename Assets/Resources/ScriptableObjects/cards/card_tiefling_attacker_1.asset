@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: card_tiefling_attacker_1
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 26242d3b8bc43fc448dbd380d1e7bd91, type: 3}
-  framedPosition: {x: -0.000076294, y: -75}
-  framedSize: {x: 248.76, y: 333.6383}
+  framedPosition: {x: 3.56308, y: -39.2}
+  framedSize: {x: 147.83, y: 205.81}
   backGround: {r: 0.46666667, g: 0.634626, b: 0.74509805, a: 1}
   cardName: Walpurgis
   cardDescription: "Ascetica strega dalle ali draconiche nelle quali riverbera l\u2019immensit\xE0

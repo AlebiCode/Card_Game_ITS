@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: card_ghost_defender_1
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: d63647da546656b41bc2e6b8975baed3, type: 3}
-  framedPosition: {x: 0, y: 0}
-  framedSize: {x: 210, y: 210}
+  framedPosition: {x: 1.088, y: 0}
+  framedSize: {x: 193.93, y: 156.88}
   backGround: {r: 0.5596363, g: 0.48538622, b: 0.6320754, a: 1}
   cardName: Plague Ripper
   cardDescription: "Ignota e inquietante creatura che si fa spazio tra le ombre.

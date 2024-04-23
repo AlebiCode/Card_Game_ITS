@@ -32,7 +32,6 @@ public class BattleManager : MonoBehaviour
     private bool allyWaitingForReroll;
     private bool enemyWaitingForReroll;
     private Coroutine fightCoroutine;
-    private Coroutine enemyDiceSelectionCoroutine;
 
     private int currentRound = 1;
     private int playerScore;
@@ -479,7 +478,7 @@ public class BattleManager : MonoBehaviour
         tablePanel.gameObject.SetActive(false);
         combatPanel.gameObject.SetActive(false);
         EndPanel.instance.ShowWinText(hasPlayerWon);
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(6);
         //EndPanel.instance.ResetEndPanel();
         SceneManager.LoadScene(0);
     }

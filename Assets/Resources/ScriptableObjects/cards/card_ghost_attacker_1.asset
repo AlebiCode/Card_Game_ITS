@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: card_ghost_attacker_1
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 5ab3abaea8ce2044fb7a96548091e26c, type: 3}
-  framedPosition: {x: 0, y: 5}
-  framedSize: {x: 275, y: 187.6}
+  framedPosition: {x: 0.69, y: 0.54}
+  framedSize: {x: 180.9, y: 124.88}
   backGround: {r: 0.5596363, g: 0.48538622, b: 0.6320754, a: 1}
   cardName: Pixie in the Box
   cardDescription: "Si dice siano nati in una notte di plenilunio, quando semplici

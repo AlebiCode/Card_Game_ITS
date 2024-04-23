@@ -8,14 +8,18 @@ public class CardBuffsManager : MonoBehaviour
 {
     [SerializeField] GameObject parryGameObject;
     [SerializeField] GameObject dodgeGameObject;
-    [SerializeField] private TMP_Text parryText;
-    [SerializeField] private TMP_Text dodgeText;
+    [SerializeField] private TextUpdater parryTextUpdater;
+    [SerializeField] private TextUpdater dodgeTextUpdater;
+    [SerializeField] bool invertLocation;
 
     private void Awake() {
-        
+        parryTextUpdater.UpdateValue(0);
+        dodgeTextUpdater.UpdateValue(0);
 
-        parryText.text = "";
-        dodgeText.text = "";
+        if (invertLocation)
+        {
+            transform.localPosition = new Vector3(-transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
+        }
     }
 
 
@@ -29,7 +33,7 @@ public class CardBuffsManager : MonoBehaviour
             return;
         }
 
-        parryText.text = parry + "";
+        parryTextUpdater.UpdateValue(parry);
     }
 
     public void UpdateDodgeChance(int dodgeChance) {
@@ -42,7 +46,7 @@ public class CardBuffsManager : MonoBehaviour
             dodgeGameObject.SetActive(true);
 
 
-        dodgeText.text = dodgeChance + "";
+        dodgeTextUpdater.UpdateValue(dodgeChance);
     }
 
     public void ResetStats() {

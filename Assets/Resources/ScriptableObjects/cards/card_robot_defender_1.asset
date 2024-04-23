@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: card_robot_defender_1
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: de07ee60ab76ca64a9bd3479b84034ef, type: 3}
-  framedPosition: {x: 0, y: -30}
-  framedSize: {x: 500, y: 500}
+  framedPosition: {x: 0, y: -5.3}
+  framedSize: {x: 288.62, y: 288.62}
   backGround: {r: 0.4580682, g: 0.30701318, b: 0.46226418, a: 1}
   cardName: T-4nX
   cardDescription: "Colosso d\u2019acciaio e ottone una volta difensore a servizio

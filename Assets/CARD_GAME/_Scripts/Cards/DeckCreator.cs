@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -47,7 +48,8 @@ public class DeckCreator : MonoBehaviour
     }
     private void OnDisable()
     {
-        startMatchButton?.SetActive(false);
+        if(!startMatchButton.IsDestroyed())
+            startMatchButton?.SetActive(false);
     }
 
     private void SpawnAllCards()

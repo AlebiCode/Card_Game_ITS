@@ -131,6 +131,7 @@ MonoBehaviour:
     m_StyleName: Regular
     m_PointSize: 90
     m_Scale: 1
+    m_UnitsPerEM: 0
     m_LineHeight: 132.05566
     m_AscentLine: 102.43652
     m_CapLine: 70
@@ -161,6 +162,7 @@ MonoBehaviour:
       m_Height: 14
     m_Scale: 1
     m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   - m_Index: 66
     m_Metrics:
       m_Width: 28.609375
@@ -175,6 +177,7 @@ MonoBehaviour:
       m_Height: 11
     m_Scale: 1
     m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   m_CharacterTable:
   - m_ElementType: 1
     m_Unicode: 8230

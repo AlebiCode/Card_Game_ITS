@@ -93,11 +93,13 @@ public class Card : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left && lmbInteractable)
         {
+            AudioManager.PlayUiConfirmAudio3();
             //Debug.Log("Left click");
             lmbClick.Invoke();
         }
         else if (eventData.button == PointerEventData.InputButton.Right && rmbInteractable)
         {
+            AudioManager.PlayUiConfirmAudio2();
             rmbClick.Invoke(this);
         }
     }

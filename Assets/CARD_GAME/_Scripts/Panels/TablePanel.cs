@@ -30,6 +30,7 @@ public class TablePanel : MonoBehaviour
     private Vector3 myCardsInitialPosition;
     private Vector3 enemyCardsInitialPosition;
 
+
     private void Awake()
     {
         instance = this;
@@ -39,7 +40,7 @@ public class TablePanel : MonoBehaviour
     {
         myCardsInitialPosition = myCards.transform.position;
         enemyCardsInitialPosition = enemyCards.transform.position;
-
+        Debug.Log("!!!" + myCards.transform.position.y);
         //select enemy card entering table panel for the first time 
         Instances.BattleManager.SelectEnemyCard();
 
@@ -64,7 +65,7 @@ public class TablePanel : MonoBehaviour
         }
     }
 
-    public void OnPlayerCardClick(Card card )
+    public void OnPlayerCardClick(Card card)
     {
         // Se la carta era già selezionata la deseleziono
         if (card == selectedCard)
@@ -123,8 +124,8 @@ public class TablePanel : MonoBehaviour
 
         mySelectedCard = GameObject.FindGameObjectWithTag("SelectedCard");
         
-        myCards.transform.DOLocalMoveY(-cardsMovement, cardsMoveDuration);
-        enemyCards.transform.DOLocalMoveY(cardsMovement, cardsMoveDuration);
+        myCards.transform.DOMoveY(-cardsMovement, cardsMoveDuration);
+        enemyCards.transform.DOMoveY(cardsMovement, cardsMoveDuration);
 
         foreach(GameObject c in enemyCardsList)
         {
@@ -139,8 +140,8 @@ public class TablePanel : MonoBehaviour
     {
         pickYourCardText.SetActive(true);
 
-        myCards.transform.DOLocalMoveY(myCardsInitialPosition.y, cardsMoveDuration / 2);
-        enemyCards.transform.DOLocalMoveY(enemyCardsInitialPosition.y, cardsMoveDuration / 2);
+        myCards.transform.DOMoveY(myCardsInitialPosition.y, cardsMoveDuration / 2);
+        enemyCards.transform.DOMoveY(enemyCardsInitialPosition.y, cardsMoveDuration / 2);
 
         foreach (GameObject c in enemyCardsList)
         {
@@ -151,7 +152,7 @@ public class TablePanel : MonoBehaviour
     // CALL THIS METHOD IN THE BATTLE MANAGER
     public IEnumerator ScaleAndMoveMyCard(GameObject myCombatCard)
     {
-        myCombatCard.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 400);
+        //myCombatCard.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 400);
 
         yield return ScaleAndMove(myCombatCard, 1.84f, 1.4f, mySelectedCard.transform, myCombatCardTargetPosition.transform.position, 1.4f, cardsMoveDuration);
     }
@@ -159,7 +160,7 @@ public class TablePanel : MonoBehaviour
     // CALL THIS METHOD IN THE BATTLE MANAGER
     public IEnumerator ScaleAndMoveEnemyCard(GameObject enemyCombatCard)
     {
-        enemyCombatCard.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 400);
+        //enemyCombatCard.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 400);
 
         yield return ScaleAndMove(enemyCombatCard, 1.84f, 1.4f, Instances.BattleManager.EnemySelectedCard.transform, enemyCombatCardTargetPosition.transform.position, 1.4f, cardsMoveDuration);
     }
@@ -172,7 +173,7 @@ public class TablePanel : MonoBehaviour
         selectedCard.gameObject.SetActive(false);
         combatCard.SetActive(true);
         combatCard.transform.position = selectedCard.transform.position;
-        combatCard.transform.localScale = new Vector3(0.55f, 0.55f, 1);
+        ((RectTransform)combatCard.transform).sizeDelta = ((RectTransform)selectedCard.transform).sizeDelta;
         combatCard.transform.DOMove(endPosition, moveTime);
         combatCard.transform.DOScale(endScaleValue, scaleTime);
         yield return new WaitForSeconds(Mathf.Max(0, scaleTime, moveTime));

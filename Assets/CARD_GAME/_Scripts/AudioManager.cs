@@ -26,6 +26,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip genericUiSelect;
     [SerializeField] private AudioClip genericUiConfirm;
     [SerializeField] private AudioClip genericUiConfirm2;
+    [SerializeField] private AudioClip genericUiConfirm3;
     [SerializeField] private AudioClip diceLocked;
     [SerializeField] private AudioClip attackBlocked;
     [SerializeField] private AudioClip attackDodged;
@@ -111,6 +112,10 @@ public class AudioManager : MonoBehaviour
     public static void PlayUiConfirmAudio2()
     {
         PlayAudio(instance.genericUiConfirm2, 4, pitchVariation: true);
+    }
+    public static void PlayUiConfirmAudio3()
+    {
+        PlayAudio(instance.genericUiConfirm3, 4, pitchVariation: true);
     }
     public static void PlayUiScoreUpdate(bool playerHasWon)
     {

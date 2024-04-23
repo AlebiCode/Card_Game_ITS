@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: card_robot_attacker_1
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 20d9386e003658242930e8e2da2204e9, type: 3}
-  framedPosition: {x: 5, y: -58}
-  framedSize: {x: 400, y: 400}
+  framedPosition: {x: 5.1, y: -51.3}
+  framedSize: {x: 281.95, y: 326.79}
   backGround: {r: 0.4580682, g: 0.30701318, b: 0.46226418, a: 1}
   cardName: 5h3lly
   cardDescription: "Gentiluomo d\u2019acciaio e ottone una volta a servizio della

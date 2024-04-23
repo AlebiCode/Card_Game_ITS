@@ -25,6 +25,19 @@ public class LorePanel : MonoBehaviour
     List<TMP_Text> texts = new List<TMP_Text>();
 
     private CanvasGroup FadeCanvasGroup => Instances.TransitionManager.FadeCanvasGroup;
+    private AudioSource usedSource;
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            usedSource?.Pause();
+        }
+        else
+        {
+            usedSource?.UnPause();
+        }
+    }
 
     public void StartLore()
     {
@@ -46,7 +59,7 @@ public class LorePanel : MonoBehaviour
         exampleTextGO.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(LORE_PRE_LINES_TIME);
-        AudioSource audioSource = AudioManager.PlayAudio(loreClip, 2);
+        usedSource = AudioManager.PlayAudio(loreClip, 2);
 
         for (int page = 0; page < lorePages.Length; page++)
         {
@@ -87,9 +100,12 @@ public class LorePanel : MonoBehaviour
                 yield return new WaitForSeconds(lorePages[page].loreLines[i].readingTime);
             }
 
-            audioSource.Pause();
-            yield return new WaitForSeconds(lorePages[page].audioStopTime);
-            audioSource.UnPause();
+            if (lorePages[page].audioStopTime > 0)
+            {
+                usedSource.Pause();
+                yield return new WaitForSeconds(lorePages[page].audioStopTime);
+                usedSource.UnPause();
+            }
 
             float alpha = 1;
             while (alpha > 0)
